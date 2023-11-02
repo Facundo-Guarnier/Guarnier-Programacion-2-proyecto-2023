@@ -1,0 +1,8 @@
+{
+  "generator-jhipster:7.9.3": {
+    "promptValues": {
+      "packageName": "um.edu.prog2.guarnier",
+      "nativeLanguage": "es"
+    }
+  }
+}
