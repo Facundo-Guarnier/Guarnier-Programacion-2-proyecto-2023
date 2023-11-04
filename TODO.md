@@ -16,6 +16,7 @@
 
 **TODO**:
 
+[ ] Corregir el método getJWT de la catedraAPI.
 [ ] Hacer que un hilo/proceso que arranque a las 9 o 18 para procesar las ordenes pendientes.
 [ ] Hacer que el Servicio ReportarOperaciones envíe los resultados de las ordenes al endpoint de la cátedra.
 [ ] Hacer en vez de un endpoint para procesar las ordenes, que se ejecute automáticamente en el main (Prog2App.java)

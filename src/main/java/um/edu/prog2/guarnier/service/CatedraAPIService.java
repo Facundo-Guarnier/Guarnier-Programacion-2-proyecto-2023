@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import um.edu.prog2.guarnier.domain.Orden;
 import um.edu.prog2.guarnier.service.dto.ListaOrdenesDTO;
 import um.edu.prog2.guarnier.service.dto.OrdenDTO;
 
@@ -47,6 +46,7 @@ public class CatedraAPIService {
         }
     }
 
+    //TODO Arreglar el metodo para que funcione como el get de arriva
     public JsonNode getConJWT(String apiUrl) {
         // String jwtToken = System.getenv("JWT_TOKEN");
         String jwtToken =
