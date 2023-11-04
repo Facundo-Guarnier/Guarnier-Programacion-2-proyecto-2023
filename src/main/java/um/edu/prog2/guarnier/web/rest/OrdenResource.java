@@ -7,6 +7,7 @@ import java.util.Objects;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,8 @@ import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.ResponseUtil;
 import um.edu.prog2.guarnier.repository.OrdenRepository;
 import um.edu.prog2.guarnier.service.OrdenService;
+import um.edu.prog2.guarnier.service.ProcesamientoDeOrdenesService;
+import um.edu.prog2.guarnier.service.ServicioExternoService;
 import um.edu.prog2.guarnier.service.dto.OrdenDTO;
 import um.edu.prog2.guarnier.web.rest.errors.BadRequestAlertException;
 
@@ -33,6 +36,12 @@ public class OrdenResource {
 
     private final OrdenService ordenService;
 
+    @Autowired
+    ServicioExternoService servicioExternoService;
+
+    @Autowired
+    ProcesamientoDeOrdenesService procesamientoDeOrdenesService;
+
     private final OrdenRepository ordenRepository;
 
     public OrdenResource(OrdenService ordenService, OrdenRepository ordenRepository) {
@@ -40,6 +49,22 @@ public class OrdenResource {
         this.ordenRepository = ordenRepository;
     }
 
+    //! Metodos generados por mi
+    //! Endponit para procesar las ordenes pendientes
+    @GetMapping("/ordenes/procesar")
+    public ResponseEntity<Void> procesarOrdenes() {
+        // log.debug("REST request to procesar Ordenes");
+        System.out.println("\n --------- Entrando a la api --------");
+        servicioExternoService.simularOrdenes2();
+        // procesamientoDeOrdenesService.analizarOrdenes2();
+
+        return ResponseEntity
+            .noContent()
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, "procesar"))
+            .build();
+    }
+
+    //! Metodos generados por JHipster
     /**
      * {@code POST  /ordens} : Create a new orden.
      *

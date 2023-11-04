@@ -91,6 +91,11 @@ public class SecurityConfiguration {
             .antMatchers("/management/info").permitAll()
             .antMatchers("/management/prometheus").permitAll()
             .antMatchers("/management/**").hasAuthority(AuthoritiesConstants.ADMIN)
+
+            //! Generado por mi
+            .antMatchers("/api/**").permitAll()
+
+
         .and()
             .httpBasic()
         .and()

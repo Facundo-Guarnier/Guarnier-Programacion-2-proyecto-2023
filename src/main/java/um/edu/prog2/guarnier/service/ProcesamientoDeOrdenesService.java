@@ -11,14 +11,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import um.edu.prog2.guarnier.domain.Orden;
+import um.edu.prog2.guarnier.service.dto.OrdenDTO;
 
 @Service
 @Transactional
 public class ProcesamientoDeOrdenesService {
 
-    private List<Orden> ordenesProcesadas = new ArrayList<Orden>();
-    private List<Orden> ordenesFallidas = new ArrayList<Orden>();
+    private List<OrdenDTO> ordenesProcesadas = new ArrayList<OrdenDTO>();
+    private List<OrdenDTO> ordenesFallidas = new ArrayList<OrdenDTO>();
     private final Logger log = LoggerFactory.getLogger(ProcesamientoDeOrdenesService.class);
 
     @Autowired
@@ -28,51 +28,27 @@ public class ProcesamientoDeOrdenesService {
     OrdenService ordenService;
 
     //! Método que tiene que leer la DB, analizar las ordenes y devolver 2 listas con las procesadoas y las fallidas.
-    public List<List<Orden>> analizarOrdenes2() {
-        log.debug("Analizando ordenes2");
+    public List<List<OrdenDTO>> analizarOrdenes2() {
+        log.debug("Analizando ordenes");
+        System.out.println("\n----- Analizando ordenes -----");
 
         try {
             ordenService
                 .findPendientes()
                 .forEach(orden -> {
-                    System.out.println("----- Procesamiento -----\n" + orden);
-                    // if (this.puedeRealizarOperacion(orden)) {
-                    //     esPosibleOperar(orden);
-                    // } else {
-                    //     noEsPosibleOperar(orden);
-                    // }
+                    System.out.println("\n----- Procesamiento -----\n" + orden);
+                    if (this.puedeRealizarOperacion(orden)) {
+                        esPosibleOperar(orden);
+                    } else {
+                        noEsPosibleOperar(orden);
+                    }
                 });
         } catch (Exception e) {
             log.error("Error al buscar ordenes en DB y analizarlas.", e);
         }
 
-        return null;
         //! Devuelve una lista de listas, la primera con las ordenes procesadas y la segunda con las fallidas
-        // List<List<Orden>> resultado = new ArrayList<>();
-        // resultado.add(ordenesProcesadas);
-        // resultado.add(ordenesFallidas);
-
-        // this.reportar(resultado);
-
-        // return resultado;
-    }
-
-    public List<List<Orden>> analizarOrdenes(List<Orden> ordenes) {
-        log.debug("Analizando ordenes");
-        try {
-            for (Orden orden : ordenes) {
-                if (this.puedeRealizarOperacion(orden)) {
-                    esPosibleOperar(orden);
-                } else {
-                    noEsPosibleOperar(orden);
-                }
-            }
-        } catch (Exception e) {
-            log.error("Error al analizar las ordenes", e);
-        }
-
-        //! Devuelve una lista de listas, la primera con las ordenes procesadas y la segunda con las fallidas
-        List<List<Orden>> resultado = new ArrayList<>();
+        List<List<OrdenDTO>> resultado = new ArrayList<>();
         resultado.add(ordenesProcesadas);
         resultado.add(ordenesFallidas);
 
@@ -81,7 +57,7 @@ public class ProcesamientoDeOrdenesService {
         return resultado;
     }
 
-    public boolean puedeRealizarOperacion(Orden orden) {
+    public boolean puedeRealizarOperacion(OrdenDTO orden) {
         DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
         ZonedDateTime fechaHora = ZonedDateTime.parse(orden.getFechaOperacion(), formatter);
         ZoneId zonaHoraria = ZoneId.of("UTC");
@@ -161,19 +137,19 @@ public class ProcesamientoDeOrdenesService {
         return true;
     }
 
-    private void reportar(List<List<Orden>> resultado) {
-        ReportarOperacionesService ros = new ReportarOperacionesService();
+    private void reportar(List<List<OrdenDTO>> resultado) {
+        // ReportarOperacionesService ros = new ReportarOperacionesService();
         // ros.reportarOperaciones(resultado);
     }
 
     //! Se almacenará la operación en una lista de operaciones fallidas y continuamos con la siguiente.
-    public void noEsPosibleOperar(Orden orden) {
+    public void noEsPosibleOperar(OrdenDTO orden) {
         log.debug("No es posible realizar la operacion");
         orden.setEstado("FALLIDO");
         this.ordenesFallidas.add(orden);
     }
 
-    public void esPosibleOperar(Orden orden) {
+    public void esPosibleOperar(OrdenDTO orden) {
         log.debug("Es posible realizar la operacion");
 
         if (!orden.getModo().equals("AHORA")) {
@@ -188,18 +164,18 @@ public class ProcesamientoDeOrdenesService {
     }
 
     //TODO ¿Que hay que hacer acá?
-    public void programarOrden(Orden orden) {
+    public void programarOrden(OrdenDTO orden) {
         log.debug("Programando operacion");
         orden.setEstado("PROGRAMADO");
     }
 
-    public boolean venderOrden(Orden orden) {
+    public boolean venderOrden(OrdenDTO orden) {
         log.debug("Vendiendo orden");
         orden.setEstado("COMPLETADO");
         return true;
     }
 
-    public boolean comprarOrden(Orden orden) {
+    public boolean comprarOrden(OrdenDTO orden) {
         log.debug("Comprando orden");
         orden.setEstado("COMPLETADO");
         return true;

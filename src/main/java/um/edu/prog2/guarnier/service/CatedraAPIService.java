@@ -40,7 +40,7 @@ public class CatedraAPIService {
             for (OrdenDTO ordenDTO : ordenesDTO) {
                 ordenDTO.setEstado("PENDIENTE");
                 ordenService.save(ordenDTO);
-                System.out.println("+++++++++++++++ Cargando +++++++++++++++++\nGuardando en la DB: " + ordenDTO.toString());
+                System.out.println("\n ---------- Cargando ----------\nGuardando en la DB: " + ordenDTO.toString());
             }
         } catch (Exception e) {
             log.error("Error al hacer la solicitud HTTP", e);
