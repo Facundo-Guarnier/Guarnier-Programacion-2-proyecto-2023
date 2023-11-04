@@ -14,6 +14,7 @@ public class ReportarOperacionesService {
     private final Logger log = LoggerFactory.getLogger(ReportarOperacionesService.class);
 
     public void reportarOperaciones(List<OrdenDTO> ordenesProcesadas2, List<OrdenDTO> ordenesFallidas2) {
+        //TODO Enviar reporte al servidor de la catedra
         log.debug("Reportando operaciones");
         System.out.println("\n----- Reportando operaciones -----");
 
