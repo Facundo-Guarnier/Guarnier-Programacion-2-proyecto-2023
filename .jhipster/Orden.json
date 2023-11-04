@@ -1,0 +1,48 @@
+{
+  "changelogDate": "20231102203147",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "cliente",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "accionId",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "accion",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "operacion",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "precio",
+      "fieldType": "Float"
+    },
+    {
+      "fieldName": "cantidad",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "fechaOperacion",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "modo",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "estado",
+      "fieldType": "String"
+    }
+  ],
+  "jpaMetamodelFiltering": false,
+  "name": "Orden",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}

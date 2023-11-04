@@ -1,0 +1,134 @@
+<div>
+  <h2 id="page-heading" data-cy="OrdenHeading">
+    <span jhiTranslate="prog2App.orden.home.title">Ordens</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="prog2App.orden.home.refreshListLabel">Refrescar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-orden"
+        [routerLink]="['/orden/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="prog2App.orden.home.createLabel"> Crear nuevo Orden </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="ordens?.length === 0">
+    <span jhiTranslate="prog2App.orden.home.notFound">Ningún Ordens encontrado</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="ordens && ordens.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span jhiTranslate="global.field.id">ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="cliente">
+            <div class="d-flex">
+              <span jhiTranslate="prog2App.orden.cliente">Cliente</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="accionId">
+            <div class="d-flex">
+              <span jhiTranslate="prog2App.orden.accionId">Accion Id</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="accion">
+            <div class="d-flex">
+              <span jhiTranslate="prog2App.orden.accion">Accion</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="operacion">
+            <div class="d-flex">
+              <span jhiTranslate="prog2App.orden.operacion">Operacion</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="precio">
+            <div class="d-flex">
+              <span jhiTranslate="prog2App.orden.precio">Precio</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="cantidad">
+            <div class="d-flex">
+              <span jhiTranslate="prog2App.orden.cantidad">Cantidad</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="fechaOperacion">
+            <div class="d-flex">
+              <span jhiTranslate="prog2App.orden.fechaOperacion">Fecha Operacion</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="modo">
+            <div class="d-flex">
+              <span jhiTranslate="prog2App.orden.modo">Modo</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="estado">
+            <div class="d-flex">
+              <span jhiTranslate="prog2App.orden.estado">Estado</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let orden of ordens; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/orden', orden.id, 'view']">{{ orden.id }}</a>
+          </td>
+          <td>{{ orden.cliente }}</td>
+          <td>{{ orden.accionId }}</td>
+          <td>{{ orden.accion }}</td>
+          <td>{{ orden.operacion }}</td>
+          <td>{{ orden.precio }}</td>
+          <td>{{ orden.cantidad }}</td>
+          <td>{{ orden.fechaOperacion }}</td>
+          <td>{{ orden.modo }}</td>
+          <td>{{ orden.estado }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button type="submit" [routerLink]="['/orden', orden.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Vista</span>
+              </button>
+
+              <button type="submit" [routerLink]="['/orden', orden.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+              </button>
+
+              <button type="submit" (click)="delete(orden)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Eliminar</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

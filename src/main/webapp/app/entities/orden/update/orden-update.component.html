@@ -1,0 +1,86 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-orden-heading" data-cy="OrdenCreateUpdateHeading" jhiTranslate="prog2App.orden.home.createOrEditLabel">
+        Crear o editar Orden
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="prog2App.orden.cliente" for="field_cliente">Cliente</label>
+          <input type="number" class="form-control" name="cliente" id="field_cliente" data-cy="cliente" formControlName="cliente" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="prog2App.orden.accionId" for="field_accionId">Accion Id</label>
+          <input type="number" class="form-control" name="accionId" id="field_accionId" data-cy="accionId" formControlName="accionId" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="prog2App.orden.accion" for="field_accion">Accion</label>
+          <input type="text" class="form-control" name="accion" id="field_accion" data-cy="accion" formControlName="accion" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="prog2App.orden.operacion" for="field_operacion">Operacion</label>
+          <input type="text" class="form-control" name="operacion" id="field_operacion" data-cy="operacion" formControlName="operacion" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="prog2App.orden.precio" for="field_precio">Precio</label>
+          <input type="number" class="form-control" name="precio" id="field_precio" data-cy="precio" formControlName="precio" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="prog2App.orden.cantidad" for="field_cantidad">Cantidad</label>
+          <input type="number" class="form-control" name="cantidad" id="field_cantidad" data-cy="cantidad" formControlName="cantidad" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="prog2App.orden.fechaOperacion" for="field_fechaOperacion">Fecha Operacion</label>
+          <input
+            type="text"
+            class="form-control"
+            name="fechaOperacion"
+            id="field_fechaOperacion"
+            data-cy="fechaOperacion"
+            formControlName="fechaOperacion"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="prog2App.orden.modo" for="field_modo">Modo</label>
+          <input type="text" class="form-control" name="modo" id="field_modo" data-cy="modo" formControlName="modo" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="prog2App.orden.estado" for="field_estado">Estado</label>
+          <input type="text" class="form-control" name="estado" id="field_estado" data-cy="estado" formControlName="estado" />
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Guardar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

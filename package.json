@@ -5,7 +5,7 @@
   "description": "Description for prog2",
   "license": "UNLICENSED",
   "scripts": {
-    "app:start": "./mvnw",
+    "app:start": "mvnw.cmd",
     "backend:build-cache": "./mvnw dependency:go-offline",
     "backend:debug": "./mvnw -Dspring-boot.run.jvmArguments=\"-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8000\"",
     "backend:doc:test": "./mvnw -ntp javadoc:javadoc --batch-mode",

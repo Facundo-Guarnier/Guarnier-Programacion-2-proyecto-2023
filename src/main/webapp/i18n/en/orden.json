@@ -1,0 +1,32 @@
+{
+  "prog2App": {
+    "orden": {
+      "home": {
+        "title": "Ordens",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Orden",
+        "createOrEditLabel": "Create or edit a Orden",
+        "notFound": "No Ordens found"
+      },
+      "created": "A new Orden is created with identifier {{ param }}",
+      "updated": "A Orden is updated with identifier {{ param }}",
+      "deleted": "A Orden is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Orden {{ id }}?"
+      },
+      "detail": {
+        "title": "Orden"
+      },
+      "id": "ID",
+      "cliente": "Cliente",
+      "accionId": "Accion Id",
+      "accion": "Accion",
+      "operacion": "Operacion",
+      "precio": "Precio",
+      "cantidad": "Cantidad",
+      "fechaOperacion": "Fecha Operacion",
+      "modo": "Modo",
+      "estado": "Estado"
+    }
+  }
+}
