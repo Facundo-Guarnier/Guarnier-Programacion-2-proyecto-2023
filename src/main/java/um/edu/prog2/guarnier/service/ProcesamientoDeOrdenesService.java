@@ -31,7 +31,10 @@ public class ProcesamientoDeOrdenesService {
     ReportarOperacionesService ros;
 
     //! Método que tiene que leer la DB, analizar las ordenes y devolver 2 listas con las procesadoas y las fallidas.
-    public List<List<OrdenDTO>> analizarOrdenes2() {
+    public List<List<OrdenDTO>> analizarOrdenes() {
+        this.ordenesProcesadas.clear();
+        this.ordenesFallidas.clear();
+
         log.debug("Analizando ordenes");
         System.out.println("\n----- Analizando ordenes -----");
 

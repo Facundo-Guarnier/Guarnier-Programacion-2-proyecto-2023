@@ -1,5 +1,6 @@
 package um.edu.prog2.guarnier.service;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,15 +21,26 @@ public class ServicioExternoService {
     @Autowired
     ProcesamientoDeOrdenesService procesamientoDeOrdenesService;
 
-    public void simularOrdenes2() {
-        System.out.println("\n----- Simulando ordenes -----");
+    @Autowired
+    OrdenService ordenService;
 
-        cs.get("https://www.mockachino.com/2e3476f6-949b-42/api/ordenes/ordenes");
+    public void simularOrdenes(Integer modo) {
+        if (modo == 1) {
+            log.debug("Simulando ordenes 'www.mockachino.com'");
+            JsonNode response = cs.get("https://www.mockachino.com/2e3476f6-949b-42/api/ordenes/ordenes");
+            ordenService.guardarDB(response);
+        } else if (modo == 2) {
+            log.debug("Simulando ordenes 'Catedra'");
+            JsonNode response = cs.getConJWT("http://192.168.194.254:8000/api/ordenes/ordenes");
+            ordenService.guardarDB(response);
+        } else {
+            log.debug("Simular con ordenes existentes en la DB.");
+        }
 
         try {
-            List<List<OrdenDTO>> listas = procesamientoDeOrdenesService.analizarOrdenes2();
-            System.out.println("Ordenes procesadas: " + listas.get(0).size() + " " + listas.get(0));
-            System.out.println("Ordenes fallidas: " + listas.get(1).size() + " " + listas.get(1));
+            List<List<OrdenDTO>> listas = procesamientoDeOrdenesService.analizarOrdenes();
+            System.out.println("\n\nOrdenes procesadas: " + listas.get(0).size() + " " + listas.get(0));
+            System.out.println("\n\nOrdenes fallidas: " + listas.get(1).size() + " " + listas.get(1));
         } catch (Exception e) {
             log.error("Error al analizar las ordenes", e);
         }

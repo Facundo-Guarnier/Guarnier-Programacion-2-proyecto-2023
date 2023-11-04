@@ -49,14 +49,23 @@ public class OrdenResource {
         this.ordenRepository = ordenRepository;
     }
 
-    //! Metodos generados por mi
-    //! Endponit para procesar las ordenes pendientes
-    @GetMapping("/ordenes/procesar")
-    public ResponseEntity<Void> procesarOrdenes() {
-        // log.debug("REST request to procesar Ordenes");
-        System.out.println("\n --------- Entrando a la api --------");
-        servicioExternoService.simularOrdenes2();
-        // procesamientoDeOrdenesService.analizarOrdenes2();
+    //T* Metodos generados por mi
+
+    //! Endpoint para procesar las ordenes nuevas.
+    @PostMapping("/procesar/nuevas/{modo}")
+    public ResponseEntity<Void> procesarOrdenes(@PathVariable(value = "modo", required = false) final Integer modo) {
+        if (modo == 1) {
+            log.debug("REST para procesar las ordenes 'www.mockachino.com'");
+        } else if (modo == 2) {
+            log.debug("REST para procesar las ordenes 'Catedra'");
+        } else {
+            log.debug("Id de modo invalida");
+            return ResponseEntity
+                .badRequest()
+                .headers(HeaderUtil.createFailureAlert(applicationName, true, ENTITY_NAME, "id-invalid", "Id de modo invalida"))
+                .build();
+        }
+        servicioExternoService.simularOrdenes(modo);
 
         return ResponseEntity
             .noContent()
@@ -64,7 +73,27 @@ public class OrdenResource {
             .build();
     }
 
-    //! Metodos generados por JHipster
+    //! Endpoint para procesar las ordenes ya existentes.
+    @PostMapping("/procesar/todas")
+    public ResponseEntity<Void> procesarOrdenes() {
+        servicioExternoService.simularOrdenes(0);
+
+        return ResponseEntity
+            .noContent()
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, "procesar"))
+            .build();
+    }
+
+    //! Endpoint para borrar todas las ordenes
+    @DeleteMapping("/procesar/borrar")
+    public ResponseEntity<Void> borrarOrdenes() {
+        log.debug("REST para borrar las ordenes");
+        ordenService.deleteAll();
+
+        return ResponseEntity.noContent().headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, "borrar")).build();
+    }
+
+    //T* Metodos generados por JHipster
     /**
      * {@code POST  /ordens} : Create a new orden.
      *

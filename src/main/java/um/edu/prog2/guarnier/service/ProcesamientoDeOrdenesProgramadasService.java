@@ -32,27 +32,23 @@ public class ProcesamientoDeOrdenesProgramadasService {
     public void init() {
         System.out.println("\n\n\n\n----- Iniciando ProcesamientoDeOrdenesProgramadasService -----\n\n\n\n");
 
-        scheduler.scheduleAtFixedRate(this::procesar, calcularRetrasoHastaProximaEjecucion(14, 39), 24, TimeUnit.HOURS);
+        // scheduler.scheduleAtFixedRate(this::procesar, calcularRetrasoHastaProximaEjecucion(16, 9), 24, TimeUnit.HOURS);
         // scheduler.scheduleAtFixedRate(this::procesar, calcularRetrasoHastaProximaEjecucion(18, 0), 12, TimeUnit.HOURS);
 
         //! Funcion, retraso inicial en milisegundos, intervalo de ejecución, unidad de tiempo
-        // scheduler.scheduleAtFixedRate(() -> procesar(9), calcularRetrasoHastaProximaEjecucion(14, 27), 24, TimeUnit.HOURS);
-        // scheduler.scheduleAtFixedRate(() -> procesar(18), calcularRetrasoHastaProximaEjecucion(18, 0), 24, TimeUnit.HOURS);
-
+        scheduler.scheduleAtFixedRate(() -> procesar(9), calcularRetrasoHastaProximaEjecucion(9, 0), 24, TimeUnit.HOURS);
+        scheduler.scheduleAtFixedRate(() -> procesar(18), calcularRetrasoHastaProximaEjecucion(18, 0), 24, TimeUnit.HOURS);
     }
 
     //! Método que tiene que leer la DB y analizar las ordenes
-    // public void procesar(Integer hora) {
-    public void procesar() {
-        Integer hora = 9;
-        log.info("\n\n\n\n\n------- Ejecutando el ordenes programadas a las 9 AM. -------");
-        log.info("\n\n\n\n\n------- Ejecutando el ordenes programadas a las 9 AM. -------");
-        System.out.println("\n------- Ejecutando el ordenes programadas a las 9 AM. -------");
+    public void procesar(Integer hora) {
+        log.info("\n\n\n\n\n------- Ejecutando el ordenes programadas a las" + hora + "-------");
+        System.out.println("------- Ejecutando el ordenes programadas a las " + hora + " -------");
 
         ordenService
             .findProgramadas()
             .forEach(orden -> {
-                System.out.println("\n----- Procesamiento -----\n" + orden);
+                System.out.println("\n\n----- Procesamiento -----\n" + orden);
 
                 if (hora == this.horaOrden(orden)) {
                     if (orden.getOperacion().equals("COMPRA")) {

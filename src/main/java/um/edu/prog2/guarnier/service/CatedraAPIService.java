@@ -4,14 +4,11 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import um.edu.prog2.guarnier.service.dto.ListaOrdenesDTO;
-import um.edu.prog2.guarnier.service.dto.OrdenDTO;
 
 @Service
 @Transactional
@@ -25,29 +22,23 @@ public class CatedraAPIService {
     ObjectMapper objectMapper = new ObjectMapper();
 
     //! Recibe una URL, hace una solicitud HTTP GET, y guarda TODAS las ordenes en la DB.
-    public void get(String apiUrl) {
+    public JsonNode get(String apiUrl) {
         try {
             URL url = new URL(apiUrl);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             JsonNode responseJsonNode = objectMapper.readTree(connection.getInputStream());
 
-            ListaOrdenesDTO response = objectMapper.readValue(responseJsonNode.toString(), ListaOrdenesDTO.class);
-            List<OrdenDTO> ordenesDTO = response.getOrdenes();
-
-            //! Guarda las ordenes en la DB
-            for (OrdenDTO ordenDTO : ordenesDTO) {
-                ordenDTO.setEstado("PENDIENTE");
-                ordenService.save(ordenDTO);
-                System.out.println("\n ---------- Cargando ----------\nGuardando en la DB: " + ordenDTO.toString());
-            }
+            return responseJsonNode;
         } catch (Exception e) {
-            log.error("Error al hacer la solicitud HTTP", e);
+            log.error("Error al hacer la solicitud HTTP sin JWT.", e);
+            return null;
         }
     }
 
-    //TODO Arreglar el metodo para que funcione como el get de arriva
+    //! Recibe una URL, hace una solicitud HTTP GET, y guarda TODAS las ordenes en la DB.
     public JsonNode getConJWT(String apiUrl) {
+        //TODO Arreglar JWT en .env
         // String jwtToken = System.getenv("JWT_TOKEN");
         String jwtToken =
             "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJmYWN1bmRvZ3Vhcm5pZXIiLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNzI5NzUzNzcyfQ.pklknWchQH_Y8kM8Is-XCfu6hYxWVJJqgg0rNBAH9IisOWKPW1n-jC3Xqecv6HFjwHvWc3nugiaB5gtMaNlShg";
@@ -58,17 +49,17 @@ public class CatedraAPIService {
             connection.setRequestMethod("GET");
             connection.setRequestProperty("Authorization", "Bearer " + jwtToken);
             ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode response = objectMapper.readTree(connection.getInputStream());
-            return response;
-        } catch (Exception e) {
-            log.error("Error en la solicitud HTTP", e);
-        }
+            JsonNode responseJsonNode = objectMapper.readTree(connection.getInputStream());
 
-        return null;
+            return responseJsonNode;
+        } catch (Exception e) {
+            log.error("Error en la solicitud HTTP con JWT.", e);
+            return null;
+        }
     }
 }
+//! Ejemplo de JSON que recibe, solo los 2 primeros tienen que fallar
 //! https://www.mockachino.com/spaces/2e3476f6-949b-42
-// Ejemplo, solo los 2 primeros tienen que fallar
 // {
 //   "ordenes": [
 //     {

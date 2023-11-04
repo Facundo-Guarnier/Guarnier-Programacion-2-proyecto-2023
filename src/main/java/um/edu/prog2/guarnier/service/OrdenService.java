@@ -1,5 +1,7 @@
 package um.edu.prog2.guarnier.service;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import um.edu.prog2.guarnier.domain.Orden;
 import um.edu.prog2.guarnier.repository.OrdenRepository;
+import um.edu.prog2.guarnier.service.dto.ListaOrdenesDTO;
 import um.edu.prog2.guarnier.service.dto.OrdenDTO;
 import um.edu.prog2.guarnier.service.mapper.OrdenMapper;
 
@@ -18,18 +21,17 @@ import um.edu.prog2.guarnier.service.mapper.OrdenMapper;
 public class OrdenService {
 
     private final Logger log = LoggerFactory.getLogger(OrdenService.class);
-
     private final OrdenRepository ordenRepository;
-
     private final OrdenMapper ordenMapper;
+
+    ObjectMapper objectMapper = new ObjectMapper();
 
     public OrdenService(OrdenRepository ordenRepository, OrdenMapper ordenMapper) {
         this.ordenRepository = ordenRepository;
         this.ordenMapper = ordenMapper;
     }
 
-    //! -----------------------------------------------------
-    //! Metodos creados por mi
+    //T* Metodos creados por mi
 
     //! Método para buscar una orden en base a su estado PENDIENTE
     @Transactional(readOnly = true)
@@ -45,8 +47,32 @@ public class OrdenService {
         return ordenRepository.findByEstado("PROGRAMADA").stream().map(ordenMapper::toDto).collect(Collectors.toList());
     }
 
-    //! -----------------------------------------------------
-    //! Metodos creados por jhipster
+    //! Método para borrar todas las ordenes
+    public void deleteAll() {
+        log.debug("Request para borrar todas las Ordenes");
+        ordenRepository.deleteAll();
+    }
+
+    //! Método para guardar las Ordenes obtenidas de una API externa.
+    public void guardarDB(JsonNode ordenes) {
+        log.debug("Guardando ordenes en DB.");
+        try {
+            ListaOrdenesDTO response = objectMapper.readValue(ordenes.toString(), ListaOrdenesDTO.class);
+            List<OrdenDTO> ordenesDTO = response.getOrdenes();
+
+            //! Guarda las ordenes en la DB
+            for (OrdenDTO ordenDTO : ordenesDTO) {
+                ordenDTO.setEstado("PENDIENTE");
+                this.save(ordenDTO);
+            }
+        } catch (Exception e) {
+            log.error("Error al guardar en DB.", e);
+        }
+
+        log.debug("Ordenes guardadas en DB.");
+    }
+
+    //T* Metodos creados por jhipster
     /**
      * Save a orden.
      *

@@ -1,7 +1,7 @@
 {
   "client": "Thunder Client",
   "collectionName": "Programacion-2",
-  "dateExported": "2023-11-04T16:15:04.174Z",
+  "dateExported": "2023-11-04T21:10:39.226Z",
   "version": "1.1",
   "folders": [
     {
@@ -130,12 +130,12 @@
       "method": "POST",
       "sortNum": 10000,
       "created": "2023-10-31T11:57:27.435Z",
-      "modified": "2023-11-02T15:42:55.403Z",
+      "modified": "2023-11-04T16:16:05.198Z",
       "headers": [],
       "params": [],
       "body": {
         "type": "json",
-        "raw": "{\n\"ordenes\": [\n{\n\"cliente\": 1102,\n\"accionId\": 1,\n\"accion\": \"AAPL\",\n\"operacion\": \"COMPRA\",\n\"cantidad\": 10,\n\"precio\": 12.20,\n\"fechaOperacion\": \"2023-09-25T03:00:00Z\",\n\"modo\": \"AHORA\",\n\"operacionExitosa\": true,\n\"operacionObservaciones\": \"ok\"\n},\n{\n\"cliente\": 1103,\n\"accionId\": 4,\n\"accion\": \"KO\",\n\"operacion\": \"VENTA\",\n\"cantidad\": 5,\n\"precio\": 14.55,\n\"fechaOperacion\": \"2023-09-25T03:00:00Z\",\n\"modo\": \"FINDIA\",\n\"operacionExitosa\": true,\n\"operacionObservaciones\": \"ok\"\n}\n]\n}",
+        "raw": "{\n\"ordenes\": [\n\n]\n}",
         "form": []
       },
       "auth": {
@@ -528,17 +528,104 @@
       "_id": "a4531e9d-f2bc-4157-8c55-7cacd8956c65",
       "colId": "c975f9fb-6a22-4042-8864-c682424ade3f",
       "containerId": "7e7fb423-794f-4c92-981c-f30910ec9057",
-      "name": "Procesar Ordenes",
-      "url": "http://localhost:8080/api/ordenes/procesar",
-      "method": "GET",
+      "name": "Procesar Ordenes Catedra",
+      "url": "http://localhost:8080/api/procesar/nuevas/2",
+      "method": "POST",
       "sortNum": 70000,
       "created": "2023-11-04T14:56:39.021Z",
-      "modified": "2023-11-04T14:58:29.599Z",
+      "modified": "2023-11-04T20:47:31.461Z",
       "headers": [],
       "params": [],
       "auth": {
-        "type": "bearer",
-        "bearer": "{{TOKEN}}"
+        "type": "basic",
+        "basic": {
+          "username": "admin",
+          "password": "admin"
+        }
+      },
+      "tests": []
+    },
+    {
+      "_id": "a19cf328-5a27-4c77-9048-49859dba9bab",
+      "colId": "c975f9fb-6a22-4042-8864-c682424ade3f",
+      "containerId": "7e7fb423-794f-4c92-981c-f30910ec9057",
+      "name": "Procesar Ordenes www.mockachino.com",
+      "url": "http://localhost:8080/api/procesar/nuevas/1",
+      "method": "POST",
+      "sortNum": 80000,
+      "created": "2023-11-04T19:50:44.758Z",
+      "modified": "2023-11-04T20:47:29.107Z",
+      "headers": [],
+      "params": [],
+      "auth": {
+        "type": "basic",
+        "basic": {
+          "username": "admin",
+          "password": "admin"
+        }
+      },
+      "tests": []
+    },
+    {
+      "_id": "8b7490e5-1b51-49b0-ae95-9bb05f0d7bc0",
+      "colId": "c975f9fb-6a22-4042-8864-c682424ade3f",
+      "containerId": "7e7fb423-794f-4c92-981c-f30910ec9057",
+      "name": "Borrar todas las ordenes",
+      "url": "http://localhost:8080/api/procesar/borrar",
+      "method": "DELETE",
+      "sortNum": 80000,
+      "created": "2023-11-04T19:53:31.869Z",
+      "modified": "2023-11-04T20:55:36.771Z",
+      "headers": [],
+      "params": [],
+      "auth": {
+        "type": "basic",
+        "basic": {
+          "username": "admin",
+          "password": "admin"
+        }
+      },
+      "tests": []
+    },
+    {
+      "_id": "b3bd145f-9658-495a-b1ed-f1ca4f541dc3",
+      "colId": "c975f9fb-6a22-4042-8864-c682424ade3f",
+      "containerId": "7e7fb423-794f-4c92-981c-f30910ec9057",
+      "name": "Procesar Ordenes Todas",
+      "url": "http://localhost:8080/api/procesar/todas",
+      "method": "POST",
+      "sortNum": 80000,
+      "created": "2023-11-04T20:44:57.014Z",
+      "modified": "2023-11-04T20:47:44.631Z",
+      "headers": [],
+      "params": [],
+      "auth": {
+        "type": "basic",
+        "basic": {
+          "username": "admin",
+          "password": "admin"
+        }
+      },
+      "tests": []
+    },
+    {
+      "_id": "64c5b80a-8124-40cd-847d-74036101b289",
+      "colId": "c975f9fb-6a22-4042-8864-c682424ade3f",
+      "containerId": "7e7fb423-794f-4c92-981c-f30910ec9057",
+      "name": "Todas las ordenes",
+      "url": "http://localhost:8080/api/ordens",
+      "method": "GET",
+      "sortNum": 90000,
+      "created": "2023-11-04T20:56:15.329Z",
+      "modified": "2023-11-04T20:57:52.586Z",
+      "headers": [],
+      "params": [],
+      "auth": {
+        "type": "basic",
+        "basic": {
+          "username": "admin",
+          "password": "admin"
+        }
       },
       "tests": []
     }
