@@ -1,9 +1,6 @@
 package um.edu.prog2.guarnier.service.dto;
 
 import java.io.Serializable;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 /**

@@ -1,6 +1,5 @@
 package um.edu.prog2.guarnier.service;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -32,23 +31,18 @@ public class OrdenService {
     //! -----------------------------------------------------
     //! Metodos creados por mi
 
-    //! Agregado para guardar solo instancias de orden.
-    // public OrdenDTO saveOrden(Orden orden) {
-    //     log.debug("Request to save Orden : {}", orden);
-    //     orden = ordenRepository.save(orden);
-    //     return ordenMapper.toDto(orden);
-    // }
-
-    //! Metodo para buscar una orden en base a su estado PENDIENTE
-    /**
-     * Buscar todas las órdenes con estado "PENDIENTE".
-     *
-     * @return Lista de órdenes con estado "PENDIENTE".
-     */
+    //! Método para buscar una orden en base a su estado PENDIENTE
     @Transactional(readOnly = true)
     public List<OrdenDTO> findPendientes() {
-        log.debug("Request to get all Ordenes with estado PENDIENTE");
+        log.debug("para recibir todas las Ordenes con estado PENDIENTE");
         return ordenRepository.findByEstado("PENDIENTE").stream().map(ordenMapper::toDto).collect(Collectors.toList());
+    }
+
+    //! Método para buscar una orden en base a su estado PROGRAMADA
+    @Transactional(readOnly = true)
+    public List<OrdenDTO> findProgramadas() {
+        log.debug("Request para recibir todas las Ordenes con estado PROGRAMADA");
+        return ordenRepository.findByEstado("PROGRAMADA").stream().map(ordenMapper::toDto).collect(Collectors.toList());
     }
 
     //! -----------------------------------------------------

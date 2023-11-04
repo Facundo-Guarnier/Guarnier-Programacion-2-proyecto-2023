@@ -55,11 +55,12 @@ public class ProcesamientoDeOrdenesService {
         resultado.add(ordenesProcesadas);
         resultado.add(ordenesFallidas);
 
-        // this.reportar(ordenesProcesadas, ordenesFallidas);
+        this.reportar(ordenesProcesadas, ordenesFallidas);
 
         return resultado;
     }
 
+    //! Revisa si la orden puede realizarse.
     public boolean puedeRealizarOperacion(OrdenDTO orden) {
         DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
         ZonedDateTime fechaHora = ZonedDateTime.parse(orden.getFechaOperacion(), formatter);
@@ -148,12 +149,14 @@ public class ProcesamientoDeOrdenesService {
         return true;
     }
 
+    //! Para cuando no puede realizarse la operación.
     public void noEsPosibleOperar(OrdenDTO orden) {
         log.debug("No es posible realizar la operacion");
         this.ordenesFallidas.add(orden);
         ordenService.update(orden);
     }
 
+    //! Para cuando puede realizarse la operación.
     public void esPosibleOperar(OrdenDTO orden) {
         log.debug("Es posible realizar la operacion");
 
@@ -168,12 +171,14 @@ public class ProcesamientoDeOrdenesService {
         this.ordenesProcesadas.add(orden);
     }
 
+    //! Programar la orden.
     public void programarOrden(OrdenDTO orden) {
         log.debug("Programando operacion");
         orden.setEstado("PROGRAMADO");
         ordenService.update(orden);
     }
 
+    //! Comprar la orden.
     public boolean venderOrden(OrdenDTO orden) {
         log.debug("Vendiendo orden");
         orden.setEstado("COMPLETADO");
@@ -181,6 +186,7 @@ public class ProcesamientoDeOrdenesService {
         return true;
     }
 
+    //! Vender la orden.
     public boolean comprarOrden(OrdenDTO orden) {
         log.debug("Comprando orden");
         orden.setEstado("COMPLETADO");
@@ -188,7 +194,8 @@ public class ProcesamientoDeOrdenesService {
         return true;
     }
 
+    //! Reportar las operaciones.
     private void reportar(List<OrdenDTO> ordenesProcesadas2, List<OrdenDTO> ordenesFallidas2) {
-        ros.reportarOperaciones(ordenesProcesadas2, ordenesFallidas2);
+        // ros.reportarOperaciones(ordenesProcesadas2, ordenesFallidas2);
     }
 }
