@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import um.edu.prog2.guarnier.domain.Orden;
@@ -19,7 +20,42 @@ public class ProcesamientoDeOrdenesService {
     private List<Orden> ordenesProcesadas = new ArrayList<Orden>();
     private List<Orden> ordenesFallidas = new ArrayList<Orden>();
     private final Logger log = LoggerFactory.getLogger(ProcesamientoDeOrdenesService.class);
-    CatedraAPIService cs = new CatedraAPIService();
+
+    @Autowired
+    CatedraAPIService cs;
+
+    @Autowired
+    OrdenService ordenService;
+
+    //! Método que tiene que leer la DB, analizar las ordenes y devolver 2 listas con las procesadoas y las fallidas.
+    public List<List<Orden>> analizarOrdenes2() {
+        log.debug("Analizando ordenes2");
+
+        try {
+            ordenService
+                .findPendientes()
+                .forEach(orden -> {
+                    System.out.println("----- Procesamiento -----\n" + orden);
+                    // if (this.puedeRealizarOperacion(orden)) {
+                    //     esPosibleOperar(orden);
+                    // } else {
+                    //     noEsPosibleOperar(orden);
+                    // }
+                });
+        } catch (Exception e) {
+            log.error("Error al buscar ordenes en DB y analizarlas.", e);
+        }
+
+        return null;
+        //! Devuelve una lista de listas, la primera con las ordenes procesadas y la segunda con las fallidas
+        // List<List<Orden>> resultado = new ArrayList<>();
+        // resultado.add(ordenesProcesadas);
+        // resultado.add(ordenesFallidas);
+
+        // this.reportar(resultado);
+
+        // return resultado;
+    }
 
     public List<List<Orden>> analizarOrdenes(List<Orden> ordenes) {
         log.debug("Analizando ordenes");

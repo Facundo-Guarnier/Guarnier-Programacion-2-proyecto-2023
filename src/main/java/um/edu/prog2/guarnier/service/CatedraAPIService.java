@@ -4,10 +4,15 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import um.edu.prog2.guarnier.domain.Orden;
+import um.edu.prog2.guarnier.service.dto.ListaOrdenesDTO;
+import um.edu.prog2.guarnier.service.dto.OrdenDTO;
 
 @Service
 @Transactional
@@ -15,20 +20,31 @@ public class CatedraAPIService {
 
     private final Logger log = LoggerFactory.getLogger(CatedraAPIService.class);
 
-    //! Cambiar el JsonNode por un almacenamiento en la DB.
-    public JsonNode get(String apiUrl) {
+    @Autowired
+    OrdenService ordenService;
+
+    ObjectMapper objectMapper = new ObjectMapper();
+
+    //! Recibe una URL, hace una solicitud HTTP GET, y guarda TODAS las ordenes en la DB.
+    public void get(String apiUrl) {
         try {
             URL url = new URL(apiUrl);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
-            ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode response = objectMapper.readTree(connection.getInputStream());
-            return response;
+            JsonNode responseJsonNode = objectMapper.readTree(connection.getInputStream());
+
+            ListaOrdenesDTO response = objectMapper.readValue(responseJsonNode.toString(), ListaOrdenesDTO.class);
+            List<OrdenDTO> ordenesDTO = response.getOrdenes();
+
+            //! Guarda las ordenes en la DB
+            for (OrdenDTO ordenDTO : ordenesDTO) {
+                ordenDTO.setEstado("PENDIENTE");
+                ordenService.save(ordenDTO);
+                System.out.println("+++++++++++++++ Cargando +++++++++++++++++\nGuardando en la DB: " + ordenDTO.toString());
+            }
         } catch (Exception e) {
             log.error("Error al hacer la solicitud HTTP", e);
         }
-
-        return null;
     }
 
     public JsonNode getConJWT(String apiUrl) {

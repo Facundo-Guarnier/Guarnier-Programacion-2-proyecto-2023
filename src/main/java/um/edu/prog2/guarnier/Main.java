@@ -6,6 +6,6 @@ public class Main {
 
     public static void main(String[] args) {
         ServicioExternoService servicioExternoService = new ServicioExternoService();
-        servicioExternoService.simularOrdenes();
+        servicioExternoService.simularOrdenes2();
     }
 }
