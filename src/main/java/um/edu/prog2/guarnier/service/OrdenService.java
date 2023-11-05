@@ -42,9 +42,9 @@ public class OrdenService {
 
     //! Método para buscar una orden en base a su estado PROGRAMADA
     @Transactional(readOnly = true)
-    public List<OrdenDTO> findProgramadas() {
+    public List<OrdenDTO> findProgramados() {
         log.debug("Request para recibir todas las Ordenes con estado PROGRAMADA");
-        return ordenRepository.findByEstado("PROGRAMADA").stream().map(ordenMapper::toDto).collect(Collectors.toList());
+        return ordenRepository.findByEstado("PROGRAMADO").stream().map(ordenMapper::toDto).collect(Collectors.toList());
     }
 
     //! Método para borrar todas las ordenes

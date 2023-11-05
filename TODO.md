@@ -13,6 +13,9 @@
 [ ] Arreglar para que el JWT de la cátedra esté en un .env.
 [ ] Hacer que el Servicio ReportarOperaciones envíe los resultados de las ordenes al endpoint de la cátedra.
 [ ] Hacer en vez de un endpoint para procesar las ordenes, que se ejecute automáticamente en el main (Prog2App.java)
+[ ] Test
+[ ] Seguridad
+[ ]
 
 [~] Hacer que un hilo/proceso que arranque a las 9 o 18 para procesar las ordenes pendientes.
 No puedo hacer que empiece despues del retraso en milisegundos.

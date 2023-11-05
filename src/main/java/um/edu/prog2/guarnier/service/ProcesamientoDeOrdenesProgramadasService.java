@@ -18,7 +18,7 @@ import um.edu.prog2.guarnier.service.dto.OrdenDTO;
 public class ProcesamientoDeOrdenesProgramadasService {
 
     private final Logger log = LoggerFactory.getLogger(ProcesamientoDeOrdenesProgramadasService.class);
-    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(2);
 
     @Autowired
     ProcesamientoDeOrdenesService procesamientoDeOrdenesService;
@@ -31,22 +31,23 @@ public class ProcesamientoDeOrdenesProgramadasService {
     @PostConstruct
     public void init() {
         System.out.println("\n\n\n\n----- Iniciando ProcesamientoDeOrdenesProgramadasService -----\n\n\n\n");
+        log.info("Iniciando 'ProcesamientoDeOrdenesProgramadasService'");
 
         // scheduler.scheduleAtFixedRate(this::procesar, calcularRetrasoHastaProximaEjecucion(16, 9), 24, TimeUnit.HOURS);
         // scheduler.scheduleAtFixedRate(this::procesar, calcularRetrasoHastaProximaEjecucion(18, 0), 12, TimeUnit.HOURS);
 
-        //! Funcion, retraso inicial en milisegundos, intervalo de ejecución, unidad de tiempo
-        scheduler.scheduleAtFixedRate(() -> procesar(9), calcularRetrasoHastaProximaEjecucion(9, 0), 24, TimeUnit.HOURS);
-        scheduler.scheduleAtFixedRate(() -> procesar(18), calcularRetrasoHastaProximaEjecucion(18, 0), 24, TimeUnit.HOURS);
+        //! Funcion, retraso inicial, intervalo de ejecución (1440 minutos = 24 horas), unidad de tiempo
+        scheduler.scheduleAtFixedRate(() -> procesar(9), calcularRetrasoHastaProximaEjecucion(9, 0), 1440, TimeUnit.MINUTES);
+        scheduler.scheduleAtFixedRate(() -> procesar(18), calcularRetrasoHastaProximaEjecucion(18, 0), 1440, TimeUnit.MINUTES);
     }
 
     //! Método que tiene que leer la DB y analizar las ordenes
-    public void procesar(Integer hora) {
-        log.info("\n\n\n\n\n------- Ejecutando el ordenes programadas a las" + hora + "-------");
-        System.out.println("------- Ejecutando el ordenes programadas a las " + hora + " -------");
+    private void procesar(Integer hora) {
+        log.info("------- Ejecutando el ordenes programadas a las" + hora + "-------");
+        System.out.println("\n\n\n\n\n------- Ejecutando el ordenes programadas a las " + hora + " -------");
 
         ordenService
-            .findProgramadas()
+            .findProgramados()
             .forEach(orden -> {
                 System.out.println("\n\n----- Procesamiento -----\n" + orden);
 
@@ -61,7 +62,7 @@ public class ProcesamientoDeOrdenesProgramadasService {
     }
 
     //! Devuelve la hora a la que se debe ejecutar la orden.
-    public Integer horaOrden(OrdenDTO orden) {
+    private Integer horaOrden(OrdenDTO orden) {
         if ("FINDIA".equals(orden.getModo())) {
             return 18;
         } else {
@@ -80,7 +81,8 @@ public class ProcesamientoDeOrdenesProgramadasService {
         }
 
         Duration retraso = Duration.between(ahora, horaDeseada);
-        System.out.println("\nDuración: " + retraso.toMillis() + " milisegundos\n\n");
-        return retraso.toMillis();
+        System.out.println("\nDuración: " + retraso.toMinutes() + " minutos\n\n");
+        // return retraso.toMillis();
+        return retraso.toMinutes();
     }
 }
