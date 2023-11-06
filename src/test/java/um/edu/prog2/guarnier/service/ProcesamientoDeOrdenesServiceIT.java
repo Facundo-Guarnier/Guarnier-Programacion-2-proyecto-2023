@@ -23,9 +23,7 @@ import um.edu.prog2.guarnier.service.dto.OrdenDTO;
 @IntegrationTest
 public class ProcesamientoDeOrdenesServiceIT {
 
-    @Autowired
-    ProcesamientoDeOrdenesService procesamientoDeOrdenesService;
-
+    private ProcesamientoDeOrdenesService procesamientoDeOrdenesService;
     private CatedraAPIService cs;
     private OrdenService ordenService;
     private JsonNode jsonClientes;
@@ -193,8 +191,7 @@ public class ProcesamientoDeOrdenesServiceIT {
     }
 
     @Test
-    //TODO Copiar los mockitos en todos los tests
-    public void testPuedeRealizarOperacion_Valido() {
+    public void testAnalizarOrdenes_OperacionInvalida() {
         OrdenDTO orden = new OrdenDTO();
         orden.setModo("AHORA");
         orden.setFechaOperacion("2023-01-01T11:00:00Z");
@@ -202,27 +199,48 @@ public class ProcesamientoDeOrdenesServiceIT {
         orden.setAccionId(1);
         orden.setAccion("APPL");
         orden.setCantidad(0);
-        orden.setModo("AHORA");
         //! Mockear el resultado de buscar clientes
         when(cs.getConJWT("http://192.168.194.254:8000/api/clientes/buscar?nombre=Corvalan")).thenReturn(jsonClientes);
         //! Mockear el resultado de buscar acciones
         when(cs.getConJWT("http://192.168.194.254:8000/api/acciones/buscar?codigo=" + orden.getAccion())).thenReturn(jsonAcciones);
 
-        // ------------------
-        // ACA TERMINÉ
-        // ------------------
+        orden.setOperacion("cualquiercosa"); //! Operacion inválida
 
-        when(cs.getConJWT(anyString())).thenReturn(mapper.createObjectNode());
+        boolean resultado = procesamientoDeOrdenesService.puedeRealizarOperacion(orden);
+        assertFalse(resultado);
+        assertEquals("FALLIDO - OPERACION NO VALIDA", orden.getEstado());
+    }
+
+    @Test
+    public void testPuedeRealizarOperacion_Valido() {
+        OrdenDTO orden = new OrdenDTO();
+        orden.setCliente(26363);
+        orden.setAccionId(1);
+        orden.setAccion("APPL");
+        orden.setOperacion("COMPRA");
+        orden.setModo("AHORA");
+        orden.setFechaOperacion("2023-01-01T11:00:00Z");
+        orden.setCantidad(2);
+        //! Mockear el resultado de buscar clientes
+        when(cs.getConJWT("http://192.168.194.254:8000/api/clientes/buscar?nombre=Corvalan")).thenReturn(jsonClientes);
+        //! Mockear el resultado de buscar acciones
+        when(cs.getConJWT("http://192.168.194.254:8000/api/acciones/buscar?codigo=" + orden.getAccion())).thenReturn(jsonAcciones);
+
         boolean resultado = procesamientoDeOrdenesService.puedeRealizarOperacion(orden);
         assertTrue(resultado);
-        assertNull(orden.getEstado());
+        assertEquals("PUEDE OPERAR", orden.getEstado());
     }
 
     @Test
     public void testNoEsPosibleOperar() {
         OrdenDTO orden = new OrdenDTO();
+        procesamientoDeOrdenesService.ordenesFallidas.clear();
         procesamientoDeOrdenesService.noEsPosibleOperar(orden);
-        assertEquals("FALLIDO - SIN CLIENTE O ACCION ASOCIADA", orden.getEstado());
+
+        assert (procesamientoDeOrdenesService.ordenesFallidas.contains(orden));
+
+        //? No sé si estará bien este para "ordenService.update(orden);"
+        Mockito.verify(ordenService).update(orden);
     }
 
     @Test
@@ -248,6 +266,9 @@ public class ProcesamientoDeOrdenesServiceIT {
         OrdenDTO orden = new OrdenDTO();
         procesamientoDeOrdenesService.programarOrden(orden);
         assertEquals("PROGRAMADO", orden.getEstado());
+
+        //? No sé si estará bien este para "ordenService.update(orden);"
+        Mockito.verify(ordenService).update(orden);
     }
 
     @Test
@@ -256,6 +277,9 @@ public class ProcesamientoDeOrdenesServiceIT {
         boolean resultado = procesamientoDeOrdenesService.venderOrden(orden);
         assertTrue(resultado);
         assertEquals("COMPLETADO", orden.getEstado());
+
+        //? No sé si estará bien este para "ordenService.update(orden);"
+        Mockito.verify(ordenService).update(orden);
     }
 
     @Test
@@ -264,33 +288,51 @@ public class ProcesamientoDeOrdenesServiceIT {
         boolean resultado = procesamientoDeOrdenesService.comprarOrden(orden);
         assertTrue(resultado);
         assertEquals("COMPLETADO", orden.getEstado());
+
+        //? No sé si estará bien este para "ordenService.update(orden);"
+        Mockito.verify(ordenService).update(orden);
     }
 
     @Test
     public void testAnalizarOrdenes() {
-        // Preparar datos de prueba y simular el comportamiento de las dependencias
         OrdenDTO ordenPendiente1 = new OrdenDTO();
-        ordenPendiente1.setModo("AHORA");
-        ordenPendiente1.setOperacion("COMPRA");
-        ordenPendiente1.setCliente(1); // Supongamos que 1 es un cliente válido
-        ordenPendiente1.setAccion("XYZ"); // Supongamos que XYZ es un código de acción válido
-        ordenPendiente1.setCantidad(10); // Cantidad válida
-        ordenPendiente1.setEstado(null); // Estado inicial
+        OrdenDTO ordenPendiente2 = new OrdenDTO();
         List<OrdenDTO> ordenesPendientes = new ArrayList<>();
+
+        //! Orden buena
+        ordenPendiente1.setCliente(26363);
+        ordenPendiente1.setAccionId(1);
+        ordenPendiente1.setAccion("APPL");
+        ordenPendiente1.setOperacion("COMPRA");
+        ordenPendiente1.setModo("AHORA");
+        ordenPendiente1.setFechaOperacion("2023-01-01T11:00:00Z");
+        ordenPendiente1.setCantidad(2);
         ordenesPendientes.add(ordenPendiente1);
 
+        //! Orden mala
+        ordenPendiente2.setCliente(26363);
+        ordenPendiente2.setAccionId(1);
+        ordenPendiente2.setAccion("APPL");
+        ordenPendiente2.setOperacion("COMPRA");
+        ordenPendiente2.setModo("AHORA");
+        ordenPendiente2.setFechaOperacion("2023-01-01T11:00:00Z");
+        ordenPendiente2.setCantidad(0);
+        ordenesPendientes.add(ordenPendiente2);
+
+        //! Mockear el resultado de buscar clientes
+        when(cs.getConJWT("http://192.168.194.254:8000/api/clientes/buscar?nombre=Corvalan")).thenReturn(jsonClientes);
+        //! Mockear el resultado de buscar acciones
+        when(cs.getConJWT("http://192.168.194.254:8000/api/acciones/buscar?codigo=APPL")).thenReturn(jsonAcciones);
+
+        //! Mockear el resultado de buscar ordenes pendientes
         when(ordenService.findPendientes()).thenReturn(ordenesPendientes);
-        when(cs.getConJWT(anyString())).thenReturn(mapper.createObjectNode());
 
         List<List<OrdenDTO>> resultado = procesamientoDeOrdenesService.analizarOrdenes();
 
         List<OrdenDTO> ordenesProcesadas = resultado.get(0);
         List<OrdenDTO> ordenesFallidas = resultado.get(1);
 
-        // Verificar que la orden pendiente se procesó con éxito
         assertEquals(1, ordenesProcesadas.size());
-        assertEquals(0, ordenesFallidas.size());
-        OrdenDTO ordenProcesada = ordenesProcesadas.get(0);
-        assertNull(ordenProcesada.getEstado());
+        assertEquals(1, ordenesFallidas.size());
     }
 }

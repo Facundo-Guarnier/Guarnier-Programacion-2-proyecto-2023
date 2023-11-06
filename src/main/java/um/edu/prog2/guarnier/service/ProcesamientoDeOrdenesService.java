@@ -17,8 +17,8 @@ import um.edu.prog2.guarnier.service.dto.OrdenDTO;
 @Transactional
 public class ProcesamientoDeOrdenesService {
 
-    private List<OrdenDTO> ordenesProcesadas = new ArrayList<OrdenDTO>();
-    private List<OrdenDTO> ordenesFallidas = new ArrayList<OrdenDTO>();
+    public List<OrdenDTO> ordenesProcesadas = new ArrayList<OrdenDTO>();
+    public List<OrdenDTO> ordenesFallidas = new ArrayList<OrdenDTO>();
     private final Logger log = LoggerFactory.getLogger(ProcesamientoDeOrdenesService.class);
 
     @Autowired
@@ -74,7 +74,7 @@ public class ProcesamientoDeOrdenesService {
         //! 1• Una orden instantánea no puede ejecutarse fuera del horario de transacciones,
         //!    antes de las 09:00 y después de las 18:00.
         if ("AHORA".equals(orden.getModo()) && hora <= 9 || hora > 18) {
-            log.debug("La hora está fuera del rango de 9:00 AM y 6:00 PM para una orden inmediata. Hora:" + hora);
+            log.debug("La hora está fuera del rango de 9:00 AM y 6:00 PM para la orden " + orden.getId() + " inmediata. Hora:" + hora);
             orden.setEstado("FALLIDO - HORA FUERA DE RANGO");
             return false;
         }
@@ -83,7 +83,7 @@ public class ProcesamientoDeOrdenesService {
         //!    verificar que el Id de cliente y el Id de la acción sean válidos. Para esto
         //!    se debe consultar el servicio cátedra buscando por Id de ambos.
         if (orden.getCliente() == null || orden.getAccionId() == null) {
-            log.debug("La orden no tiene un cliente o una acción asociada.");
+            log.debug("La orden " + orden.getId() + " no tiene un cliente o una acción asociada.");
             orden.setEstado("FALLIDO - SIN CLIENTE O ACCION ASOCIADA");
             return false;
         }
@@ -99,12 +99,19 @@ public class ProcesamientoDeOrdenesService {
             JsonNode cliente = clientes.get(0); // El primer cliente de la lista
             int id = cliente.get("id").asInt();
             if (id != orden.getCliente()) {
-                log.debug("El cliente asociado a la orden no es válido. Cliente: " + id + " Orden cliente: " + orden.getCliente());
+                log.debug(
+                    "El cliente asociado a la orden " +
+                    orden.getId() +
+                    " no es válido. Cliente: " +
+                    id +
+                    " Orden cliente: " +
+                    orden.getCliente()
+                );
                 orden.setEstado("FALLIDO - CLIENTE NO VALIDO");
                 return false;
             }
         } else {
-            log.debug("El cliente asociado a la orden no es válido.");
+            log.debug("El cliente asociado a la orden " + orden.getId() + " no es válido.");
             orden.setEstado("FALLIDO - CLIENTE NO VALIDO");
             return false;
         }
@@ -120,7 +127,14 @@ public class ProcesamientoDeOrdenesService {
             JsonNode accion = acciones.get(0); // La primera acción de la lista
             int id = accion.get("id").asInt();
             if (id != orden.getAccionId()) {
-                log.debug("La acción asociada a la orden no es válida. Acción: " + id + " Orden accion: " + orden.getAccionId());
+                log.debug(
+                    "La acción asociada a la orden " +
+                    orden.getId() +
+                    " no es válida. Acción: " +
+                    id +
+                    " Orden accion: " +
+                    orden.getAccionId()
+                );
                 orden.setEstado("FALLIDO - ACCION NO VALIDA");
                 return false;
             }
@@ -134,19 +148,27 @@ public class ProcesamientoDeOrdenesService {
         //!    se deberá hacer una consulta a servicios de la cátedra.
         // JsonNode respuesta = this.solicitudHTTP("http://192.168.194.254:8000/api/acciones/buscar?id=4");
         if (orden.getCantidad() <= 0) {
-            log.debug("La cantidad de acciones de la orden es menor o igual a 0.");
+            log.debug("La cantidad de acciones de la orden " + orden.getId() + " es menor o igual a 0.");
             orden.setEstado("FALLIDO - CANTIDAD DE ACCIONES MENOR O IGUAL A 0");
             return false;
         }
 
         //! 4• Revisar los valores del atributo MODO
         if (!"AHORA".equals(orden.getModo()) && !"FINDIA".equals(orden.getModo()) && !"PRINCIPIODIA".equals(orden.getModo())) {
-            log.debug("El modo de la orden no es válido: " + orden.getModo());
+            log.debug("El modo de la orden " + orden.getId() + " no es válido: " + orden.getModo());
             orden.setEstado("FALLIDO - MODO NO VALIDO");
             return false;
         }
 
+        //! 5• Revisar los valores del atributo OPERACION
+        if (!"COMPRA".equals(orden.getOperacion()) && !"VENTA".equals(orden.getOperacion())) {
+            log.debug("La operación " + orden.getId() + " de la orden no es válida: " + orden.getOperacion());
+            orden.setEstado("FALLIDO - OPERACION NO VALIDA");
+            return false;
+        }
+
         //! Si todo está bien, devuelve true.
+        orden.setEstado("PUEDE OPERAR");
         return true;
     }
 
@@ -159,7 +181,7 @@ public class ProcesamientoDeOrdenesService {
 
     //! Para cuando puede realizarse la operación.
     public void esPosibleOperar(OrdenDTO orden) {
-        log.debug("Es posible realizar la operacion");
+        log.debug("Es posible realizar la operacion " + orden.getId());
 
         if (!orden.getModo().equals("AHORA")) {
             programarOrden(orden);
