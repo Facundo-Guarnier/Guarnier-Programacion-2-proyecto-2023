@@ -1,5 +1,8 @@
 package um.edu.prog2.guarnier.service.dto;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -29,6 +32,27 @@ public class OrdenDTO implements Serializable {
 
     private String estado;
 
+    //T* Metodos creados por mi
+    //! Metodo que convierte un objeto OrdenDTO a un objeto JsonNode para los reportes.
+    public JsonNode toJsonNode() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectNode jsonNode = objectMapper.createObjectNode();
+
+        jsonNode.put("id", id);
+        jsonNode.put("cliente", cliente);
+        jsonNode.put("accionId", accionId);
+        jsonNode.put("accion", accion);
+        jsonNode.put("operacion", operacion);
+        jsonNode.put("precio", precio);
+        jsonNode.put("cantidad", cantidad);
+        jsonNode.put("fechaOperacion", fechaOperacion);
+        jsonNode.put("modo", modo);
+        jsonNode.put("estado", estado);
+
+        return jsonNode;
+    }
+
+    //T* Metodos creados por jhipster
     public Long getId() {
         return id;
     }

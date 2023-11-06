@@ -219,6 +219,6 @@ public class ProcesamientoDeOrdenesService {
 
     //! Reportar las operaciones.
     private void reportar(List<OrdenDTO> ordenesProcesadas2, List<OrdenDTO> ordenesFallidas2) {
-        // ros.reportarOperaciones(ordenesProcesadas2, ordenesFallidas2);
+        ros.reportarOperaciones(ordenesProcesadas2, ordenesFallidas2);
     }
 }

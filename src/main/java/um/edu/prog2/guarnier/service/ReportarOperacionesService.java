@@ -1,8 +1,13 @@
 package um.edu.prog2.guarnier.service;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import um.edu.prog2.guarnier.service.dto.OrdenDTO;
@@ -11,21 +16,33 @@ import um.edu.prog2.guarnier.service.dto.OrdenDTO;
 @Transactional
 public class ReportarOperacionesService {
 
+    @Autowired
+    CatedraAPIService catedraAPIService;
+
     private final Logger log = LoggerFactory.getLogger(ReportarOperacionesService.class);
 
-    public void reportarOperaciones(List<OrdenDTO> ordenesProcesadas2, List<OrdenDTO> ordenesFallidas2) {
-        //TODO Enviar reporte al servidor de la catedra
-        log.debug("Reportando operaciones");
-        System.out.println("\n----- Reportando operaciones -----");
+    public void reportarOperaciones(List<OrdenDTO> ordenesProcesadas, List<OrdenDTO> ordenesFallidas) {
+        StringBuilder logMessage = new StringBuilder("IDs de órdenes a reportar: ");
 
-        System.out.println("\n----- Ordenes procesadas -----");
-        ordenesProcesadas2.forEach(orden -> {
-            System.out.println(orden);
+        ObjectNode jsonReporte = JsonNodeFactory.instance.objectNode();
+        ArrayNode ordenes = JsonNodeFactory.instance.arrayNode();
+
+        ordenesProcesadas.forEach(orden -> {
+            ordenes.add(orden.toJsonNode());
+            logMessage.append(orden.getId()).append(", ");
         });
 
-        System.out.println("\n----- Ordenes fallidas -----");
-        ordenesFallidas2.forEach(orden -> {
-            System.out.println(orden);
+        ordenesFallidas.forEach(orden -> {
+            ordenes.add(orden.toJsonNode());
+            logMessage.append(orden.getId()).append(", ");
         });
+
+        jsonReporte.set("ordenes", ordenes);
+        JsonNode jsonNode = jsonReporte;
+
+        log.debug(logMessage.toString());
+        System.out.println("\n\n\n" + logMessage.toString() + "\n\n\n");
+        System.out.println(jsonNode + "\n\n\n");
+        // catedraAPIService.postConJWT(jsonNode);
     }
 }
