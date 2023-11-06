@@ -1,7 +1,7 @@
 {
   "client": "Thunder Client",
   "collectionName": "Programacion-2",
-  "dateExported": "2023-11-04T21:10:39.226Z",
+  "dateExported": "2023-11-06T23:04:51.330Z",
   "version": "1.1",
   "folders": [
     {
@@ -45,6 +45,20 @@
       "containerId": "",
       "created": "2023-11-04T14:56:25.513Z",
       "sortNum": 60000
+    },
+    {
+      "_id": "5b0ed15f-f094-40e3-b32d-5386e7f626ae",
+      "name": "Cargar",
+      "containerId": "7e7fb423-794f-4c92-981c-f30910ec9057",
+      "created": "2023-11-06T21:53:47.499Z",
+      "sortNum": 70000
+    },
+    {
+      "_id": "9a65ce60-fa8a-4387-aff0-7cdf5e3f4a23",
+      "name": "Procesar",
+      "containerId": "7e7fb423-794f-4c92-981c-f30910ec9057",
+      "created": "2023-11-06T21:54:02.747Z",
+      "sortNum": 80000
     }
   ],
   "requests": [
@@ -141,6 +155,48 @@
       "auth": {
         "type": "bearer",
         "bearer": "{{TOKEN}}"
+      },
+      "tests": []
+    },
+    {
+      "_id": "a19cf328-5a27-4c77-9048-49859dba9bab",
+      "colId": "c975f9fb-6a22-4042-8864-c682424ade3f",
+      "containerId": "9a65ce60-fa8a-4387-aff0-7cdf5e3f4a23",
+      "name": "Cargar y procesar Ordenes www.mockachino.com",
+      "url": "http://localhost:8080/miapi/procesar/nuevas/1",
+      "method": "POST",
+      "sortNum": 10000,
+      "created": "2023-11-04T19:50:44.758Z",
+      "modified": "2023-11-06T22:54:33.520Z",
+      "headers": [],
+      "params": [],
+      "auth": {
+        "type": "basic",
+        "basic": {
+          "username": "admin",
+          "password": "admin"
+        }
+      },
+      "tests": []
+    },
+    {
+      "_id": "0ad9108e-39ad-46d1-8269-50a5b30d108d",
+      "colId": "c975f9fb-6a22-4042-8864-c682424ade3f",
+      "containerId": "5b0ed15f-f094-40e3-b32d-5386e7f626ae",
+      "name": "Cargar ordenes www.mockachino.com",
+      "url": "http://localhost:8080/miapi/cargar/nuevas/1",
+      "method": "POST",
+      "sortNum": 10000,
+      "created": "2023-11-06T21:51:55.656Z",
+      "modified": "2023-11-06T22:55:44.643Z",
+      "headers": [],
+      "params": [],
+      "auth": {
+        "type": "basic",
+        "basic": {
+          "username": "admin",
+          "password": "admin"
+        }
       },
       "tests": []
     },
@@ -258,6 +314,48 @@
       "tests": []
     },
     {
+      "_id": "a4531e9d-f2bc-4157-8c55-7cacd8956c65",
+      "colId": "c975f9fb-6a22-4042-8864-c682424ade3f",
+      "containerId": "9a65ce60-fa8a-4387-aff0-7cdf5e3f4a23",
+      "name": "Cargar y procesar Ordenes Catedra",
+      "url": "http://localhost:8080/miapi/procesar/nuevas/2",
+      "method": "POST",
+      "sortNum": 20000,
+      "created": "2023-11-04T14:56:39.021Z",
+      "modified": "2023-11-06T22:54:10.693Z",
+      "headers": [],
+      "params": [],
+      "auth": {
+        "type": "basic",
+        "basic": {
+          "username": "admin",
+          "password": "admin"
+        }
+      },
+      "tests": []
+    },
+    {
+      "_id": "9d412d8a-3283-4f33-8690-247784564b34",
+      "colId": "c975f9fb-6a22-4042-8864-c682424ade3f",
+      "containerId": "5b0ed15f-f094-40e3-b32d-5386e7f626ae",
+      "name": "Cargar ordenes Catedra",
+      "url": "http://localhost:8080/miapi/cargar/nuevas/2",
+      "method": "POST",
+      "sortNum": 20000,
+      "created": "2023-11-06T21:52:24.896Z",
+      "modified": "2023-11-06T23:03:53.965Z",
+      "headers": [],
+      "params": [],
+      "auth": {
+        "type": "basic",
+        "basic": {
+          "username": "admin",
+          "password": "admin"
+        }
+      },
+      "tests": []
+    },
+    {
       "_id": "9b37fe49-b4f3-4523-8e44-ab7080f3ca74",
       "colId": "c975f9fb-6a22-4042-8864-c682424ade3f",
       "containerId": "840aeaa2-3f28-4abb-8aeb-a81fec05eb62",
@@ -345,6 +443,27 @@
       "auth": {
         "type": "bearer",
         "bearer": "{{TOKEN}}"
+      },
+      "tests": []
+    },
+    {
+      "_id": "b3bd145f-9658-495a-b1ed-f1ca4f541dc3",
+      "colId": "c975f9fb-6a22-4042-8864-c682424ade3f",
+      "containerId": "9a65ce60-fa8a-4387-aff0-7cdf5e3f4a23",
+      "name": "Procesar Ordenes Todas",
+      "url": "http://localhost:8080/miapi/procesar/todas",
+      "method": "POST",
+      "sortNum": 30000,
+      "created": "2023-11-04T20:44:57.014Z",
+      "modified": "2023-11-06T22:53:55.128Z",
+      "headers": [],
+      "params": [],
+      "auth": {
+        "type": "basic",
+        "basic": {
+          "username": "admin",
+          "password": "admin"
+        }
       },
       "tests": []
     },
@@ -525,78 +644,15 @@
       "tests": []
     },
     {
-      "_id": "a4531e9d-f2bc-4157-8c55-7cacd8956c65",
-      "colId": "c975f9fb-6a22-4042-8864-c682424ade3f",
-      "containerId": "7e7fb423-794f-4c92-981c-f30910ec9057",
-      "name": "Procesar Ordenes Catedra",
-      "url": "http://localhost:8080/api/procesar/nuevas/2",
-      "method": "POST",
-      "sortNum": 70000,
-      "created": "2023-11-04T14:56:39.021Z",
-      "modified": "2023-11-04T20:47:31.461Z",
-      "headers": [],
-      "params": [],
-      "auth": {
-        "type": "basic",
-        "basic": {
-          "username": "admin",
-          "password": "admin"
-        }
-      },
-      "tests": []
-    },
-    {
-      "_id": "a19cf328-5a27-4c77-9048-49859dba9bab",
-      "colId": "c975f9fb-6a22-4042-8864-c682424ade3f",
-      "containerId": "7e7fb423-794f-4c92-981c-f30910ec9057",
-      "name": "Procesar Ordenes www.mockachino.com",
-      "url": "http://localhost:8080/api/procesar/nuevas/1",
-      "method": "POST",
-      "sortNum": 80000,
-      "created": "2023-11-04T19:50:44.758Z",
-      "modified": "2023-11-04T20:47:29.107Z",
-      "headers": [],
-      "params": [],
-      "auth": {
-        "type": "basic",
-        "basic": {
-          "username": "admin",
-          "password": "admin"
-        }
-      },
-      "tests": []
-    },
-    {
       "_id": "8b7490e5-1b51-49b0-ae95-9bb05f0d7bc0",
       "colId": "c975f9fb-6a22-4042-8864-c682424ade3f",
       "containerId": "7e7fb423-794f-4c92-981c-f30910ec9057",
       "name": "Borrar todas las ordenes",
-      "url": "http://localhost:8080/api/procesar/borrar",
+      "url": "http://localhost:8080/api/ordens",
       "method": "DELETE",
-      "sortNum": 80000,
+      "sortNum": 85000,
       "created": "2023-11-04T19:53:31.869Z",
-      "modified": "2023-11-04T20:55:36.771Z",
-      "headers": [],
-      "params": [],
-      "auth": {
-        "type": "basic",
-        "basic": {
-          "username": "admin",
-          "password": "admin"
-        }
-      },
-      "tests": []
-    },
-    {
-      "_id": "b3bd145f-9658-495a-b1ed-f1ca4f541dc3",
-      "colId": "c975f9fb-6a22-4042-8864-c682424ade3f",
-      "containerId": "7e7fb423-794f-4c92-981c-f30910ec9057",
-      "name": "Procesar Ordenes Todas",
-      "url": "http://localhost:8080/api/procesar/todas",
-      "method": "POST",
-      "sortNum": 80000,
-      "created": "2023-11-04T20:44:57.014Z",
-      "modified": "2023-11-04T20:47:44.631Z",
+      "modified": "2023-11-06T22:53:31.794Z",
       "headers": [],
       "params": [],
       "auth": {

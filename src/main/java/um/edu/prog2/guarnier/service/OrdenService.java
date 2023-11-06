@@ -67,6 +67,7 @@ public class OrdenService {
             }
         } catch (Exception e) {
             log.error("Error al guardar en DB.", e);
+            return;
         }
 
         log.debug("Ordenes guardadas en DB.");

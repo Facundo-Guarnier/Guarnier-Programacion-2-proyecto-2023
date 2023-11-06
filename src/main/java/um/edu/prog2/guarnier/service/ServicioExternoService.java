@@ -25,6 +25,18 @@ public class ServicioExternoService {
     OrdenService ordenService;
 
     public void simularOrdenes(Integer modo) {
+        cargarOrdenes(modo);
+
+        try {
+            List<List<OrdenDTO>> listas = procesamientoDeOrdenesService.analizarOrdenes();
+            System.out.println("\n\nOrdenes procesadas: " + listas.get(0).size() + " " + listas.get(0));
+            System.out.println("\n\nOrdenes fallidas: " + listas.get(1).size() + " " + listas.get(1));
+        } catch (Exception e) {
+            log.error("Error al analizar las ordenes", e);
+        }
+    }
+
+    public void cargarOrdenes(Integer modo) {
         if (modo == 1) {
             log.debug("Simulando ordenes 'www.mockachino.com'");
             JsonNode response = cs.get("https://www.mockachino.com/2e3476f6-949b-42/api/ordenes/ordenes");
@@ -35,14 +47,6 @@ public class ServicioExternoService {
             ordenService.guardarDB(response);
         } else {
             log.debug("Simular con ordenes existentes en la DB.");
-        }
-
-        try {
-            List<List<OrdenDTO>> listas = procesamientoDeOrdenesService.analizarOrdenes();
-            System.out.println("\n\nOrdenes procesadas: " + listas.get(0).size() + " " + listas.get(0));
-            System.out.println("\n\nOrdenes fallidas: " + listas.get(1).size() + " " + listas.get(1));
-        } catch (Exception e) {
-            log.error("Error al analizar las ordenes", e);
         }
     }
 }

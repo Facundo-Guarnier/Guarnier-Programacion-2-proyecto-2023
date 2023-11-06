@@ -51,41 +51,41 @@ public class OrdenResource {
 
     //T* Metodos generados por mi
 
-    //! Endpoint para procesar las ordenes nuevas.
-    @PostMapping("/procesar/nuevas/{modo}")
-    public ResponseEntity<Void> procesarOrdenes(@PathVariable(value = "modo", required = false) final Integer modo) {
-        if (modo == 1) {
-            log.debug("REST para procesar las ordenes 'www.mockachino.com'");
-        } else if (modo == 2) {
-            log.debug("REST para procesar las ordenes 'Catedra'");
-        } else {
-            log.debug("Id de modo invalida");
-            return ResponseEntity
-                .badRequest()
-                .headers(HeaderUtil.createFailureAlert(applicationName, true, ENTITY_NAME, "id-invalid", "Id de modo invalida"))
-                .build();
-        }
-        servicioExternoService.simularOrdenes(modo);
+    // //! Endpoint para procesar las ordenes nuevas.
+    // @PostMapping("/procesar/nuevas/{modo}")
+    // public ResponseEntity<Void> procesarOrdenes(@PathVariable(value = "modo", required = false) final Integer modo) {
+    //     if (modo == 1) {
+    //         log.debug("REST para procesar las ordenes 'www.mockachino.com'");
+    //     } else if (modo == 2) {
+    //         log.debug("REST para procesar las ordenes 'Catedra'");
+    //     } else {
+    //         log.debug("Id de modo invalida");
+    //         return ResponseEntity
+    //             .badRequest()
+    //             .headers(HeaderUtil.createFailureAlert(applicationName, true, ENTITY_NAME, "id-invalid", "Id de modo invalida"))
+    //             .build();
+    //     }
+    //     servicioExternoService.simularOrdenes(modo);
 
-        return ResponseEntity
-            .noContent()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, "procesar"))
-            .build();
-    }
+    //     return ResponseEntity
+    //         .noContent()
+    //         .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, "procesar"))
+    //         .build();
+    // }
 
-    //! Endpoint para procesar las ordenes ya existentes.
-    @PostMapping("/procesar/todas")
-    public ResponseEntity<Void> procesarOrdenes() {
-        servicioExternoService.simularOrdenes(0);
+    // //! Endpoint para procesar las ordenes ya existentes.
+    // @PostMapping("/procesar/todas")
+    // public ResponseEntity<Void> procesarOrdenes() {
+    //     servicioExternoService.simularOrdenes(0);
 
-        return ResponseEntity
-            .noContent()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, "procesar"))
-            .build();
-    }
+    //     return ResponseEntity
+    //         .noContent()
+    //         .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, "procesar"))
+    //         .build();
+    // }
 
     //! Endpoint para borrar todas las ordenes
-    @DeleteMapping("/procesar/borrar")
+    @DeleteMapping("/ordens")
     public ResponseEntity<Void> borrarOrdenes() {
         log.debug("REST para borrar las ordenes");
         ordenService.deleteAll();

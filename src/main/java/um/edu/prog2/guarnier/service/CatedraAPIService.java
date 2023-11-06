@@ -18,7 +18,8 @@ public class CatedraAPIService {
 
     private final Logger log = LoggerFactory.getLogger(CatedraAPIService.class);
     private static final String REPORTE_URL = "http://192.168.194.254:8000/api/reporte-operaciones/reportar";
-    private static final String JWT_TOKEN = "eyJhbGciOiJIUzUxMiJ9..."; // Coloca aquí tu token JWT
+    private static final String JWT_TOKEN =
+        "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJmYWN1bmRvZ3Vhcm5pZXIiLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNzI5NzUzNzcyfQ.pklknWchQH_Y8kM8Is-XCfu6hYxWVJJqgg0rNBAH9IisOWKPW1n-jC3Xqecv6HFjwHvWc3nugiaB5gtMaNlShg";
 
     @Autowired
     OrdenService ordenService;

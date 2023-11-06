@@ -93,7 +93,7 @@ public class SecurityConfiguration {
             .antMatchers("/management/**").hasAuthority(AuthoritiesConstants.ADMIN)
 
             //! Generado por mi
-            .antMatchers("/api/procesar/**").hasAuthority(AuthoritiesConstants.ADMIN)
+            .antMatchers("/miapi/**").hasAuthority(AuthoritiesConstants.ADMIN)
 
 
         .and()
