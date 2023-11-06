@@ -30,11 +30,7 @@ public class ProcesamientoDeOrdenesProgramadasService {
     //! Spring utiliza un programador de tareas en segundo plano (background task scheduler) para administrar las tareas programadas.
     @PostConstruct
     public void init() {
-        System.out.println("\n\n\n\n----- Iniciando ProcesamientoDeOrdenesProgramadasService -----\n\n\n\n");
         log.info("Iniciando 'ProcesamientoDeOrdenesProgramadasService'");
-
-        // scheduler.scheduleAtFixedRate(this::procesar, calcularRetrasoHastaProximaEjecucion(16, 9), 24, TimeUnit.HOURS);
-        // scheduler.scheduleAtFixedRate(this::procesar, calcularRetrasoHastaProximaEjecucion(18, 0), 12, TimeUnit.HOURS);
 
         //! Funcion, retraso inicial, intervalo de ejecución (1440 minutos = 24 horas), unidad de tiempo
         scheduler.scheduleAtFixedRate(() -> procesar(9), calcularRetrasoHastaProximaEjecucion(9, 0), 1440, TimeUnit.MINUTES);
@@ -43,13 +39,12 @@ public class ProcesamientoDeOrdenesProgramadasService {
 
     //! Método que tiene que leer la DB y analizar las ordenes
     private void procesar(Integer hora) {
-        log.info("------- Ejecutando el ordenes programadas a las" + hora + "-------");
-        System.out.println("\n\n\n\n\n------- Ejecutando el ordenes programadas a las " + hora + " -------");
+        log.info("Ejecutando el ordenes programadas a las" + hora + ":00");
 
         ordenService
             .findProgramados()
             .forEach(orden -> {
-                System.out.println("\n\n----- Procesamiento -----\n" + orden);
+                log.debug("Procesando ordenes programada: " + orden);
 
                 if (hora == this.horaOrden(orden)) {
                     if (orden.getOperacion().equals("COMPRA")) {
@@ -81,8 +76,6 @@ public class ProcesamientoDeOrdenesProgramadasService {
         }
 
         Duration retraso = Duration.between(ahora, horaDeseada);
-        System.out.println("\nDuración: " + retraso.toMinutes() + " minutos\n\n");
-        // return retraso.toMillis();
         return retraso.toMinutes();
     }
 }

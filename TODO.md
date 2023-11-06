@@ -8,14 +8,17 @@
 
 - ¿Qué hay que hacer cuando se programa una orden?
 
+- ¿Como hago para simular la consulta a un endpoint del profe? ¿Con mockito?
+
 **TODO**:
 
 [ ] Arreglar para que el JWT de la cátedra esté en un .env.
 [ ] Hacer que el Servicio ReportarOperaciones envíe los resultados de las ordenes al endpoint de la cátedra.
+[ ] Hacer un endpoint para obtener reportes en base a filtros (cliente, accion, fecha, etc.)
 [ ] Hacer en vez de un endpoint para procesar las ordenes, que se ejecute automáticamente en el main (Prog2App.java)
 [ ] Test
 [ ] Seguridad
-[ ]
+[ ] Corregir en "ProcesamientoDeOrdenesService" que busca las acciones y clientes por "nombre" y no por "id".
 
 [~] Hacer que un hilo/proceso que arranque a las 9 o 18 para procesar las ordenes pendientes.
 No puedo hacer que empiece despues del retraso en milisegundos.

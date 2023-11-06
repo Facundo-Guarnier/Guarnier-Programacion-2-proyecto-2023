@@ -30,19 +30,18 @@ public class ProcesamientoDeOrdenesService {
     @Autowired
     ReportarOperacionesService ros;
 
-    //! Método que tiene que leer la DB, analizar las ordenes y devolver 2 listas con las procesadoas y las fallidas.
+    //! Método que tiene que leer la DB, analizar las ordenes y devolver 2 listas con las procesadas y las fallidas.
     public List<List<OrdenDTO>> analizarOrdenes() {
         this.ordenesProcesadas.clear();
         this.ordenesFallidas.clear();
 
         log.debug("Analizando ordenes");
-        System.out.println("\n----- Analizando ordenes -----");
 
         try {
             ordenService
                 .findPendientes()
                 .forEach(orden -> {
-                    System.out.println("\n----- Procesamiento -----\n" + orden);
+                    log.debug("Procesando ordenes instantáneas: " + orden);
                     if (this.puedeRealizarOperacion(orden)) {
                         esPosibleOperar(orden);
                     } else {
@@ -115,7 +114,6 @@ public class ProcesamientoDeOrdenesService {
         String urlAccion = "http://192.168.194.254:8000/api/acciones/buscar?codigo=" + orden.getAccion();
 
         JsonNode respuestaAccion = this.cs.getConJWT(urlAccion);
-
         JsonNode acciones = respuestaAccion.get("acciones");
 
         if (acciones.isArray() && acciones.size() > 0) {
