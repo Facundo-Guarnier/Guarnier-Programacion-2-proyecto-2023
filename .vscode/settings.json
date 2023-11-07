@@ -1,10 +1,11 @@
 {
-    "java.dependency.packagePresentation": "hierarchical",
+    "java.dependency.packagePresentation": "flat",
     "cSpell.words": [
         "APPL",
         "Catedra",
         "Ejecucion",
         "FINDIA",
+        "miapi",
         "PRINCIPIODIA"
     ]
 }
