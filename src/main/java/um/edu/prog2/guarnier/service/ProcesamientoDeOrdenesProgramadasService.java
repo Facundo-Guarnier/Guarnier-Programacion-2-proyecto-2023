@@ -1,6 +1,5 @@
 package um.edu.prog2.guarnier.service;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.concurrent.Executors;

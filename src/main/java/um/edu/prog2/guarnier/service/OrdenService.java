@@ -2,6 +2,8 @@ package um.edu.prog2.guarnier.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -76,6 +78,27 @@ public class OrdenService {
         }
 
         log.debug("Ordenes guardadas en DB.");
+    }
+
+    //! Método para buscar ordenes en base a los filtros aplicados.
+    public List<OrdenDTO> getReporte(Long clienteId, Long accionId, String fechaInicioStr, String fechaFinStr) {
+        log.debug(
+            "Request para recibir todas las Ordenes con en base a clienteId:" +
+            clienteId +
+            " accionId: " +
+            accionId +
+            " fechaInicio: " +
+            fechaInicioStr +
+            " fechaFin: " +
+            fechaFinStr
+        );
+
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
+        LocalDateTime fechaInicio = LocalDateTime.parse(fechaInicioStr, formatter);
+        LocalDateTime fechaFin = LocalDateTime.parse(fechaFinStr, formatter);
+
+        ordenRepository.findReportes(clienteId, accionId, fechaInicio, fechaFin);
+        return null;
     }
 
     //T* Metodos creados por jhipster

@@ -31,6 +31,7 @@
 
 [ ] Hacer un endpoint para obtener reportes en base a filtros (cliente, accion, fecha, etc.)
 
+[ ] Hacer uso del espejo
 [ ] Hacer que verifica la cantidad de acciones para poder vender, tanto en AHORA como en PROGRAMADAS.
 [ ] Miapi con JWT.
 [ ] Hacer que se ejecuten los test, "mvn test" no los ejecuta.
