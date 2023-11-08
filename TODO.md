@@ -20,7 +20,7 @@
 
 - ✅ Hacer que el análisis de ordenes automatico (cada 10 segundos).
 
-- Cambiar los POST de miapi a GET.
+- ✅ Cambiar los POST de miapi a GET.
 
 - Intentar separar lo mas posible los servicios. El servicio de procesamiento lo deberia separar en un procesamiento genérico (para AHORA y PROGRAMADO), un procesamiento de AHORA, y un procesamiento PROGRAMADO. El validar orden tal vez hay que separarlo en un servicio nuevo.
 
@@ -28,7 +28,7 @@
 
 - Ver si puedo cambiar el estado de formato STRING a un INTEGER (0: pendiente, 1: programado, 2: vendido, 3: comprado)
 
-- Simplificar los endpoint para quitarle cualquier tipo de lógica de negocio que tengan, eso deberia estar en los servicios.
+- ✅ Simplificar los endpoint para quitarle cualquier tipo de lógica de negocio que tengan, eso deberia estar en los servicios.
 
 **TODO**:
 

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +28,7 @@ public class CargarResource {
     @Autowired
     ServicioExternoService servicioExternoService;
 
-    @PostMapping("/cargar/nuevas/{modo}")
+    @GetMapping("/cargar/nuevas/{modo}")
     public ResponseEntity<Void> procesarOrdenes(@PathVariable(value = "modo", required = false) final Integer modo) {
         if (modo == 1) {
             log.debug("REST para procesar las ordenes 'www.mockachino.com'");

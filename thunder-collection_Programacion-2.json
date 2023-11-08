@@ -1,7 +1,7 @@
 {
   "client": "Thunder Client",
   "collectionName": "Programacion-2",
-  "dateExported": "2023-11-06T23:04:51.330Z",
+  "dateExported": "2023-11-08T16:29:41.948Z",
   "version": "1.1",
   "folders": [
     {
@@ -104,11 +104,11 @@
       "colId": "c975f9fb-6a22-4042-8864-c682424ade3f",
       "containerId": "eed4368b-27aa-4ab1-a103-3e187a62c5a6",
       "name": "Acciones",
-      "url": "http://192.168.194.254:8000/api/acciones/buscar",
+      "url": "http://192.168.194.254:8000/api/acciones/",
       "method": "GET",
       "sortNum": 10000,
       "created": "2023-10-31T11:57:27.427Z",
-      "modified": "2023-11-01T16:11:24.215Z",
+      "modified": "2023-11-08T12:49:38.776Z",
       "headers": [],
       "params": [],
       "auth": {
@@ -164,10 +164,10 @@
       "containerId": "9a65ce60-fa8a-4387-aff0-7cdf5e3f4a23",
       "name": "Cargar y procesar Ordenes www.mockachino.com",
       "url": "http://localhost:8080/miapi/procesar/nuevas/1",
-      "method": "POST",
+      "method": "GET",
       "sortNum": 10000,
       "created": "2023-11-04T19:50:44.758Z",
-      "modified": "2023-11-06T22:54:33.520Z",
+      "modified": "2023-11-08T16:29:23.349Z",
       "headers": [],
       "params": [],
       "auth": {
@@ -185,10 +185,10 @@
       "containerId": "5b0ed15f-f094-40e3-b32d-5386e7f626ae",
       "name": "Cargar ordenes www.mockachino.com",
       "url": "http://localhost:8080/miapi/cargar/nuevas/1",
-      "method": "POST",
+      "method": "GET",
       "sortNum": 10000,
       "created": "2023-11-06T21:51:55.656Z",
-      "modified": "2023-11-06T22:55:44.643Z",
+      "modified": "2023-11-08T16:29:17.841Z",
       "headers": [],
       "params": [],
       "auth": {
@@ -273,29 +273,6 @@
       "tests": []
     },
     {
-      "_id": "f1d58257-5aec-4f53-8ea3-4130b4158ab1",
-      "colId": "c975f9fb-6a22-4042-8864-c682424ade3f",
-      "containerId": "ccae4225-783c-4dd7-848f-a4834bc8772f",
-      "name": "Orden espejo (ejemplo)",
-      "url": "http://192.168.194.254:8000/api/ordenes/espejo",
-      "method": "POST",
-      "sortNum": 20000,
-      "created": "2023-10-31T11:57:27.434Z",
-      "modified": "2023-10-31T12:03:27.346Z",
-      "headers": [],
-      "params": [],
-      "body": {
-        "type": "json",
-        "raw": "{\n  \"ordenes\": [\n    {\n      \"cliente\": 1202,\n      \"accionId\": 2,\n      \"accion\": \"GOOGL\",\n      \"operacion\": \"COMPRA\",\n      \"cantidad\": 10,\n      \"fechaOperacion\": \"2023-09-25T03:00:00Z\",\n      \"modo\": \"AHORA\"\n    },\n    {\n      \"cliente\": 1201,\n      \"accionId\": 3,\n      \"accion\": \"INTC\",\n      \"operacion\": \"VENTA\",\n      \"cantidad\": 20,\n      \"fechaOperacion\": \"2023-09-25T03:00:00Z\",\n      \"modo\": \"FINDIA\"\n    },\n    {\n      \"cliente\": 1201,\n      \"accionId\": 3,\n      \"accion\": \"INTC\",\n      \"operacion\": \"VENTA\",\n      \"cantidad\": 25,\n      \"fechaOperacion\": \"2023-09-25T03:00:00Z\",\n      \"modo\": \"FINDIA\"\n    }\n  ]\n}",
-        "form": []
-      },
-      "auth": {
-        "type": "bearer",
-        "bearer": "{{TOKEN}}"
-      },
-      "tests": []
-    },
-    {
       "_id": "017fb968-3c87-4b6b-9ace-355ff48fef73",
       "colId": "c975f9fb-6a22-4042-8864-c682424ade3f",
       "containerId": "f8ee7ddb-3d0c-4193-a6c1-fbcd9295e004",
@@ -319,10 +296,10 @@
       "containerId": "9a65ce60-fa8a-4387-aff0-7cdf5e3f4a23",
       "name": "Cargar y procesar Ordenes Catedra",
       "url": "http://localhost:8080/miapi/procesar/nuevas/2",
-      "method": "POST",
+      "method": "GET",
       "sortNum": 20000,
       "created": "2023-11-04T14:56:39.021Z",
-      "modified": "2023-11-06T22:54:10.693Z",
+      "modified": "2023-11-08T16:29:25.988Z",
       "headers": [],
       "params": [],
       "auth": {
@@ -340,10 +317,10 @@
       "containerId": "5b0ed15f-f094-40e3-b32d-5386e7f626ae",
       "name": "Cargar ordenes Catedra",
       "url": "http://localhost:8080/miapi/cargar/nuevas/2",
-      "method": "POST",
+      "method": "GET",
       "sortNum": 20000,
       "created": "2023-11-06T21:52:24.896Z",
-      "modified": "2023-11-06T23:03:53.965Z",
+      "modified": "2023-11-08T16:29:21.089Z",
       "headers": [],
       "params": [],
       "auth": {
@@ -452,10 +429,10 @@
       "containerId": "9a65ce60-fa8a-4387-aff0-7cdf5e3f4a23",
       "name": "Procesar Ordenes Todas",
       "url": "http://localhost:8080/miapi/procesar/todas",
-      "method": "POST",
+      "method": "GET",
       "sortNum": 30000,
       "created": "2023-11-04T20:44:57.014Z",
-      "modified": "2023-11-06T22:53:55.128Z",
+      "modified": "2023-11-08T16:29:28.838Z",
       "headers": [],
       "params": [],
       "auth": {
@@ -464,6 +441,29 @@
           "username": "admin",
           "password": "admin"
         }
+      },
+      "tests": []
+    },
+    {
+      "_id": "ca61178c-e8b0-4c33-97f1-812f370287e9",
+      "colId": "c975f9fb-6a22-4042-8864-c682424ade3f",
+      "containerId": "ccae4225-783c-4dd7-848f-a4834bc8772f",
+      "name": "Orden espejo (ejemplo)",
+      "url": "http://192.168.194.254:8000/api/ordenes/espejo",
+      "method": "POST",
+      "sortNum": 30000,
+      "created": "2023-11-07T20:53:48.418Z",
+      "modified": "2023-11-07T20:56:22.538Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"ordenes\": [\n  \n  ]\n}",
+        "form": []
+      },
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{TOKEN}}"
       },
       "tests": []
     },
@@ -543,7 +543,7 @@
       "_id": "1c552fa7-1604-482f-ba88-ac12e9c414c7",
       "colId": "c975f9fb-6a22-4042-8864-c682424ade3f",
       "containerId": "eed4368b-27aa-4ab1-a103-3e187a62c5a6",
-      "name": "Accion ultimo valor",
+      "name": "Accion valor historico",
       "url": "http://192.168.194.254:8000/api/acciones/valores/AAPL/2023-12-10T09:00:00z/2023-12-10T11:00:00z",
       "method": "GET",
       "sortNum": 50000,
@@ -590,12 +590,12 @@
       "_id": "11b1c0a6-bd84-468c-a8d5-586cc4bd6037",
       "colId": "c975f9fb-6a22-4042-8864-c682424ade3f",
       "containerId": "eed4368b-27aa-4ab1-a103-3e187a62c5a6",
-      "name": "Accion valor historico",
-      "url": "http://192.168.194.254:8000/api/acciones/ultimovalor/AAPL",
+      "name": "Accion ultimo valor ",
+      "url": "http://192.168.194.254:8000/api/acciones/ultimovalor/GOOGL",
       "method": "GET",
       "sortNum": 60000,
       "created": "2023-10-31T11:57:27.432Z",
-      "modified": "2023-10-31T11:57:27.432Z",
+      "modified": "2023-11-08T15:59:46.285Z",
       "headers": [],
       "params": [],
       "auth": {
@@ -673,7 +673,7 @@
       "method": "GET",
       "sortNum": 90000,
       "created": "2023-11-04T20:56:15.329Z",
-      "modified": "2023-11-04T20:57:52.586Z",
+      "modified": "2023-11-08T15:50:24.335Z",
       "headers": [],
       "params": [],
       "auth": {
