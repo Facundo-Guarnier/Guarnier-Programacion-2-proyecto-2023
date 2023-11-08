@@ -1,11 +1,11 @@
-id;cliente;accion_id;accion;operacion;precio;cantidad;fecha_operacion;modo;estado;descripcion
-1;29619;61443;neural Tajikistan;Pound;5996;65212;input;Loan markets;56100;Exclusivo Account
-2;13930;72623;networks Dinánmico estatica;Director;56907;65946;Jefe HDD Coche;Paradigma New Account;48257;Manat protocol
-3;24090;31676;Mongolia;Refinado;52118;12449;Bebes;collaborative Ensalada Adelante;58034;Interno Global
-4;35372;32473;generating invoice;Guapo integrate Avenida;15091;78975;Acero Rial program;website driver;99733;drive hack alarm
-5;67330;36245;Dinar Parafarmacia Gris;SAS Madera;32153;46519;compressing Planificador;invoice;63586;up
-6;84806;12385;action-items Metal intranet;Queso conjunto Universal;75710;75077;Marroquinería models turn-key;vortals Tunez;13670;División
-7;18425;99898;Bacon;invoice overriding integrate;3687;78781;Analista enable;Gorro Entrada Sabroso;78306;1080p Bloque SAS
-8;14250;59449;Ladrillo Queso;index Market;39885;44895;reboot;Bricolaje Personal;28832;Teclado
-9;27554;28239;Ergonómico;Acero Pelota deposit;9851;1459;monitor;indexing Amarillo auxiliary;73215;Informática mano
-10;26892;28344;SQL Datos Avon;fases Moldavia;3051;24684;Account calculate Hogar;Parafarmacia;96907;Bedfordshire
+id;accion_id;accion;operacion;precio;cantidad;fecha_operacion;modo;estado;descripcion;cliente_nombre;cliente_id
+1;29619;integrated Genérico;Pollo Asociado Guapo;65493;54080;Arquitecto a;e-commerce;78867;feed;Humano SQL Joyería;32215
+2;2289;invoice Bricolaje;en protocol;67294;93749;Buckinghamshire;Account;48257;Manat protocol;colaboración;62451
+3;81413;Refinado;Madera Namibia;35530;94696;Ensalada Adelante;iterate customized;9735;moderador Account;sistémica reboot Genérico;15091
+4;78975;Acero Rial program;website driver;99733;74645;Tunez Madera withdrawal;Funcionario Jefe;20936;revolutionize;overriding Gris Lugar;28616
+5;90589;Principado invoice deposit;Facilitador;81308;42524;Acero B2C;microchip;43463;Camerún;Buckinghamshire back Gris;26907
+6;33775;Bebes Arrabal;Azul División Patatas;15674;81233;Guarani optical;integrate;3687;Cambridgeshire Camiseta holistic;Soporte optimize;61646
+7;78306;1080p Bloque SAS;Investment;86156;57074;1080p;leverage back-end Bajada;90512;Afganistán;Personal;28832
+8;16908;Videojuegos;didactica Ergonómico back-end;3938;16152;Nepal;Pequeño monitor;72448;Buckinghamshire Valenciana Salud;Informática mano;26892
+9;28344;SQL Datos Avon;fases Moldavia;3051;24684;Account calculate Hogar;Parafarmacia;96907;Bedfordshire;Namibia;4077
+10;20310;HDD Negro;Nauru proyecto pixel;49765;43754;back;Inteligente Mascotas artificial;64887;transition Algodón Buckinghamshire;neural transmitter Ordenador;76921

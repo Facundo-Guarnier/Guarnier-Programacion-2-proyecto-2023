@@ -28,12 +28,12 @@ public class ReportarOperacionesService {
         ArrayNode ordenes = JsonNodeFactory.instance.arrayNode();
 
         ordenesProcesadas.forEach(orden -> {
-            ordenes.add(orden.toJsonNode());
+            ordenes.add(orden.toReportJson());
             logMessage.append(orden.getId()).append(", ");
         });
 
         ordenesFallidas.forEach(orden -> {
-            ordenes.add(orden.toJsonNode());
+            ordenes.add(orden.toReportJson());
             logMessage.append(orden.getId()).append(", ");
         });
 
@@ -41,6 +41,8 @@ public class ReportarOperacionesService {
         JsonNode jsonNode = jsonReporte;
 
         log.debug(logMessage.toString());
+
+        System.out.println("\n\n\n\n" + jsonNode + "\n\n\n\n");
         // catedraAPIService.postConJWT(jsonNode);
     }
 }

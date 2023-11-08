@@ -3,10 +3,6 @@
   "dto": "mapstruct",
   "fields": [
     {
-      "fieldName": "cliente",
-      "fieldType": "Integer"
-    },
-    {
       "fieldName": "accionId",
       "fieldType": "Integer"
     },
@@ -41,6 +37,14 @@
     {
       "fieldName": "descripcion",
       "fieldType": "String"
+    },
+    {
+      "fieldName": "clienteNombre",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "clienteId",
+      "fieldType": "Integer"
     }
   ],
   "jpaMetamodelFiltering": false,

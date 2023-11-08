@@ -1,6 +1,5 @@
 export interface IOrden {
   id: number;
-  cliente?: number | null;
   accionId?: number | null;
   accion?: string | null;
   operacion?: string | null;
@@ -10,6 +9,8 @@ export interface IOrden {
   modo?: string | null;
   estado?: number | null;
   descripcion?: string | null;
+  clienteNombre?: string | null;
+  clienteId?: number | null;
 }
 
 export type NewOrden = Omit<IOrden, 'id'> & { id: null };

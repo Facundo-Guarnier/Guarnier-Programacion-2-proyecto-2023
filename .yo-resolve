@@ -1,0 +1,4 @@
+src\main\java\um\edu\prog2\guarnier\repository\OrdenRepository.java skip
+src\main\java\um\edu\prog2\guarnier\service\OrdenService.java skip
+src\main\java\um\edu\prog2\guarnier\service\dto\OrdenDTO.java skip
+src\main\java\um\edu\prog2\guarnier\web\rest\OrdenResource.java skip

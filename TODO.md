@@ -32,7 +32,7 @@
 [ ] Hacer que el Servicio ReportarOperaciones envíe los resultados de las ordenes al endpoint de la cátedra (Tener en cuenta el formato reporte-operaciones).
 
 [ ] Hacer que verifica la cantidad de acciones para poder vender, tanto en AHORA como en PROGRAMADAS.
-[ ] Miapi con JWT-
+[ ] Miapi con JWT.
 [ ] Hacer que se ejecuten los test, "mvn test" no los ejecuta.
 [ ] Arreglar para que el JWT de la cátedra esté en un .env.
 [ ] Hacer un endpoint para obtener reportes en base a filtros (cliente, accion, fecha, etc.)
@@ -46,3 +46,54 @@
 [x] Corregir el método getJWT de la catedraAPI.
 [x] Hacer que las ordenes se guarden en una BD y que de ahi las lea para procesar.
 [x] Hacer un endpoint que se ejecute como si fuera el main que tengo ahora.
+
+{
+"cliente": 26367,
+"accionId": 1,
+"accion": "AAPL",
+"operacion": "COMPRA",
+"precio": null,
+"cantidad": 10,
+"fechaOperacion": "2023-09-25T03:00:00Z",
+"modo": "AHORA"
+},
+{
+"cliente": 26363,
+"accionId": 3,
+"accion": "INTC",
+"operacion": "COMPRA",
+"precio": null,
+"cantidad": 0,
+"fechaOperacion": "2023-09-25T13:00:00Z",
+"modo": "AHORA"
+},
+{
+"cliente": 26370,
+"accionId": 1,
+"accion": "GOOGL",
+"operacion": "VENTA",
+"precio": null,
+"cantidad": 5,
+"fechaOperacion": "2023-09-25T03:00:00Z",
+"modo": "FINDIA"
+},
+{
+"cliente": 26363,
+"accionId": 4,
+"accion": "KO",
+"operacion": "COMPRA",
+"precio": null,
+"cantidad": 80,
+"fechaOperacion": "2023-09-25T13:00:00Z",
+"modo": "AHORA"
+},
+{
+"cliente": 26370,
+"accionId": 6,
+"accion": "YPF",
+"operacion": "VENTA",
+"precio": null,
+"cantidad": 5,
+"fechaOperacion": "2023-09-25T13:00:00Z",
+"modo": "AHORA"
+},

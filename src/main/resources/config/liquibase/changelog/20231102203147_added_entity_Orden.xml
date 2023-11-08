@@ -14,9 +14,6 @@
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="cliente" type="integer">
-                <constraints nullable="true" />
-            </column>
             <column name="accion_id" type="integer">
                 <constraints nullable="true" />
             </column>
@@ -44,6 +41,12 @@
             <column name="descripcion" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
+            <column name="cliente_nombre" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="cliente_id" type="integer">
+                <constraints nullable="true" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
     </changeSet>
@@ -65,7 +68,6 @@
                   tableName="orden"
                   usePreparedStatements="true">
             <column name="id" type="numeric"/>
-            <column name="cliente" type="numeric"/>
             <column name="accion_id" type="numeric"/>
             <column name="accion" type="string"/>
             <column name="operacion" type="string"/>
@@ -75,6 +77,8 @@
             <column name="modo" type="string"/>
             <column name="estado" type="numeric"/>
             <column name="descripcion" type="string"/>
+            <column name="cliente_nombre" type="string"/>
+            <column name="cliente_id" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

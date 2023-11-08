@@ -1,5 +1,6 @@
 package um.edu.prog2.guarnier.service.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -14,7 +15,10 @@ public class OrdenDTO implements Serializable {
 
     private Long id;
 
-    private Integer cliente;
+    @JsonProperty("cliente")
+    private Integer clienteId;
+
+    private String clienteNombre;
 
     private Integer accionId;
 
@@ -36,20 +40,28 @@ public class OrdenDTO implements Serializable {
 
     //T* Metodos creados por mi
     //! Metodo que convierte un objeto OrdenDTO a un objeto JsonNode para los reportes.
-    public JsonNode toJsonNode() {
+    public JsonNode toReportJson() {
         ObjectMapper objectMapper = new ObjectMapper();
         ObjectNode jsonNode = objectMapper.createObjectNode();
 
         jsonNode.put("id", id);
-        jsonNode.put("cliente", cliente);
+        jsonNode.put("clienteId", clienteId);
+        jsonNode.put("clienteNombre", clienteNombre);
         jsonNode.put("accionId", accionId);
         jsonNode.put("accion", accion);
         jsonNode.put("operacion", operacion);
-        jsonNode.put("precio", precio);
         jsonNode.put("cantidad", cantidad);
+        jsonNode.put("precio", precio);
         jsonNode.put("fechaOperacion", fechaOperacion);
         jsonNode.put("modo", modo);
-        jsonNode.put("estado", estado);
+
+        if (estado == 1) {
+            jsonNode.put("operacionExitosa", false);
+            jsonNode.put("operacionObservaciones", descripcion);
+        } else {
+            jsonNode.put("operacionExitosa", true);
+            jsonNode.put("operacionObservaciones", "ok");
+        }
 
         return jsonNode;
     }
@@ -63,12 +75,20 @@ public class OrdenDTO implements Serializable {
         this.id = id;
     }
 
-    public Integer getCliente() {
-        return cliente;
+    public Integer getClienteId() {
+        return clienteId;
     }
 
-    public void setCliente(Integer cliente) {
-        this.cliente = cliente;
+    public void setClienteId(Integer clienteId) {
+        this.clienteId = clienteId;
+    }
+
+    public String getClienteNombre() {
+        return clienteNombre;
+    }
+
+    public void setclienteNombre(String clienteNombre) {
+        this.clienteNombre = clienteNombre;
     }
 
     public Integer getAccionId() {
@@ -169,7 +189,8 @@ public class OrdenDTO implements Serializable {
     public String toString() {
         return "OrdenDTO{" +
             "id=" + getId() +
-            ", cliente=" + getCliente() +
+            ", clienteId=" + getClienteId() +
+            ", clienteNombre=" + getClienteNombre() +
             ", accionId=" + getAccionId() +
             ", accion='" + getAccion() + "'" +
             ", operacion='" + getOperacion() + "'" +

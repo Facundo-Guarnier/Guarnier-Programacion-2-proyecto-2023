@@ -14,11 +14,6 @@
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" jhiTranslate="prog2App.orden.cliente" for="field_cliente">Cliente</label>
-          <input type="number" class="form-control" name="cliente" id="field_cliente" data-cy="cliente" formControlName="cliente" />
-        </div>
-
-        <div class="row mb-3">
           <label class="form-label" jhiTranslate="prog2App.orden.accionId" for="field_accionId">Accion Id</label>
           <input type="number" class="form-control" name="accionId" id="field_accionId" data-cy="accionId" formControlName="accionId" />
         </div>
@@ -75,6 +70,23 @@
             data-cy="descripcion"
             formControlName="descripcion"
           />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="prog2App.orden.clienteNombre" for="field_clienteNombre">Cliente Nombre</label>
+          <input
+            type="text"
+            class="form-control"
+            name="clienteNombre"
+            id="field_clienteNombre"
+            data-cy="clienteNombre"
+            formControlName="clienteNombre"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="prog2App.orden.clienteId" for="field_clienteId">Cliente Id</label>
+          <input type="number" class="form-control" name="clienteId" id="field_clienteId" data-cy="clienteId" formControlName="clienteId" />
         </div>
       </div>
 

@@ -20,7 +20,6 @@ describe('Orden Form Service', () => {
         expect(formGroup.controls).toEqual(
           expect.objectContaining({
             id: expect.any(Object),
-            cliente: expect.any(Object),
             accionId: expect.any(Object),
             accion: expect.any(Object),
             operacion: expect.any(Object),
@@ -30,6 +29,8 @@ describe('Orden Form Service', () => {
             modo: expect.any(Object),
             estado: expect.any(Object),
             descripcion: expect.any(Object),
+            clienteNombre: expect.any(Object),
+            clienteId: expect.any(Object),
           })
         );
       });
@@ -40,7 +41,6 @@ describe('Orden Form Service', () => {
         expect(formGroup.controls).toEqual(
           expect.objectContaining({
             id: expect.any(Object),
-            cliente: expect.any(Object),
             accionId: expect.any(Object),
             accion: expect.any(Object),
             operacion: expect.any(Object),
@@ -50,6 +50,8 @@ describe('Orden Form Service', () => {
             modo: expect.any(Object),
             estado: expect.any(Object),
             descripcion: expect.any(Object),
+            clienteNombre: expect.any(Object),
+            clienteId: expect.any(Object),
           })
         );
       });

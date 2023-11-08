@@ -31,9 +31,6 @@ import um.edu.prog2.guarnier.service.mapper.OrdenMapper;
 @WithMockUser
 class OrdenResourceIT {
 
-    private static final Integer DEFAULT_CLIENTE = 1;
-    private static final Integer UPDATED_CLIENTE = 2;
-
     private static final Integer DEFAULT_ACCION_ID = 1;
     private static final Integer UPDATED_ACCION_ID = 2;
 
@@ -60,6 +57,12 @@ class OrdenResourceIT {
 
     private static final String DEFAULT_DESCRIPCION = "AAAAAAAAAA";
     private static final String UPDATED_DESCRIPCION = "BBBBBBBBBB";
+
+    private static final String DEFAULT_CLIENTE_NOMBRE = "AAAAAAAAAA";
+    private static final String UPDATED_CLIENTE_NOMBRE = "BBBBBBBBBB";
+
+    private static final Integer DEFAULT_CLIENTE_ID = 1;
+    private static final Integer UPDATED_CLIENTE_ID = 2;
 
     private static final String ENTITY_API_URL = "/api/ordens";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -89,7 +92,6 @@ class OrdenResourceIT {
      */
     public static Orden createEntity(EntityManager em) {
         Orden orden = new Orden()
-            .cliente(DEFAULT_CLIENTE)
             .accionId(DEFAULT_ACCION_ID)
             .accion(DEFAULT_ACCION)
             .operacion(DEFAULT_OPERACION)
@@ -98,7 +100,9 @@ class OrdenResourceIT {
             .fechaOperacion(DEFAULT_FECHA_OPERACION)
             .modo(DEFAULT_MODO)
             .estado(DEFAULT_ESTADO)
-            .descripcion(DEFAULT_DESCRIPCION);
+            .descripcion(DEFAULT_DESCRIPCION)
+            .clienteNombre(DEFAULT_CLIENTE_NOMBRE)
+            .clienteId(DEFAULT_CLIENTE_ID);
         return orden;
     }
 
@@ -110,7 +114,6 @@ class OrdenResourceIT {
      */
     public static Orden createUpdatedEntity(EntityManager em) {
         Orden orden = new Orden()
-            .cliente(UPDATED_CLIENTE)
             .accionId(UPDATED_ACCION_ID)
             .accion(UPDATED_ACCION)
             .operacion(UPDATED_OPERACION)
@@ -119,7 +122,9 @@ class OrdenResourceIT {
             .fechaOperacion(UPDATED_FECHA_OPERACION)
             .modo(UPDATED_MODO)
             .estado(UPDATED_ESTADO)
-            .descripcion(UPDATED_DESCRIPCION);
+            .descripcion(UPDATED_DESCRIPCION)
+            .clienteNombre(UPDATED_CLIENTE_NOMBRE)
+            .clienteId(UPDATED_CLIENTE_ID);
         return orden;
     }
 
@@ -142,7 +147,6 @@ class OrdenResourceIT {
         List<Orden> ordenList = ordenRepository.findAll();
         assertThat(ordenList).hasSize(databaseSizeBeforeCreate + 1);
         Orden testOrden = ordenList.get(ordenList.size() - 1);
-        assertThat(testOrden.getCliente()).isEqualTo(DEFAULT_CLIENTE);
         assertThat(testOrden.getAccionId()).isEqualTo(DEFAULT_ACCION_ID);
         assertThat(testOrden.getAccion()).isEqualTo(DEFAULT_ACCION);
         assertThat(testOrden.getOperacion()).isEqualTo(DEFAULT_OPERACION);
@@ -152,6 +156,8 @@ class OrdenResourceIT {
         assertThat(testOrden.getModo()).isEqualTo(DEFAULT_MODO);
         assertThat(testOrden.getEstado()).isEqualTo(DEFAULT_ESTADO);
         assertThat(testOrden.getDescripcion()).isEqualTo(DEFAULT_DESCRIPCION);
+        assertThat(testOrden.getClienteNombre()).isEqualTo(DEFAULT_CLIENTE_NOMBRE);
+        assertThat(testOrden.getClienteId()).isEqualTo(DEFAULT_CLIENTE_ID);
     }
 
     @Test
@@ -185,7 +191,6 @@ class OrdenResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(orden.getId().intValue())))
-            .andExpect(jsonPath("$.[*].cliente").value(hasItem(DEFAULT_CLIENTE)))
             .andExpect(jsonPath("$.[*].accionId").value(hasItem(DEFAULT_ACCION_ID)))
             .andExpect(jsonPath("$.[*].accion").value(hasItem(DEFAULT_ACCION)))
             .andExpect(jsonPath("$.[*].operacion").value(hasItem(DEFAULT_OPERACION)))
@@ -194,7 +199,9 @@ class OrdenResourceIT {
             .andExpect(jsonPath("$.[*].fechaOperacion").value(hasItem(DEFAULT_FECHA_OPERACION)))
             .andExpect(jsonPath("$.[*].modo").value(hasItem(DEFAULT_MODO)))
             .andExpect(jsonPath("$.[*].estado").value(hasItem(DEFAULT_ESTADO)))
-            .andExpect(jsonPath("$.[*].descripcion").value(hasItem(DEFAULT_DESCRIPCION)));
+            .andExpect(jsonPath("$.[*].descripcion").value(hasItem(DEFAULT_DESCRIPCION)))
+            .andExpect(jsonPath("$.[*].clienteNombre").value(hasItem(DEFAULT_CLIENTE_NOMBRE)))
+            .andExpect(jsonPath("$.[*].clienteId").value(hasItem(DEFAULT_CLIENTE_ID)));
     }
 
     @Test
@@ -209,7 +216,6 @@ class OrdenResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(orden.getId().intValue()))
-            .andExpect(jsonPath("$.cliente").value(DEFAULT_CLIENTE))
             .andExpect(jsonPath("$.accionId").value(DEFAULT_ACCION_ID))
             .andExpect(jsonPath("$.accion").value(DEFAULT_ACCION))
             .andExpect(jsonPath("$.operacion").value(DEFAULT_OPERACION))
@@ -218,7 +224,9 @@ class OrdenResourceIT {
             .andExpect(jsonPath("$.fechaOperacion").value(DEFAULT_FECHA_OPERACION))
             .andExpect(jsonPath("$.modo").value(DEFAULT_MODO))
             .andExpect(jsonPath("$.estado").value(DEFAULT_ESTADO))
-            .andExpect(jsonPath("$.descripcion").value(DEFAULT_DESCRIPCION));
+            .andExpect(jsonPath("$.descripcion").value(DEFAULT_DESCRIPCION))
+            .andExpect(jsonPath("$.clienteNombre").value(DEFAULT_CLIENTE_NOMBRE))
+            .andExpect(jsonPath("$.clienteId").value(DEFAULT_CLIENTE_ID));
     }
 
     @Test
@@ -241,7 +249,6 @@ class OrdenResourceIT {
         // Disconnect from session so that the updates on updatedOrden are not directly saved in db
         em.detach(updatedOrden);
         updatedOrden
-            .cliente(UPDATED_CLIENTE)
             .accionId(UPDATED_ACCION_ID)
             .accion(UPDATED_ACCION)
             .operacion(UPDATED_OPERACION)
@@ -250,7 +257,9 @@ class OrdenResourceIT {
             .fechaOperacion(UPDATED_FECHA_OPERACION)
             .modo(UPDATED_MODO)
             .estado(UPDATED_ESTADO)
-            .descripcion(UPDATED_DESCRIPCION);
+            .descripcion(UPDATED_DESCRIPCION)
+            .clienteNombre(UPDATED_CLIENTE_NOMBRE)
+            .clienteId(UPDATED_CLIENTE_ID);
         OrdenDTO ordenDTO = ordenMapper.toDto(updatedOrden);
 
         restOrdenMockMvc
@@ -265,7 +274,6 @@ class OrdenResourceIT {
         List<Orden> ordenList = ordenRepository.findAll();
         assertThat(ordenList).hasSize(databaseSizeBeforeUpdate);
         Orden testOrden = ordenList.get(ordenList.size() - 1);
-        assertThat(testOrden.getCliente()).isEqualTo(UPDATED_CLIENTE);
         assertThat(testOrden.getAccionId()).isEqualTo(UPDATED_ACCION_ID);
         assertThat(testOrden.getAccion()).isEqualTo(UPDATED_ACCION);
         assertThat(testOrden.getOperacion()).isEqualTo(UPDATED_OPERACION);
@@ -275,6 +283,8 @@ class OrdenResourceIT {
         assertThat(testOrden.getModo()).isEqualTo(UPDATED_MODO);
         assertThat(testOrden.getEstado()).isEqualTo(UPDATED_ESTADO);
         assertThat(testOrden.getDescripcion()).isEqualTo(UPDATED_DESCRIPCION);
+        assertThat(testOrden.getClienteNombre()).isEqualTo(UPDATED_CLIENTE_NOMBRE);
+        assertThat(testOrden.getClienteId()).isEqualTo(UPDATED_CLIENTE_ID);
     }
 
     @Test
@@ -355,11 +365,11 @@ class OrdenResourceIT {
         partialUpdatedOrden.setId(orden.getId());
 
         partialUpdatedOrden
-            .operacion(UPDATED_OPERACION)
             .precio(UPDATED_PRECIO)
             .cantidad(UPDATED_CANTIDAD)
-            .modo(UPDATED_MODO)
-            .descripcion(UPDATED_DESCRIPCION);
+            .fechaOperacion(UPDATED_FECHA_OPERACION)
+            .estado(UPDATED_ESTADO)
+            .clienteNombre(UPDATED_CLIENTE_NOMBRE);
 
         restOrdenMockMvc
             .perform(
@@ -373,16 +383,17 @@ class OrdenResourceIT {
         List<Orden> ordenList = ordenRepository.findAll();
         assertThat(ordenList).hasSize(databaseSizeBeforeUpdate);
         Orden testOrden = ordenList.get(ordenList.size() - 1);
-        assertThat(testOrden.getCliente()).isEqualTo(DEFAULT_CLIENTE);
         assertThat(testOrden.getAccionId()).isEqualTo(DEFAULT_ACCION_ID);
         assertThat(testOrden.getAccion()).isEqualTo(DEFAULT_ACCION);
-        assertThat(testOrden.getOperacion()).isEqualTo(UPDATED_OPERACION);
+        assertThat(testOrden.getOperacion()).isEqualTo(DEFAULT_OPERACION);
         assertThat(testOrden.getPrecio()).isEqualTo(UPDATED_PRECIO);
         assertThat(testOrden.getCantidad()).isEqualTo(UPDATED_CANTIDAD);
-        assertThat(testOrden.getFechaOperacion()).isEqualTo(DEFAULT_FECHA_OPERACION);
-        assertThat(testOrden.getModo()).isEqualTo(UPDATED_MODO);
-        assertThat(testOrden.getEstado()).isEqualTo(DEFAULT_ESTADO);
-        assertThat(testOrden.getDescripcion()).isEqualTo(UPDATED_DESCRIPCION);
+        assertThat(testOrden.getFechaOperacion()).isEqualTo(UPDATED_FECHA_OPERACION);
+        assertThat(testOrden.getModo()).isEqualTo(DEFAULT_MODO);
+        assertThat(testOrden.getEstado()).isEqualTo(UPDATED_ESTADO);
+        assertThat(testOrden.getDescripcion()).isEqualTo(DEFAULT_DESCRIPCION);
+        assertThat(testOrden.getClienteNombre()).isEqualTo(UPDATED_CLIENTE_NOMBRE);
+        assertThat(testOrden.getClienteId()).isEqualTo(DEFAULT_CLIENTE_ID);
     }
 
     @Test
@@ -398,7 +409,6 @@ class OrdenResourceIT {
         partialUpdatedOrden.setId(orden.getId());
 
         partialUpdatedOrden
-            .cliente(UPDATED_CLIENTE)
             .accionId(UPDATED_ACCION_ID)
             .accion(UPDATED_ACCION)
             .operacion(UPDATED_OPERACION)
@@ -407,7 +417,9 @@ class OrdenResourceIT {
             .fechaOperacion(UPDATED_FECHA_OPERACION)
             .modo(UPDATED_MODO)
             .estado(UPDATED_ESTADO)
-            .descripcion(UPDATED_DESCRIPCION);
+            .descripcion(UPDATED_DESCRIPCION)
+            .clienteNombre(UPDATED_CLIENTE_NOMBRE)
+            .clienteId(UPDATED_CLIENTE_ID);
 
         restOrdenMockMvc
             .perform(
@@ -421,7 +433,6 @@ class OrdenResourceIT {
         List<Orden> ordenList = ordenRepository.findAll();
         assertThat(ordenList).hasSize(databaseSizeBeforeUpdate);
         Orden testOrden = ordenList.get(ordenList.size() - 1);
-        assertThat(testOrden.getCliente()).isEqualTo(UPDATED_CLIENTE);
         assertThat(testOrden.getAccionId()).isEqualTo(UPDATED_ACCION_ID);
         assertThat(testOrden.getAccion()).isEqualTo(UPDATED_ACCION);
         assertThat(testOrden.getOperacion()).isEqualTo(UPDATED_OPERACION);
@@ -431,6 +442,8 @@ class OrdenResourceIT {
         assertThat(testOrden.getModo()).isEqualTo(UPDATED_MODO);
         assertThat(testOrden.getEstado()).isEqualTo(UPDATED_ESTADO);
         assertThat(testOrden.getDescripcion()).isEqualTo(UPDATED_DESCRIPCION);
+        assertThat(testOrden.getClienteNombre()).isEqualTo(UPDATED_CLIENTE_NOMBRE);
+        assertThat(testOrden.getClienteId()).isEqualTo(UPDATED_CLIENTE_ID);
     }
 
     @Test

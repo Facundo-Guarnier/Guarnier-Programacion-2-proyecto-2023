@@ -38,12 +38,6 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
-          <th scope="col" jhiSortBy="cliente">
-            <div class="d-flex">
-              <span jhiTranslate="prog2App.orden.cliente">Cliente</span>
-              <fa-icon class="p-1" icon="sort"></fa-icon>
-            </div>
-          </th>
           <th scope="col" jhiSortBy="accionId">
             <div class="d-flex">
               <span jhiTranslate="prog2App.orden.accionId">Accion Id</span>
@@ -98,6 +92,18 @@
               <fa-icon class="p-1" icon="sort"></fa-icon>
             </div>
           </th>
+          <th scope="col" jhiSortBy="clienteNombre">
+            <div class="d-flex">
+              <span jhiTranslate="prog2App.orden.clienteNombre">Cliente Nombre</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="clienteId">
+            <div class="d-flex">
+              <span jhiTranslate="prog2App.orden.clienteId">Cliente Id</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -106,7 +112,6 @@
           <td>
             <a [routerLink]="['/orden', orden.id, 'view']">{{ orden.id }}</a>
           </td>
-          <td>{{ orden.cliente }}</td>
           <td>{{ orden.accionId }}</td>
           <td>{{ orden.accion }}</td>
           <td>{{ orden.operacion }}</td>
@@ -116,6 +121,8 @@
           <td>{{ orden.modo }}</td>
           <td>{{ orden.estado }}</td>
           <td>{{ orden.descripcion }}</td>
+          <td>{{ orden.clienteNombre }}</td>
+          <td>{{ orden.clienteId }}</td>
           <td class="text-end">
             <div class="btn-group">
               <button type="submit" [routerLink]="['/orden', orden.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">

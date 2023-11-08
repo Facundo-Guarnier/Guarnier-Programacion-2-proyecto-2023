@@ -18,7 +18,6 @@ type OrdenFormDefaults = Pick<NewOrden, 'id'>;
 
 type OrdenFormGroupContent = {
   id: FormControl<IOrden['id'] | NewOrden['id']>;
-  cliente: FormControl<IOrden['cliente']>;
   accionId: FormControl<IOrden['accionId']>;
   accion: FormControl<IOrden['accion']>;
   operacion: FormControl<IOrden['operacion']>;
@@ -28,6 +27,8 @@ type OrdenFormGroupContent = {
   modo: FormControl<IOrden['modo']>;
   estado: FormControl<IOrden['estado']>;
   descripcion: FormControl<IOrden['descripcion']>;
+  clienteNombre: FormControl<IOrden['clienteNombre']>;
+  clienteId: FormControl<IOrden['clienteId']>;
 };
 
 export type OrdenFormGroup = FormGroup<OrdenFormGroupContent>;
@@ -47,7 +48,6 @@ export class OrdenFormService {
           validators: [Validators.required],
         }
       ),
-      cliente: new FormControl(ordenRawValue.cliente),
       accionId: new FormControl(ordenRawValue.accionId),
       accion: new FormControl(ordenRawValue.accion),
       operacion: new FormControl(ordenRawValue.operacion),
@@ -57,6 +57,8 @@ export class OrdenFormService {
       modo: new FormControl(ordenRawValue.modo),
       estado: new FormControl(ordenRawValue.estado),
       descripcion: new FormControl(ordenRawValue.descripcion),
+      clienteNombre: new FormControl(ordenRawValue.clienteNombre),
+      clienteId: new FormControl(ordenRawValue.clienteId),
     });
   }
 

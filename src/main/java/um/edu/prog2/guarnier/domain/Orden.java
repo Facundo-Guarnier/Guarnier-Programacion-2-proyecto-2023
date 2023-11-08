@@ -21,9 +21,6 @@ public class Orden implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "cliente")
-    private Integer cliente;
-
     @Column(name = "accion_id")
     private Integer accionId;
 
@@ -51,6 +48,12 @@ public class Orden implements Serializable {
     @Column(name = "descripcion")
     private String descripcion;
 
+    @Column(name = "cliente_nombre")
+    private String clienteNombre;
+
+    @Column(name = "cliente_id")
+    private Integer clienteId;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -64,19 +67,6 @@ public class Orden implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Integer getCliente() {
-        return this.cliente;
-    }
-
-    public Orden cliente(Integer cliente) {
-        this.setCliente(cliente);
-        return this;
-    }
-
-    public void setCliente(Integer cliente) {
-        this.cliente = cliente;
     }
 
     public Integer getAccionId() {
@@ -196,6 +186,32 @@ public class Orden implements Serializable {
         this.descripcion = descripcion;
     }
 
+    public String getClienteNombre() {
+        return this.clienteNombre;
+    }
+
+    public Orden clienteNombre(String clienteNombre) {
+        this.setClienteNombre(clienteNombre);
+        return this;
+    }
+
+    public void setClienteNombre(String clienteNombre) {
+        this.clienteNombre = clienteNombre;
+    }
+
+    public Integer getClienteId() {
+        return this.clienteId;
+    }
+
+    public Orden clienteId(Integer clienteId) {
+        this.setClienteId(clienteId);
+        return this;
+    }
+
+    public void setClienteId(Integer clienteId) {
+        this.clienteId = clienteId;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -220,7 +236,6 @@ public class Orden implements Serializable {
     public String toString() {
         return "Orden{" +
             "id=" + getId() +
-            ", cliente=" + getCliente() +
             ", accionId=" + getAccionId() +
             ", accion='" + getAccion() + "'" +
             ", operacion='" + getOperacion() + "'" +
@@ -230,6 +245,8 @@ public class Orden implements Serializable {
             ", modo='" + getModo() + "'" +
             ", estado=" + getEstado() +
             ", descripcion='" + getDescripcion() + "'" +
+            ", clienteNombre='" + getClienteNombre() + "'" +
+            ", clienteId=" + getClienteId() +
             "}";
     }
 }
