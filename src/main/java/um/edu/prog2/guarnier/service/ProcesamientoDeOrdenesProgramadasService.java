@@ -25,7 +25,7 @@ public class ProcesamientoDeOrdenesProgramadasService {
     CatedraAPIService catedraAPIService;
 
     @Autowired
-    ProcesamientoDeOrdenesService procesamientoDeOrdenesService;
+    OperadorDeOrdenesService oos;
 
     @Autowired
     OrdenService ordenService;
@@ -53,9 +53,9 @@ public class ProcesamientoDeOrdenesProgramadasService {
                 if (hora == this.horaOrden(orden)) {
                     orden = this.cambiarPrecio(orden);
                     if (orden.getOperacion().equals("COMPRA")) {
-                        procesamientoDeOrdenesService.comprarOrden(orden);
+                        oos.comprarOrden(orden);
                     } else if (orden.getOperacion().equals("VENTA")) {
-                        procesamientoDeOrdenesService.venderOrden(orden);
+                        oos.venderOrden(orden);
                     }
                 }
             });
@@ -63,7 +63,8 @@ public class ProcesamientoDeOrdenesProgramadasService {
 
     //! Cambia el precio de la orden por el precio actual de la acción.
     private OrdenDTO cambiarPrecio(OrdenDTO orden) {
-        JsonNode precioJson = catedraAPIService.getConJWT("http://192.168.194.254:8000/api/acciones/ultimovalor/" + orden.getAccion());
+        String URL = "http://192.168.194.254:8000/api/acciones/ultimovalor/" + orden.getAccion();
+        JsonNode precioJson = catedraAPIService.getConJWT(URL);
         Double precio = precioJson.get("ultimoValor").get("valor").asDouble();
         orden.setPrecio(precio.floatValue());
         return orden;

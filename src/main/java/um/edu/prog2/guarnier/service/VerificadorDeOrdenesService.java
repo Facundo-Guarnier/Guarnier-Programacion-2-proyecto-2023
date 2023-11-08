@@ -1,17 +1,9 @@
 package um.edu.prog2.guarnier.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import java.time.Duration;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-import javax.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,67 +13,12 @@ import um.edu.prog2.guarnier.service.dto.OrdenDTO;
 
 @Service
 @Transactional
-public class ProcesamientoDeOrdenesService {
+public class VerificadorDeOrdenesService {
 
-    public List<OrdenDTO> ordenesProcesadas = new ArrayList<OrdenDTO>();
-    public List<OrdenDTO> ordenesFallidas = new ArrayList<OrdenDTO>();
-    private final Logger log = LoggerFactory.getLogger(ProcesamientoDeOrdenesService.class);
-    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(2);
+    private final Logger log = LoggerFactory.getLogger(VerificadorDeOrdenesService.class);
 
     @Autowired
     CatedraAPIService cs;
-
-    @Autowired
-    OrdenService ordenService;
-
-    @Autowired
-    ReportarOperacionesService ros;
-
-    @PostConstruct
-    public void init() {
-        log.info("Iniciando 'ProcesamientoDeOrdenesService'");
-
-        //! Funcion, retraso inicial, intervalo de ejecución (1440 minutos = 24 horas), unidad de tiempo
-        scheduler.scheduleAtFixedRate(
-            () -> {
-                List<List<OrdenDTO>> r = analizarOrdenes();
-            },
-            10000,
-            10,
-            TimeUnit.SECONDS
-        );
-    }
-
-    //! Método que tiene que leer la DB, analizar las ordenes y devolver 2 listas con las procesadas y las fallidas.
-    public List<List<OrdenDTO>> analizarOrdenes() {
-        this.ordenesProcesadas.clear();
-        this.ordenesFallidas.clear();
-
-        log.debug("Analizando ordenes");
-        try {
-            ordenService
-                .findPendientes()
-                .forEach(orden -> {
-                    log.debug("Procesando ordenes instantáneas: " + orden);
-                    if (this.puedeRealizarOperacion(orden)) {
-                        esPosibleOperar(orden);
-                    } else {
-                        noEsPosibleOperar(orden);
-                    }
-                });
-        } catch (Exception e) {
-            log.error("Error al buscar ordenes en DB y analizarlas.", e);
-        }
-
-        //! Devuelve una lista de listas, la primera con las ordenes procesadas y la segunda con las fallidas
-        List<List<OrdenDTO>> resultado = new ArrayList<>();
-        resultado.add(ordenesProcesadas);
-        resultado.add(ordenesFallidas);
-
-        this.reportar(ordenesProcesadas, ordenesFallidas);
-
-        return resultado;
-    }
 
     //! Revisa si la orden puede realizarse.
     public boolean puedeRealizarOperacion(OrdenDTO orden) {
@@ -174,55 +111,5 @@ public class ProcesamientoDeOrdenesService {
         //! Si todo está bien, devuelve true.
         orden.setEstado("PUEDE OPERAR");
         return true;
-    }
-
-    //! Para cuando no puede realizarse la operación.
-    public void noEsPosibleOperar(OrdenDTO orden) {
-        log.debug("No es posible realizar la operacion");
-        this.ordenesFallidas.add(orden);
-        ordenService.update(orden);
-    }
-
-    //! Para cuando puede realizarse la operación.
-    public void esPosibleOperar(OrdenDTO orden) {
-        log.debug("Es posible realizar la operacion " + orden.getId());
-
-        if (!orden.getModo().equals("AHORA")) {
-            programarOrden(orden);
-        } else if (orden.getOperacion().equals("COMPRA")) {
-            comprarOrden(orden);
-        } else if (orden.getOperacion().equals("VENTA")) {
-            venderOrden(orden);
-        }
-
-        this.ordenesProcesadas.add(orden);
-    }
-
-    //! Programar la orden.
-    public void programarOrden(OrdenDTO orden) {
-        log.debug("Programando operacion");
-        orden.setEstado("PROGRAMADO");
-        ordenService.update(orden);
-    }
-
-    //! Comprar la orden.
-    public boolean venderOrden(OrdenDTO orden) {
-        log.debug("Vendiendo orden");
-        orden.setEstado("COMPLETADO");
-        ordenService.update(orden);
-        return true;
-    }
-
-    //! Vender la orden.
-    public boolean comprarOrden(OrdenDTO orden) {
-        log.debug("Comprando orden");
-        orden.setEstado("COMPLETADO");
-        ordenService.update(orden);
-        return true;
-    }
-
-    //! Reportar las operaciones.
-    private void reportar(List<OrdenDTO> ordenesProcesadas2, List<OrdenDTO> ordenesFallidas2) {
-        ros.reportarOperaciones(ordenesProcesadas2, ordenesFallidas2);
     }
 }

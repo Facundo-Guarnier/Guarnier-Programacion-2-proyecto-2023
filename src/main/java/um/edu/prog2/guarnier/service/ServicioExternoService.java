@@ -19,7 +19,7 @@ public class ServicioExternoService {
     CatedraAPIService cs;
 
     @Autowired
-    ProcesamientoDeOrdenesService procesamientoDeOrdenesService;
+    AnalizadorDeOrdenesService analizadorDeOrdenesService;
 
     @Autowired
     OrdenService ordenService;
@@ -28,9 +28,9 @@ public class ServicioExternoService {
         cargarOrdenes(modo);
 
         try {
-            List<List<OrdenDTO>> listas = procesamientoDeOrdenesService.analizarOrdenes();
-            System.out.println("\n\nOrdenes procesadas: " + listas.get(0).size() + " " + listas.get(0));
-            System.out.println("\n\nOrdenes fallidas: " + listas.get(1).size() + " " + listas.get(1));
+            List<List<OrdenDTO>> listas = analizadorDeOrdenesService.analizarOrdenes();
+            // System.out.println("\n\nOrdenes procesadas: " + listas.get(0).size() + " " + listas.get(0));
+            // System.out.println("\n\nOrdenes fallidas: " + listas.get(1).size() + " " + listas.get(1));
         } catch (Exception e) {
             log.error("Error al analizar las ordenes", e);
         }

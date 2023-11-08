@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.ResponseUtil;
 import um.edu.prog2.guarnier.repository.OrdenRepository;
+import um.edu.prog2.guarnier.service.AnalizadorDeOrdenesService;
 import um.edu.prog2.guarnier.service.OrdenService;
-import um.edu.prog2.guarnier.service.ProcesamientoDeOrdenesService;
 import um.edu.prog2.guarnier.service.ServicioExternoService;
 import um.edu.prog2.guarnier.service.dto.OrdenDTO;
 import um.edu.prog2.guarnier.web.rest.errors.BadRequestAlertException;
@@ -40,7 +40,7 @@ public class OrdenResource {
     ServicioExternoService servicioExternoService;
 
     @Autowired
-    ProcesamientoDeOrdenesService procesamientoDeOrdenesService;
+    AnalizadorDeOrdenesService analizadorDeOrdenesService;
 
     private final OrdenRepository ordenRepository;
 
