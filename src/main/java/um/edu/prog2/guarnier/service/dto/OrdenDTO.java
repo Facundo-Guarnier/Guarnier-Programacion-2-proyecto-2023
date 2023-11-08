@@ -30,7 +30,9 @@ public class OrdenDTO implements Serializable {
 
     private String modo;
 
-    private String estado;
+    private Integer estado;
+
+    private String descripcion;
 
     //T* Metodos creados por mi
     //! Metodo que convierte un objeto OrdenDTO a un objeto JsonNode para los reportes.
@@ -125,12 +127,20 @@ public class OrdenDTO implements Serializable {
         this.modo = modo;
     }
 
-    public String getEstado() {
+    public Integer getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(Integer estado) {
         this.estado = estado;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     @Override
@@ -167,7 +177,8 @@ public class OrdenDTO implements Serializable {
             ", cantidad=" + getCantidad() +
             ", fechaOperacion='" + getFechaOperacion() + "'" +
             ", modo='" + getModo() + "'" +
-            ", estado='" + getEstado() + "'" +
+            ", estado=" + getEstado() +
+            ", descripcion='" + getDescripcion() + "'" +
             "}";
     }
 }

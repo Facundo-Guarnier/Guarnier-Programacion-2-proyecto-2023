@@ -6,7 +6,7 @@
 
 - En Reporte hay que hacer un miapi que se pueda obtener las ordenes procesadas y poder filtrarlas (por IDs). Tener en cuenta el formato reporte-operaciones.
 
-- Ver si puedo cambiar el estado de formato STRING a un INTEGER (0: pendiente, 1: programado, 2: vendido, 3: comprado)
+- ✅ Ver si puedo cambiar el estado de formato STRING a un INTEGER (0: pendiente, 1: programado, 2: vendido, 3: comprado)
 
 - ✅ "Una orden debe tener asociado un cliente y una acción de una compañía."
   Se debe verificar que el Id de cliente y el Id de la acción sean válidos. Para esto se debe consultar el servicio cátedra buscando por Id de ambos."

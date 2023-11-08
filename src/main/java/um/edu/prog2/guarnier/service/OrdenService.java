@@ -16,12 +16,17 @@ import um.edu.prog2.guarnier.service.dto.ListaOrdenesDTO;
 import um.edu.prog2.guarnier.service.dto.OrdenDTO;
 import um.edu.prog2.guarnier.service.mapper.OrdenMapper;
 
+/**
+ * Service Implementation for managing {@link Orden}.
+ */
 @Service
 @Transactional
 public class OrdenService {
 
     private final Logger log = LoggerFactory.getLogger(OrdenService.class);
+
     private final OrdenRepository ordenRepository;
+
     private final OrdenMapper ordenMapper;
 
     ObjectMapper objectMapper = new ObjectMapper();
@@ -37,14 +42,14 @@ public class OrdenService {
     @Transactional(readOnly = true)
     public List<OrdenDTO> findPendientes() {
         log.debug("para recibir todas las Ordenes con estado PENDIENTE");
-        return ordenRepository.findByEstado("PENDIENTE").stream().map(ordenMapper::toDto).collect(Collectors.toList());
+        return ordenRepository.findByEstado(0).stream().map(ordenMapper::toDto).collect(Collectors.toList());
     }
 
     //! Método para buscar una orden en base a su estado PROGRAMADA
     @Transactional(readOnly = true)
     public List<OrdenDTO> findProgramados() {
         log.debug("Request para recibir todas las Ordenes con estado PROGRAMADA");
-        return ordenRepository.findByEstado("PROGRAMADO").stream().map(ordenMapper::toDto).collect(Collectors.toList());
+        return ordenRepository.findByEstado(2).stream().map(ordenMapper::toDto).collect(Collectors.toList());
     }
 
     //! Método para borrar todas las ordenes
@@ -54,7 +59,7 @@ public class OrdenService {
     }
 
     //! Método para guardar las Ordenes obtenidas de una API externa.
-    public void guardarDB(JsonNode ordenes) {
+    public void guardarNuevas(JsonNode ordenes) {
         log.debug("Guardando ordenes en DB.");
         try {
             ListaOrdenesDTO response = objectMapper.readValue(ordenes.toString(), ListaOrdenesDTO.class);
@@ -62,7 +67,7 @@ public class OrdenService {
 
             //! Guarda las ordenes en la DB
             for (OrdenDTO ordenDTO : ordenesDTO) {
-                ordenDTO.setEstado("PENDIENTE");
+                ordenDTO.setEstado(0);
                 this.save(ordenDTO);
             }
         } catch (Exception e) {

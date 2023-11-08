@@ -27,6 +27,7 @@ type OrdenFormGroupContent = {
   fechaOperacion: FormControl<IOrden['fechaOperacion']>;
   modo: FormControl<IOrden['modo']>;
   estado: FormControl<IOrden['estado']>;
+  descripcion: FormControl<IOrden['descripcion']>;
 };
 
 export type OrdenFormGroup = FormGroup<OrdenFormGroupContent>;
@@ -55,6 +56,7 @@ export class OrdenFormService {
       fechaOperacion: new FormControl(ordenRawValue.fechaOperacion),
       modo: new FormControl(ordenRawValue.modo),
       estado: new FormControl(ordenRawValue.estado),
+      descripcion: new FormControl(ordenRawValue.descripcion),
     });
   }
 

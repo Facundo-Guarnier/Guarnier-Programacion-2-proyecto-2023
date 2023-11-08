@@ -46,9 +46,13 @@ public class Orden implements Serializable {
     private String modo;
 
     @Column(name = "estado")
-    private String estado;
+    private Integer estado;
 
-    //! jhipster-needle-entity-add-field - JHipster will add fields here
+    @Column(name = "descripcion")
+    private String descripcion;
+
+    // jhipster-needle-entity-add-field - JHipster will add fields here
+
     public Long getId() {
         return this.id;
     }
@@ -166,17 +170,30 @@ public class Orden implements Serializable {
         this.modo = modo;
     }
 
-    public String getEstado() {
+    public Integer getEstado() {
         return this.estado;
     }
 
-    public Orden estado(String estado) {
+    public Orden estado(Integer estado) {
         this.setEstado(estado);
         return this;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(Integer estado) {
         this.estado = estado;
+    }
+
+    public String getDescripcion() {
+        return this.descripcion;
+    }
+
+    public Orden descripcion(String descripcion) {
+        this.setDescripcion(descripcion);
+        return this;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
@@ -211,7 +228,8 @@ public class Orden implements Serializable {
             ", cantidad=" + getCantidad() +
             ", fechaOperacion='" + getFechaOperacion() + "'" +
             ", modo='" + getModo() + "'" +
-            ", estado='" + getEstado() + "'" +
+            ", estado=" + getEstado() +
+            ", descripcion='" + getDescripcion() + "'" +
             "}";
     }
 }

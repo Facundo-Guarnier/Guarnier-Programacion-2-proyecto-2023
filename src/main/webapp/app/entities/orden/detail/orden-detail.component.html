@@ -50,6 +50,10 @@
         <dd>
           <span>{{ orden.estado }}</span>
         </dd>
+        <dt><span jhiTranslate="prog2App.orden.descripcion">Descripcion</span></dt>
+        <dd>
+          <span>{{ orden.descripcion }}</span>
+        </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

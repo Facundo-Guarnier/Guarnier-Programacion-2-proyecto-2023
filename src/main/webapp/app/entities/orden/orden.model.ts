@@ -8,7 +8,8 @@ export interface IOrden {
   cantidad?: number | null;
   fechaOperacion?: string | null;
   modo?: string | null;
-  estado?: string | null;
+  estado?: number | null;
+  descripcion?: string | null;
 }
 
 export type NewOrden = Omit<IOrden, 'id'> & { id: null };

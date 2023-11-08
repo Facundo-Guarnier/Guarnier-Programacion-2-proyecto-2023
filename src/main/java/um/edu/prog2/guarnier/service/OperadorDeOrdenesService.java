@@ -44,14 +44,14 @@ public class OperadorDeOrdenesService {
     //! Programar la orden.
     public void programarOrden(OrdenDTO orden) {
         log.debug("Programando operacion");
-        orden.setEstado("PROGRAMADO");
+        orden.setEstado(2);
         ordenService.update(orden);
     }
 
     //! Comprar la orden.
     public boolean venderOrden(OrdenDTO orden) {
         log.debug("Vendiendo orden");
-        orden.setEstado("COMPLETADO");
+        orden.setEstado(3);
         ordenService.update(orden);
         return true;
     }
@@ -59,7 +59,7 @@ public class OperadorDeOrdenesService {
     //! Vender la orden.
     public boolean comprarOrden(OrdenDTO orden) {
         log.debug("Comprando orden");
-        orden.setEstado("COMPLETADO");
+        orden.setEstado(3);
         ordenService.update(orden);
         return true;
     }

@@ -40,11 +40,11 @@ public class ServicioExternoService {
         if (modo == 1) {
             log.debug("Simulando ordenes 'www.mockachino.com'");
             JsonNode response = cs.get("https://www.mockachino.com/2e3476f6-949b-42/api/ordenes/ordenes");
-            ordenService.guardarDB(response);
+            ordenService.guardarNuevas(response);
         } else if (modo == 2) {
             log.debug("Simulando ordenes 'Catedra'");
             JsonNode response = cs.getConJWT("http://192.168.194.254:8000/api/ordenes/ordenes");
-            ordenService.guardarDB(response);
+            ordenService.guardarNuevas(response);
         } else {
             log.debug("Simular con ordenes existentes en la DB.");
         }

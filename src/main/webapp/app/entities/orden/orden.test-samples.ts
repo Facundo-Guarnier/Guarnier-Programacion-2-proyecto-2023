@@ -5,26 +5,28 @@ export const sampleWithRequiredData: IOrden = {
 };
 
 export const sampleWithPartialData: IOrden = {
-  id: 80323,
-  cliente: 60920,
-  accionId: 49117,
-  accion: 'SMTP',
-  cantidad: 98359,
-  modo: 'Azerbaijanian',
-  estado: 'Guantes',
+  id: 60920,
+  cliente: 49117,
+  accionId: 8681,
+  accion: 'deposit Hecho Guantes',
+  cantidad: 72787,
+  modo: 'infomediaries Futuro',
+  estado: 93222,
+  descripcion: 'SSL',
 };
 
 export const sampleWithFullData: IOrden = {
-  id: 72787,
-  cliente: 43977,
-  accionId: 42588,
-  accion: 'customized País SSL',
-  operacion: 'Etiopía Extremadura',
-  precio: 52515,
-  cantidad: 17245,
-  fechaOperacion: 'connecting',
-  modo: 'generating',
-  estado: 'Diseñador digital Loan',
+  id: 41732,
+  cliente: 54975,
+  accionId: 30209,
+  accion: 'Extremadura Islas connecting',
+  operacion: 'generating',
+  precio: 90644,
+  cantidad: 98792,
+  fechaOperacion: 'Morado Paseo',
+  modo: 'Patatas Azerbayán',
+  estado: 87181,
+  descripcion: 'Re-implementado card',
 };
 
 export const sampleWithNewData: NewOrden = {

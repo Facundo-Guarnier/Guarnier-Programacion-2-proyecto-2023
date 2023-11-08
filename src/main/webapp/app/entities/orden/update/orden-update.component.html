@@ -62,7 +62,19 @@
 
         <div class="row mb-3">
           <label class="form-label" jhiTranslate="prog2App.orden.estado" for="field_estado">Estado</label>
-          <input type="text" class="form-control" name="estado" id="field_estado" data-cy="estado" formControlName="estado" />
+          <input type="number" class="form-control" name="estado" id="field_estado" data-cy="estado" formControlName="estado" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="prog2App.orden.descripcion" for="field_descripcion">Descripcion</label>
+          <input
+            type="text"
+            class="form-control"
+            name="descripcion"
+            id="field_descripcion"
+            data-cy="descripcion"
+            formControlName="descripcion"
+          />
         </div>
       </div>
 
