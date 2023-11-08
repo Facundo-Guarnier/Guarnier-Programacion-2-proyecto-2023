@@ -1,4 +1,4 @@
-id;accion_id;accion;operacion;precio;cantidad;fecha_operacion;modo;estado;descripcion;cliente_nombre;cliente_id
+id;accion_id;accion;operacion;precio;cantidad;fecha_operacion;modo;estado;descripcion;cliente_nombre;cliente
 1;29619;integrated Genérico;Pollo Asociado Guapo;65493;54080;Arquitecto a;e-commerce;78867;feed;Humano SQL Joyería;32215
 2;2289;invoice Bricolaje;en protocol;67294;93749;Buckinghamshire;Account;48257;Manat protocol;colaboración;62451
 3;81413;Refinado;Madera Namibia;35530;94696;Ensalada Adelante;iterate customized;9735;moderador Account;sistémica reboot Genérico;15091

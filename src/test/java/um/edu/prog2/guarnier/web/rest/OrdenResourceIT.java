@@ -61,8 +61,8 @@ class OrdenResourceIT {
     private static final String DEFAULT_CLIENTE_NOMBRE = "AAAAAAAAAA";
     private static final String UPDATED_CLIENTE_NOMBRE = "BBBBBBBBBB";
 
-    private static final Integer DEFAULT_CLIENTE_ID = 1;
-    private static final Integer UPDATED_CLIENTE_ID = 2;
+    private static final Integer DEFAULT_CLIENTE = 1;
+    private static final Integer UPDATED_CLIENTE = 2;
 
     private static final String ENTITY_API_URL = "/api/ordens";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -102,7 +102,7 @@ class OrdenResourceIT {
             .estado(DEFAULT_ESTADO)
             .descripcion(DEFAULT_DESCRIPCION)
             .clienteNombre(DEFAULT_CLIENTE_NOMBRE)
-            .clienteId(DEFAULT_CLIENTE_ID);
+            .cliente(DEFAULT_CLIENTE);
         return orden;
     }
 
@@ -124,7 +124,7 @@ class OrdenResourceIT {
             .estado(UPDATED_ESTADO)
             .descripcion(UPDATED_DESCRIPCION)
             .clienteNombre(UPDATED_CLIENTE_NOMBRE)
-            .clienteId(UPDATED_CLIENTE_ID);
+            .cliente(UPDATED_CLIENTE);
         return orden;
     }
 
@@ -157,7 +157,7 @@ class OrdenResourceIT {
         assertThat(testOrden.getEstado()).isEqualTo(DEFAULT_ESTADO);
         assertThat(testOrden.getDescripcion()).isEqualTo(DEFAULT_DESCRIPCION);
         assertThat(testOrden.getClienteNombre()).isEqualTo(DEFAULT_CLIENTE_NOMBRE);
-        assertThat(testOrden.getClienteId()).isEqualTo(DEFAULT_CLIENTE_ID);
+        assertThat(testOrden.getCliente()).isEqualTo(DEFAULT_CLIENTE);
     }
 
     @Test
@@ -201,7 +201,7 @@ class OrdenResourceIT {
             .andExpect(jsonPath("$.[*].estado").value(hasItem(DEFAULT_ESTADO)))
             .andExpect(jsonPath("$.[*].descripcion").value(hasItem(DEFAULT_DESCRIPCION)))
             .andExpect(jsonPath("$.[*].clienteNombre").value(hasItem(DEFAULT_CLIENTE_NOMBRE)))
-            .andExpect(jsonPath("$.[*].clienteId").value(hasItem(DEFAULT_CLIENTE_ID)));
+            .andExpect(jsonPath("$.[*].cliente").value(hasItem(DEFAULT_CLIENTE)));
     }
 
     @Test
@@ -226,7 +226,7 @@ class OrdenResourceIT {
             .andExpect(jsonPath("$.estado").value(DEFAULT_ESTADO))
             .andExpect(jsonPath("$.descripcion").value(DEFAULT_DESCRIPCION))
             .andExpect(jsonPath("$.clienteNombre").value(DEFAULT_CLIENTE_NOMBRE))
-            .andExpect(jsonPath("$.clienteId").value(DEFAULT_CLIENTE_ID));
+            .andExpect(jsonPath("$.cliente").value(DEFAULT_CLIENTE));
     }
 
     @Test
@@ -259,7 +259,7 @@ class OrdenResourceIT {
             .estado(UPDATED_ESTADO)
             .descripcion(UPDATED_DESCRIPCION)
             .clienteNombre(UPDATED_CLIENTE_NOMBRE)
-            .clienteId(UPDATED_CLIENTE_ID);
+            .cliente(UPDATED_CLIENTE);
         OrdenDTO ordenDTO = ordenMapper.toDto(updatedOrden);
 
         restOrdenMockMvc
@@ -284,7 +284,7 @@ class OrdenResourceIT {
         assertThat(testOrden.getEstado()).isEqualTo(UPDATED_ESTADO);
         assertThat(testOrden.getDescripcion()).isEqualTo(UPDATED_DESCRIPCION);
         assertThat(testOrden.getClienteNombre()).isEqualTo(UPDATED_CLIENTE_NOMBRE);
-        assertThat(testOrden.getClienteId()).isEqualTo(UPDATED_CLIENTE_ID);
+        assertThat(testOrden.getCliente()).isEqualTo(UPDATED_CLIENTE);
     }
 
     @Test
@@ -393,7 +393,7 @@ class OrdenResourceIT {
         assertThat(testOrden.getEstado()).isEqualTo(UPDATED_ESTADO);
         assertThat(testOrden.getDescripcion()).isEqualTo(DEFAULT_DESCRIPCION);
         assertThat(testOrden.getClienteNombre()).isEqualTo(UPDATED_CLIENTE_NOMBRE);
-        assertThat(testOrden.getClienteId()).isEqualTo(DEFAULT_CLIENTE_ID);
+        assertThat(testOrden.getCliente()).isEqualTo(DEFAULT_CLIENTE);
     }
 
     @Test
@@ -419,7 +419,7 @@ class OrdenResourceIT {
             .estado(UPDATED_ESTADO)
             .descripcion(UPDATED_DESCRIPCION)
             .clienteNombre(UPDATED_CLIENTE_NOMBRE)
-            .clienteId(UPDATED_CLIENTE_ID);
+            .cliente(UPDATED_CLIENTE);
 
         restOrdenMockMvc
             .perform(
@@ -443,7 +443,7 @@ class OrdenResourceIT {
         assertThat(testOrden.getEstado()).isEqualTo(UPDATED_ESTADO);
         assertThat(testOrden.getDescripcion()).isEqualTo(UPDATED_DESCRIPCION);
         assertThat(testOrden.getClienteNombre()).isEqualTo(UPDATED_CLIENTE_NOMBRE);
-        assertThat(testOrden.getClienteId()).isEqualTo(UPDATED_CLIENTE_ID);
+        assertThat(testOrden.getCliente()).isEqualTo(UPDATED_CLIENTE);
     }
 
     @Test

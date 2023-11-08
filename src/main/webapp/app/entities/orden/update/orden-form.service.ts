@@ -28,7 +28,7 @@ type OrdenFormGroupContent = {
   estado: FormControl<IOrden['estado']>;
   descripcion: FormControl<IOrden['descripcion']>;
   clienteNombre: FormControl<IOrden['clienteNombre']>;
-  clienteId: FormControl<IOrden['clienteId']>;
+  cliente: FormControl<IOrden['cliente']>;
 };
 
 export type OrdenFormGroup = FormGroup<OrdenFormGroupContent>;
@@ -58,7 +58,7 @@ export class OrdenFormService {
       estado: new FormControl(ordenRawValue.estado),
       descripcion: new FormControl(ordenRawValue.descripcion),
       clienteNombre: new FormControl(ordenRawValue.clienteNombre),
-      clienteId: new FormControl(ordenRawValue.clienteId),
+      cliente: new FormControl(ordenRawValue.cliente),
     });
   }
 

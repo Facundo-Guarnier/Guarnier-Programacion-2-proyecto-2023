@@ -51,7 +51,7 @@ public class ProcesamientoDeOrdenesProgramadasService {
                 log.debug("Procesando ordenes programada: " + orden);
 
                 if (hora == this.horaOrden(orden)) {
-                    orden = this.cambiarPrecio(orden);
+                    orden = oos.cambiarPrecio(orden);
                     if (orden.getOperacion().equals("COMPRA")) {
                         oos.comprarOrden(orden);
                     } else if (orden.getOperacion().equals("VENTA")) {
@@ -59,15 +59,6 @@ public class ProcesamientoDeOrdenesProgramadasService {
                     }
                 }
             });
-    }
-
-    //! Cambia el precio de la orden por el precio actual de la acción.
-    private OrdenDTO cambiarPrecio(OrdenDTO orden) {
-        String URL = "http://192.168.194.254:8000/api/acciones/ultimovalor/" + orden.getAccion();
-        JsonNode precioJson = catedraAPIService.getConJWT(URL);
-        Double precio = precioJson.get("ultimoValor").get("valor").asDouble();
-        orden.setPrecio(precio.floatValue());
-        return orden;
     }
 
     //! Devuelve la hora a la que se debe ejecutar la orden.

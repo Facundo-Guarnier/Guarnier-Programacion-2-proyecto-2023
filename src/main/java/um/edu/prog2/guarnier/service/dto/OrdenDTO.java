@@ -15,8 +15,7 @@ public class OrdenDTO implements Serializable {
 
     private Long id;
 
-    @JsonProperty("cliente")
-    private Integer clienteId;
+    private Integer cliente;
 
     private String clienteNombre;
 
@@ -39,14 +38,12 @@ public class OrdenDTO implements Serializable {
     private String descripcion;
 
     //T* Metodos creados por mi
-    //! Metodo que convierte un objeto OrdenDTO a un objeto JsonNode para los reportes.
+    //! Método que convierte un objeto OrdenDTO a un objeto JsonNode para los reportes.
     public JsonNode toReportJson() {
         ObjectMapper objectMapper = new ObjectMapper();
         ObjectNode jsonNode = objectMapper.createObjectNode();
 
-        jsonNode.put("id", id);
-        jsonNode.put("clienteId", clienteId);
-        jsonNode.put("clienteNombre", clienteNombre);
+        jsonNode.put("cliente", cliente);
         jsonNode.put("accionId", accionId);
         jsonNode.put("accion", accion);
         jsonNode.put("operacion", operacion);
@@ -75,12 +72,12 @@ public class OrdenDTO implements Serializable {
         this.id = id;
     }
 
-    public Integer getClienteId() {
-        return clienteId;
+    public Integer getCliente() {
+        return cliente;
     }
 
-    public void setClienteId(Integer clienteId) {
-        this.clienteId = clienteId;
+    public void setCliente(Integer cliente) {
+        this.cliente = cliente;
     }
 
     public String getClienteNombre() {
@@ -189,7 +186,7 @@ public class OrdenDTO implements Serializable {
     public String toString() {
         return "OrdenDTO{" +
             "id=" + getId() +
-            ", clienteId=" + getClienteId() +
+            ", cliente=" + getCliente() +
             ", clienteNombre=" + getClienteNombre() +
             ", accionId=" + getAccionId() +
             ", accion='" + getAccion() + "'" +

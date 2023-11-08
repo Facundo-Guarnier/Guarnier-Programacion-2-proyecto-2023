@@ -28,7 +28,7 @@
       "estado": "Estado",
       "descripcion": "Descripcion",
       "clienteNombre": "Cliente Nombre",
-      "clienteId": "Cliente Id"
+      "cliente": "Cliente"
     }
   }
 }

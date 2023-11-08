@@ -43,7 +43,7 @@
       "fieldType": "String"
     },
     {
-      "fieldName": "clienteId",
+      "fieldName": "cliente",
       "fieldType": "Integer"
     }
   ],

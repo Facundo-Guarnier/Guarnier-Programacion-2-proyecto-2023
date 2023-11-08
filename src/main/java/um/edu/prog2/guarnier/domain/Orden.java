@@ -51,8 +51,8 @@ public class Orden implements Serializable {
     @Column(name = "cliente_nombre")
     private String clienteNombre;
 
-    @Column(name = "cliente_id")
-    private Integer clienteId;
+    @Column(name = "cliente")
+    private Integer cliente;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -199,17 +199,17 @@ public class Orden implements Serializable {
         this.clienteNombre = clienteNombre;
     }
 
-    public Integer getClienteId() {
-        return this.clienteId;
+    public Integer getCliente() {
+        return this.cliente;
     }
 
-    public Orden clienteId(Integer clienteId) {
-        this.setClienteId(clienteId);
+    public Orden cliente(Integer cliente) {
+        this.setCliente(cliente);
         return this;
     }
 
-    public void setClienteId(Integer clienteId) {
-        this.clienteId = clienteId;
+    public void setCliente(Integer cliente) {
+        this.cliente = cliente;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
@@ -246,7 +246,7 @@ public class Orden implements Serializable {
             ", estado=" + getEstado() +
             ", descripcion='" + getDescripcion() + "'" +
             ", clienteNombre='" + getClienteNombre() + "'" +
-            ", clienteId=" + getClienteId() +
+            ", cliente=" + getCliente() +
             "}";
     }
 }

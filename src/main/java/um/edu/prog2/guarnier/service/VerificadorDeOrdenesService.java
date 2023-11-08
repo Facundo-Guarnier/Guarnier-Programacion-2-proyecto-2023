@@ -41,7 +41,7 @@ public class VerificadorDeOrdenesService {
         //! 2• Una orden debe tener asociado un cliente y una acción de una compañía. Se debe
         //!    verificar que el Id de cliente y el Id de la acción sean válidos. Para esto
         //!    se debe consultar el servicio cátedra buscando por Id de ambos.
-        if (orden.getClienteId() == null || orden.getAccionId() == null) {
+        if (orden.getCliente() == null || orden.getAccionId() == null) {
             log.debug("La orden " + orden.getId() + " no tiene un cliente o una acción asociada.");
             orden.setEstado(1);
             orden.setDescripcion("SIN CLIENTE O ACCION ASOCIADA");
@@ -56,7 +56,7 @@ public class VerificadorDeOrdenesService {
 
         for (JsonNode cliente : clientes) {
             int id = cliente.get("id").asInt();
-            if (id == orden.getClienteId()) {
+            if (id == orden.getCliente()) {
                 clienteValido = true;
                 orden.setclienteNombre(cliente.get("nombreApellido").asText());
                 break;
@@ -64,7 +64,7 @@ public class VerificadorDeOrdenesService {
         }
 
         if (!clienteValido) {
-            log.debug("El cliente asociado a la orden " + orden.getId() + " no es válido: " + orden.getClienteId());
+            log.debug("El cliente asociado a la orden " + orden.getId() + " no es válido: " + orden.getCliente());
             orden.setEstado(1);
             orden.setDescripcion("CLIENTE NO VALIDO");
             return false;

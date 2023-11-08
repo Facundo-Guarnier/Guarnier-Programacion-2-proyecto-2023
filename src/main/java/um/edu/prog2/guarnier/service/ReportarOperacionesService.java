@@ -41,8 +41,7 @@ public class ReportarOperacionesService {
         JsonNode jsonNode = jsonReporte;
 
         log.debug(logMessage.toString());
-
-        System.out.println("\n\n\n\n" + jsonNode + "\n\n\n\n");
-        // catedraAPIService.postConJWT(jsonNode);
+        //* Descomentar para reportar a la cátedra.
+        // catedraAPIService.postRoprtar(jsonNode);
     }
 }

@@ -10,7 +10,7 @@ export interface IOrden {
   estado?: number | null;
   descripcion?: string | null;
   clienteNombre?: string | null;
-  clienteId?: number | null;
+  cliente?: number | null;
 }
 
 export type NewOrden = Omit<IOrden, 'id'> & { id: null };

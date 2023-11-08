@@ -44,7 +44,7 @@
             <column name="cliente_nombre" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="cliente_id" type="integer">
+            <column name="cliente" type="integer">
                 <constraints nullable="true" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
@@ -78,7 +78,7 @@
             <column name="estado" type="numeric"/>
             <column name="descripcion" type="string"/>
             <column name="cliente_nombre" type="string"/>
-            <column name="cliente_id" type="numeric"/>
+            <column name="cliente" type="numeric"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

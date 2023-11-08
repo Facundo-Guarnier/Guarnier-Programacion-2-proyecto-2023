@@ -3,7 +3,10 @@ package um.edu.prog2.guarnier.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import org.slf4j.Logger;
@@ -59,7 +62,7 @@ public class CatedraAPIService {
         }
     }
 
-    public void postConJWT(JsonNode ordenes) {
+    public void postRoprtar(JsonNode ordenes) {
         try {
             URL url = new URL(REPORTE_URL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -69,20 +72,25 @@ public class CatedraAPIService {
             connection.setRequestProperty("Content-Type", "application/json");
             connection.setDoOutput(true);
 
-            //! Convierte el JsonNode en una cadena JSON
             String ordenesJSON = new ObjectMapper().writeValueAsString(ordenes);
 
-            try (DataOutputStream outputStream = new DataOutputStream(connection.getOutputStream())) {
-                outputStream.write(ordenesJSON.getBytes("UTF-8"));
+            //! Envía la solicitud
+            try (OutputStream os = connection.getOutputStream()) {
+                byte[] input = ordenesJSON.getBytes("UTF-8");
+                os.write(input, 0, input.length);
             }
 
-            connection.getOutputStream().flush();
-            connection.getOutputStream().close();
-            connection.getInputStream();
+            //! Recibe la respuesta
+            int responseCode = connection.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                log.debug("Reporte exitoso.");
+            } else {
+                log.error("Error en la solicitud HTTP. Código de respuesta: " + responseCode);
+            }
         } catch (JsonProcessingException e) {
             log.error("Error al serializar el informe de operaciones a JSON.", e);
         } catch (Exception e) {
-            log.error("Error en la post HTTP con JWT.", e);
+            log.error("Error en la solicitud HTTP con JWT.", e);
         }
     }
 }

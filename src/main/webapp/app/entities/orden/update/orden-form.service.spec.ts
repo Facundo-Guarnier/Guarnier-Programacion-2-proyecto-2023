@@ -30,7 +30,7 @@ describe('Orden Form Service', () => {
             estado: expect.any(Object),
             descripcion: expect.any(Object),
             clienteNombre: expect.any(Object),
-            clienteId: expect.any(Object),
+            cliente: expect.any(Object),
           })
         );
       });
@@ -51,7 +51,7 @@ describe('Orden Form Service', () => {
             estado: expect.any(Object),
             descripcion: expect.any(Object),
             clienteNombre: expect.any(Object),
-            clienteId: expect.any(Object),
+            cliente: expect.any(Object),
           })
         );
       });

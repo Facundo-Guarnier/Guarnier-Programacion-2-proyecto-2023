@@ -13,7 +13,7 @@ export const sampleWithPartialData: IOrden = {
   estado: 52515,
   descripcion: 'a',
   clienteNombre: 'Guapa state Colombia',
-  clienteId: 17469,
+  cliente: 17469,
 };
 
 export const sampleWithFullData: IOrden = {
@@ -28,7 +28,7 @@ export const sampleWithFullData: IOrden = {
   estado: 76479,
   descripcion: 'Blanco Coordinador',
   clienteNombre: 'fritas',
-  clienteId: 63825,
+  cliente: 63825,
 };
 
 export const sampleWithNewData: NewOrden = {
