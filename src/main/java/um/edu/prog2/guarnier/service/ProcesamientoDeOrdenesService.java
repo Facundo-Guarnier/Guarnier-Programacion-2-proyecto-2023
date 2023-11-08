@@ -70,7 +70,7 @@ public class ProcesamientoDeOrdenesService {
         ZonedDateTime fechaHoraLocal = fechaHora.withZoneSameInstant(zonaHoraria);
         int hora = fechaHoraLocal.getHour();
 
-        //! Condiciones:
+        //T* Condiciones:
         //! 1• Una orden instantánea no puede ejecutarse fuera del horario de transacciones,
         //!    antes de las 09:00 y después de las 18:00.
         if ("AHORA".equals(orden.getModo()) && hora <= 9 || hora > 18) {
@@ -89,64 +89,47 @@ public class ProcesamientoDeOrdenesService {
         }
 
         //! Cliente ID
-        // String urlCliente = "http://192.168.194.254:8000/api/clientes/buscar?id=" + this.cliente;
-        String urlCliente = "http://192.168.194.254:8000/api/clientes/buscar?nombre=" + "Corvalan";
-
+        String urlCliente = "http://192.168.194.254:8000/api/clientes/buscar";
         JsonNode respuestaCliente = this.cs.getConJWT(urlCliente);
-
         JsonNode clientes = respuestaCliente.get("clientes");
-        if (clientes.isArray() && clientes.size() > 0) {
-            JsonNode cliente = clientes.get(0); // El primer cliente de la lista
+        boolean clienteValido = false;
+
+        for (JsonNode cliente : clientes) {
             int id = cliente.get("id").asInt();
-            if (id != orden.getCliente()) {
-                log.debug(
-                    "El cliente asociado a la orden " +
-                    orden.getId() +
-                    " no es válido. Cliente: " +
-                    id +
-                    " Orden cliente: " +
-                    orden.getCliente()
-                );
-                orden.setEstado("FALLIDO - CLIENTE NO VALIDO");
-                return false;
+            if (id == orden.getCliente()) {
+                clienteValido = true;
+                break;
             }
-        } else {
-            log.debug("El cliente asociado a la orden " + orden.getId() + " no es válido.");
+        }
+
+        if (!clienteValido) {
+            log.debug("El cliente asociado a la orden " + orden.getId() + " no es válido: " + orden.getCliente());
             orden.setEstado("FALLIDO - CLIENTE NO VALIDO");
             return false;
         }
 
         //! Acción ID
-        // String urlAccion = "http://192.168.194.254:8000/api/acciones/buscar?id=" + this.accionId;
-        String urlAccion = "http://192.168.194.254:8000/api/acciones/buscar?codigo=" + orden.getAccion();
-
+        String urlAccion = "http://192.168.194.254:8000/api/acciones/buscar";
+        boolean accionValida = false;
         JsonNode respuestaAccion = this.cs.getConJWT(urlAccion);
         JsonNode acciones = respuestaAccion.get("acciones");
 
-        if (acciones.isArray() && acciones.size() > 0) {
-            JsonNode accion = acciones.get(0); // La primera acción de la lista
-            int id = accion.get("id").asInt();
-            if (id != orden.getAccionId()) {
-                log.debug(
-                    "La acción asociada a la orden " +
-                    orden.getId() +
-                    " no es válida. Acción: " +
-                    id +
-                    " Orden accion: " +
-                    orden.getAccionId()
-                );
-                orden.setEstado("FALLIDO - ACCION NO VALIDA");
-                return false;
+        for (JsonNode accion : acciones) {
+            int accionId = accion.get("id").asInt();
+            String empresa = accion.get("codigo").asText();
+            if (accionId == orden.getAccionId() && empresa.equals(orden.getAccion())) {
+                accionValida = true;
+                break;
             }
-        } else {
-            log.debug("La acción asociada a la orden no es válida.");
-            orden.setEstado("FALLIDO - ACCION NO VALIDA");
+        }
+
+        if (!accionValida) {
+            log.debug("La acción asociada a la orden " + orden.getId() + " no es válida: " + orden.getAccionId());
+            orden.setEstado("FALLIDO - ACCION ID Y ACCION NO VALIDOS");
             return false;
         }
 
-        //! 3• Una orden no puede tener un número de acciones <=0. Para verificar este punto
-        //!    se deberá hacer una consulta a servicios de la cátedra.
-        // JsonNode respuesta = this.solicitudHTTP("http://192.168.194.254:8000/api/acciones/buscar?id=4");
+        //! 3• Una orden no puede tener un número de acciones <=0.
         if (orden.getCantidad() <= 0) {
             log.debug("La cantidad de acciones de la orden " + orden.getId() + " es menor o igual a 0.");
             orden.setEstado("FALLIDO - CANTIDAD DE ACCIONES MENOR O IGUAL A 0");

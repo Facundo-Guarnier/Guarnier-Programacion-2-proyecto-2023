@@ -1,5 +1,6 @@
 package um.edu.prog2.guarnier.service;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.concurrent.Executors;
@@ -21,6 +22,9 @@ public class ProcesamientoDeOrdenesProgramadasService {
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(2);
 
     @Autowired
+    CatedraAPIService catedraAPIService;
+
+    @Autowired
     ProcesamientoDeOrdenesService procesamientoDeOrdenesService;
 
     @Autowired
@@ -33,7 +37,7 @@ public class ProcesamientoDeOrdenesProgramadasService {
         log.info("Iniciando 'ProcesamientoDeOrdenesProgramadasService'");
 
         //! Funcion, retraso inicial, intervalo de ejecución (1440 minutos = 24 horas), unidad de tiempo
-        scheduler.scheduleAtFixedRate(() -> procesar(9), calcularRetrasoHastaProximaEjecucion(9, 0), 1440, TimeUnit.MINUTES);
+        scheduler.scheduleAtFixedRate(() -> procesar(9), calcularRetrasoHastaProximaEjecucion(13, 1), 1440, TimeUnit.MINUTES);
         scheduler.scheduleAtFixedRate(() -> procesar(18), calcularRetrasoHastaProximaEjecucion(18, 0), 1440, TimeUnit.MINUTES);
     }
 
@@ -47,6 +51,7 @@ public class ProcesamientoDeOrdenesProgramadasService {
                 log.debug("Procesando ordenes programada: " + orden);
 
                 if (hora == this.horaOrden(orden)) {
+                    orden = this.cambiarPrecio(orden);
                     if (orden.getOperacion().equals("COMPRA")) {
                         procesamientoDeOrdenesService.comprarOrden(orden);
                     } else if (orden.getOperacion().equals("VENTA")) {
@@ -54,6 +59,14 @@ public class ProcesamientoDeOrdenesProgramadasService {
                     }
                 }
             });
+    }
+
+    //! Cambia el precio de la orden por el precio actual de la acción.
+    private OrdenDTO cambiarPrecio(OrdenDTO orden) {
+        JsonNode precioJson = catedraAPIService.getConJWT("http://192.168.194.254:8000/api/acciones/ultimovalor/" + orden.getAccion());
+        Double precio = precioJson.get("ultimoValor").get("valor").asDouble();
+        orden.setPrecio(precio.floatValue());
+        return orden;
     }
 
     //! Devuelve la hora a la que se debe ejecutar la orden.

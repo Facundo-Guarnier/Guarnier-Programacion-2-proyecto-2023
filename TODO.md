@@ -1,6 +1,6 @@
 **Preguntas**:
 
-- "Una orden debe tener asociado un cliente y una acción de una compañía."
+- ✅ "Una orden debe tener asociado un cliente y una acción de una compañía."
   Se debe verificar que el Id de cliente y el Id de la acción sean válidos. Para esto se debe consultar el servicio cátedra buscando por Id de ambos."
   Problema: No se puede buscar por id (?id=98) devuelve cualquier cosa. Pasa con todo (acciones, clientes)
   Solución: Hay que traer todos los clientes y acciones y luego busco las Ids.
@@ -10,9 +10,9 @@
   Solución: hacer literalmente un servicio "service" que devuelva true para comprar. Para vender, creo que falta un endpoint del profe para saber la cantidad de acciones que tiene un cliente.
 
 - Seguridad??
-  Respuesta: Mi api necesitan un JWT.
+  Respuesta: Miapi necesitan un JWT.
 
-- ¿Que hay que hacer con los logs? Un txt, ELK, otro?
+- ✅ ¿Que hay que hacer con los logs? Un txt, ELK, otro?
   Solución: Que aparezca el log por consola, pero que no sea un "System.out.println".
 
 - Para las ordenes programadas tenemos que realizar la accion con los precios de FINDIA o PRINCIPIODIA. Hay que descartar el precio que viene con la orden.
@@ -34,6 +34,7 @@
 
 [ ] Hacer que el Servicio ReportarOperaciones envíe los resultados de las ordenes al endpoint de la cátedra.
 
+[ ] hacer que se ejecuten los test, "mvn test" no los ejecuta.
 [ ] Arreglar para que el JWT de la cátedra esté en un .env.
 [ ] Hacer un endpoint para obtener reportes en base a filtros (cliente, accion, fecha, etc.)
 [ ] Hacer en vez de un endpoint para procesar las ordenes, que se ejecute automáticamente en el main (Prog2App.java)

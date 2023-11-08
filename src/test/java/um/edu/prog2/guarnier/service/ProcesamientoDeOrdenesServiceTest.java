@@ -79,7 +79,7 @@ public class ProcesamientoDeOrdenesServiceTest {
     }
 
     @Test
-    public void testPuedeRealizarOperacion_HoraFueraDeRango() {
+    public void testPuedeRealizarOperacion_HoraFueraDeRango() throws Exception {
         OrdenDTO orden = new OrdenDTO();
         orden.setModo("AHORA");
         orden.setFechaOperacion("2023-01-01T08:00:00Z");
@@ -89,7 +89,7 @@ public class ProcesamientoDeOrdenesServiceTest {
     }
 
     @Test
-    public void testPuedeRealizarOperacion_SinClienteAsociado() {
+    public void testPuedeRealizarOperacion_SinClienteAsociado() throws Exception {
         OrdenDTO orden = new OrdenDTO();
         orden.setModo("AHORA");
         orden.setFechaOperacion("2023-01-01T10:00:00Z"); // Hora válida dentro del rango
@@ -102,7 +102,7 @@ public class ProcesamientoDeOrdenesServiceTest {
     }
 
     @Test
-    public void testPuedeRealizarOperacion_SinAccionAsociada() {
+    public void testPuedeRealizarOperacion_SinAccionAsociada() throws Exception {
         OrdenDTO orden = new OrdenDTO();
         orden.setModo("AHORA");
         orden.setFechaOperacion("2023-01-01T10:00:00Z"); // Hora válida dentro del rango
@@ -114,7 +114,7 @@ public class ProcesamientoDeOrdenesServiceTest {
     }
 
     @Test
-    public void testPuedeRealizarOperacion_ClienteInvalido() {
+    public void testPuedeRealizarOperacion_ClienteInvalido() throws Exception {
         OrdenDTO orden = new OrdenDTO();
         orden.setModo("AHORA");
         orden.setFechaOperacion("2023-01-01T11:00:00Z"); // Hora válida dentro del rango
@@ -131,12 +131,33 @@ public class ProcesamientoDeOrdenesServiceTest {
     }
 
     @Test
-    public void testPuedeRealizarOperacion_AccionInvalida() {
+    public void testPuedeRealizarOperacion_AccionInvalida1() throws Exception {
         OrdenDTO orden = new OrdenDTO();
         orden.setModo("AHORA");
         orden.setFechaOperacion("2023-01-01T11:00:00Z");
         orden.setCliente(26363);
-        orden.setAccionId(82);
+
+        //! Mockear el resultado de buscar clientes
+        when(cs.getConJWT("http://192.168.194.254:8000/api/clientes/buscar?nombre=Corvalan")).thenReturn(jsonClientes);
+
+        orden.setAccionId(82); //! Acción inválida
+        orden.setAccion("APPL");
+
+        //! Mockear el resultado de buscar acciones
+        when(cs.getConJWT("http://192.168.194.254:8000/api/acciones/buscar?codigo=" + orden.getAccion())).thenReturn(jsonAcciones);
+
+        boolean resultado = procesamientoDeOrdenesService.puedeRealizarOperacion(orden);
+        assertFalse(resultado);
+        assertEquals("FALLIDO - ACCION NO VALIDA", orden.getEstado());
+    }
+
+    @Test
+    public void testPuedeRealizarOperacion_AccionInvalida2() throws Exception {
+        OrdenDTO orden = new OrdenDTO();
+        orden.setModo("AHORA");
+        orden.setFechaOperacion("2023-01-01T11:00:00Z");
+        orden.setCliente(26363);
+        orden.setAccionId(1);
 
         //! Mockear el resultado de buscar clientes
         when(cs.getConJWT("http://192.168.194.254:8000/api/clientes/buscar?nombre=Corvalan")).thenReturn(jsonClientes);
@@ -148,11 +169,11 @@ public class ProcesamientoDeOrdenesServiceTest {
 
         boolean resultado = procesamientoDeOrdenesService.puedeRealizarOperacion(orden);
         assertFalse(resultado);
-        assertEquals("FALLIDO - ACCION NO VALIDA", orden.getEstado());
+        assertEquals("todo joya", orden.getEstado());
     }
 
     @Test
-    public void testPuedeRealizarOperacion_CantidadInvalida() {
+    public void testPuedeRealizarOperacion_CantidadInvalida() throws Exception {
         OrdenDTO orden = new OrdenDTO();
         orden.setModo("AHORA");
         orden.setFechaOperacion("2023-01-01T11:00:00Z");
@@ -172,7 +193,7 @@ public class ProcesamientoDeOrdenesServiceTest {
     }
 
     @Test
-    public void testPuedeRealizarOperacion_ModoInvalido() {
+    public void testPuedeRealizarOperacion_ModoInvalido() throws Exception {
         OrdenDTO orden = new OrdenDTO();
         orden.setModo("AHORA");
         orden.setFechaOperacion("2023-01-01T11:00:00Z");
@@ -193,7 +214,7 @@ public class ProcesamientoDeOrdenesServiceTest {
     }
 
     @Test
-    public void testAnalizarOrdenes_OperacionInvalida() {
+    public void testAnalizarOrdenes_OperacionInvalida() throws Exception {
         OrdenDTO orden = new OrdenDTO();
         orden.setModo("AHORA");
         orden.setFechaOperacion("2023-01-01T11:00:00Z");
@@ -214,7 +235,7 @@ public class ProcesamientoDeOrdenesServiceTest {
     }
 
     @Test
-    public void testPuedeRealizarOperacion_Valido() {
+    public void testPuedeRealizarOperacion_Valido() throws Exception {
         OrdenDTO orden = new OrdenDTO();
         orden.setCliente(26363);
         orden.setAccionId(1);
@@ -234,7 +255,7 @@ public class ProcesamientoDeOrdenesServiceTest {
     }
 
     @Test
-    public void testNoEsPosibleOperar() {
+    public void testNoEsPosibleOperar() throws Exception {
         OrdenDTO orden = new OrdenDTO();
         procesamientoDeOrdenesService.ordenesFallidas.clear();
         procesamientoDeOrdenesService.noEsPosibleOperar(orden);
@@ -246,7 +267,7 @@ public class ProcesamientoDeOrdenesServiceTest {
     }
 
     @Test
-    public void testEsPosibleOperar_Compra() {
+    public void testEsPosibleOperar_Compra() throws Exception {
         OrdenDTO orden = new OrdenDTO();
         orden.setModo("AHORA");
         orden.setOperacion("COMPRA");
@@ -255,7 +276,7 @@ public class ProcesamientoDeOrdenesServiceTest {
     }
 
     @Test
-    public void testEsPosibleOperar_Venta() {
+    public void testEsPosibleOperar_Venta() throws Exception {
         OrdenDTO orden = new OrdenDTO();
         orden.setModo("AHORA");
         orden.setOperacion("VENTA");
@@ -264,7 +285,7 @@ public class ProcesamientoDeOrdenesServiceTest {
     }
 
     @Test
-    public void testProgramarOrden() {
+    public void testProgramarOrden() throws Exception {
         OrdenDTO orden = new OrdenDTO();
         procesamientoDeOrdenesService.programarOrden(orden);
         assertEquals("PROGRAMADO", orden.getEstado());
@@ -274,7 +295,7 @@ public class ProcesamientoDeOrdenesServiceTest {
     }
 
     @Test
-    public void testVenderOrden() {
+    public void testVenderOrden() throws Exception {
         OrdenDTO orden = new OrdenDTO();
         boolean resultado = procesamientoDeOrdenesService.venderOrden(orden);
         assertTrue(resultado);
@@ -285,7 +306,7 @@ public class ProcesamientoDeOrdenesServiceTest {
     }
 
     @Test
-    public void testComprarOrden() {
+    public void testComprarOrden() throws Exception {
         OrdenDTO orden = new OrdenDTO();
         boolean resultado = procesamientoDeOrdenesService.comprarOrden(orden);
         assertTrue(resultado);
@@ -296,7 +317,7 @@ public class ProcesamientoDeOrdenesServiceTest {
     }
 
     @Test
-    public void testAnalizarOrdenes() {
+    public void testAnalizarOrdenes() throws Exception {
         OrdenDTO ordenPendiente1 = new OrdenDTO();
         OrdenDTO ordenPendiente2 = new OrdenDTO();
         List<OrdenDTO> ordenesPendientes = new ArrayList<>();
