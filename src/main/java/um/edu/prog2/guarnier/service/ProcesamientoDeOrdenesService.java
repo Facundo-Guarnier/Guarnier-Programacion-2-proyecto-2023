@@ -1,11 +1,17 @@
 package um.edu.prog2.guarnier.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+import javax.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +26,7 @@ public class ProcesamientoDeOrdenesService {
     public List<OrdenDTO> ordenesProcesadas = new ArrayList<OrdenDTO>();
     public List<OrdenDTO> ordenesFallidas = new ArrayList<OrdenDTO>();
     private final Logger log = LoggerFactory.getLogger(ProcesamientoDeOrdenesService.class);
+    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(2);
 
     @Autowired
     CatedraAPIService cs;
@@ -30,13 +37,27 @@ public class ProcesamientoDeOrdenesService {
     @Autowired
     ReportarOperacionesService ros;
 
+    @PostConstruct
+    public void init() {
+        log.info("Iniciando 'ProcesamientoDeOrdenesService'");
+
+        //! Funcion, retraso inicial, intervalo de ejecución (1440 minutos = 24 horas), unidad de tiempo
+        scheduler.scheduleAtFixedRate(
+            () -> {
+                List<List<OrdenDTO>> r = analizarOrdenes();
+            },
+            10000,
+            10,
+            TimeUnit.SECONDS
+        );
+    }
+
     //! Método que tiene que leer la DB, analizar las ordenes y devolver 2 listas con las procesadas y las fallidas.
     public List<List<OrdenDTO>> analizarOrdenes() {
         this.ordenesProcesadas.clear();
         this.ordenesFallidas.clear();
 
         log.debug("Analizando ordenes");
-
         try {
             ordenService
                 .findPendientes()

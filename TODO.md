@@ -15,10 +15,10 @@
 - ✅ ¿Que hay que hacer con los logs? Un txt, ELK, otro?
   Solución: Que aparezca el log por consola, pero que no sea un "System.out.println".
 
-- Para las ordenes programadas tenemos que realizar la accion con los precios de FINDIA o PRINCIPIODIA. Hay que descartar el precio que viene con la orden.
+- ✅ Para las ordenes programadas tenemos que realizar la accion con los precios de FINDIA o PRINCIPIODIA. Hay que descartar el precio que viene con la orden.
   /api/acciones/ultimovalor/AAPL
 
-- Hacer que el análisis de ordenes automatico (cada 10 segundos).
+- ✅ Hacer que el análisis de ordenes automatico (cada 10 segundos).
 
 - Cambiar los POST de miapi a GET.
 
