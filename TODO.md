@@ -4,6 +4,9 @@
   Problema: tengo que hacer un "if (cantidad > 0)" pero ¿Qué tiene que ver la consulta a la cátedra?
   Solución: hacer literalmente un servicio "service" que devuelva true para comprar. Para vender, creo que falta un endpoint del profe para saber la cantidad de acciones que tiene un cliente.
 
+- ¿Hay que reportar las ordenes fallidas al POST de la cátedra?
+  Problema: El POST de reportar creo que tiene que ser solo con las ordenes buenas, ya que las fallidas no son necesarias para actualizar la cantidad de acciones que tiene cada cliente.
+
 - ✅ Ver si puedo cambiar el estado de formato STRING a un INTEGER (0: pendiente, 1: programado, 2: vendido, 3: comprado)
 
 - ✅ "Una orden debe tener asociado un cliente y una acción de una compañía."
@@ -27,14 +30,13 @@
 
 **TODO**:
 
-[ ] Hacer un endpoint para obtener reportes en base a filtros (cliente, accion, fecha, etc.)
+[ ] Hacer mas Test.
 
-[ ] El POST de reportar creo que tiene que ser solo con las ordenes buenas, ya que las fallidas no son necesarias para actualizar la cantidad de acciones que tiene cada cliente.
-[ ] Hacer que verifica la cantidad de acciones para poder vender, tanto en AHORA como en PROGRAMADAS.
-[ ] Arreglar para que el JWT de la cátedra esté en un .env.
-[ ] Test
+[ ] Hacer un endpoint para obtener reportes en base a filtros (cliente, accion, fecha, etc.)
+[ ] Hay que verificar la cantidad de acciones para poder vender, tanto en AHORA como en PROGRAMADAS. Creo que es el endpoint que falta.
 [ ] Hacer que se ejecuten los test, "mvn test" no los ejecuta.
 [ ] Seguridad: Miapi con JWT.
+[ ] Arreglar para que el JWT de la cátedra esté en un .env.
 
 [x] Hacer uso del espejo
 [x] Hacer que el Servicio ReportarOperaciones envíe los resultados de las ordenes al endpoint de la cátedra (Tener en cuenta el formato reporte-operaciones).

@@ -32,10 +32,11 @@ public class ReportarOperacionesService {
             logMessage.append(orden.getId()).append(", ");
         });
 
-        ordenesFallidas.forEach(orden -> {
-            ordenes.add(orden.toReportJson());
-            logMessage.append(orden.getId()).append(", ");
-        });
+        //? No sé si hay que reportar las ordenes fallidas o no.
+        // ordenesFallidas.forEach(orden -> {
+        //     ordenes.add(orden.toReportJson());
+        //     logMessage.append(orden.getId()).append(", ");
+        // });
 
         jsonReporte.set("ordenes", ordenes);
         JsonNode jsonNode = jsonReporte;
