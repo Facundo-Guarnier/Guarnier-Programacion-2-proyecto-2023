@@ -4,8 +4,6 @@
   Problema: tengo que hacer un "if (cantidad > 0)" pero ¿Qué tiene que ver la consulta a la cátedra?
   Solución: hacer literalmente un servicio "service" que devuelva true para comprar. Para vender, creo que falta un endpoint del profe para saber la cantidad de acciones que tiene un cliente.
 
-- En Reporte hay que hacer un miapi que se pueda obtener las ordenes procesadas y poder filtrarlas (por IDs). Tener en cuenta el formato reporte-operaciones.
-
 - ✅ Ver si puedo cambiar el estado de formato STRING a un INTEGER (0: pendiente, 1: programado, 2: vendido, 3: comprado)
 
 - ✅ "Una orden debe tener asociado un cliente y una acción de una compañía."
@@ -31,14 +29,14 @@
 
 [ ] Hacer un endpoint para obtener reportes en base a filtros (cliente, accion, fecha, etc.)
 
-[ ] Hacer uso del espejo
+[ ] El POST de reportar creo que tiene que ser solo con las ordenes buenas, ya que las fallidas no son necesarias para actualizar la cantidad de acciones que tiene cada cliente.
 [ ] Hacer que verifica la cantidad de acciones para poder vender, tanto en AHORA como en PROGRAMADAS.
-[ ] Miapi con JWT.
-[ ] Hacer que se ejecuten los test, "mvn test" no los ejecuta.
 [ ] Arreglar para que el JWT de la cátedra esté en un .env.
 [ ] Test
-[ ] Seguridad
+[ ] Hacer que se ejecuten los test, "mvn test" no los ejecuta.
+[ ] Seguridad: Miapi con JWT.
 
+[x] Hacer uso del espejo
 [x] Hacer que el Servicio ReportarOperaciones envíe los resultados de las ordenes al endpoint de la cátedra (Tener en cuenta el formato reporte-operaciones).
 [x] Corregir en "ProcesamientoDeOrdenesService" que busca las acciones y clientes por "nombre" y no por "id".
 [x] Hacer en vez de un endpoint para procesar las ordenes, que se ejecute automáticamente en el main (Prog2App.java)
@@ -47,54 +45,3 @@
 [x] Corregir el método getJWT de la catedraAPI.
 [x] Hacer que las ordenes se guarden en una BD y que de ahi las lea para procesar.
 [x] Hacer un endpoint que se ejecute como si fuera el main que tengo ahora.
-
-    {
-      "cliente": 26367,
-      "accionId": 1,
-      "accion": "AAPL",
-      "operacion": "COMPRA",
-      "precio": null,
-      "cantidad": 10,
-      "fechaOperacion": "2023-09-25T03:00:00Z",
-      "modo": "AHORA"
-    },
-    {
-      "cliente": 26363,
-      "accionId": 3,
-      "accion": "INTC",
-      "operacion": "COMPRA",
-      "precio": null,
-      "cantidad": 0,
-      "fechaOperacion": "2023-09-25T13:00:00Z",
-      "modo": "AHORA"
-    },
-    {
-      "cliente": 26370,
-      "accionId": 1,
-      "accion": "GOOGL",
-      "operacion": "VENTA",
-      "precio": null,
-      "cantidad": 5,
-      "fechaOperacion": "2023-09-25T03:00:00Z",
-      "modo": "FINDIA"
-    },
-    {
-      "cliente": 26363,
-      "accionId": 4,
-      "accion": "KO",
-      "operacion": "COMPRA",
-      "precio": null,
-      "cantidad": 80,
-      "fechaOperacion": "2023-09-25T13:00:00Z",
-      "modo": "AHORA"
-    },
-    {
-      "cliente": 26370,
-      "accionId": 6,
-      "accion": "YPF",
-      "operacion": "VENTA",
-      "precio": null,
-      "cantidad": 5,
-      "fechaOperacion": "2023-09-25T13:00:00Z",
-      "modo": "AHORA"
-    },

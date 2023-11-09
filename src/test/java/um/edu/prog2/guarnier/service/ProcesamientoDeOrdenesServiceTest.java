@@ -24,7 +24,7 @@ import um.edu.prog2.guarnier.service.dto.OrdenDTO;
 @SpringBootTest
 public class ProcesamientoDeOrdenesServiceTest {
 
-    private AnalizadorDeOrdenesService analizadorDeOrdenesService;
+    private ProcesamientoDeOrdenesService procesamientoDeOrdenesService;
     private CatedraAPIService cs;
     private OrdenService ordenService;
     private JsonNode jsonClientes;
@@ -78,11 +78,11 @@ public class ProcesamientoDeOrdenesServiceTest {
         jsonAcciones = objectNode2;
     }
     // @Test
-    // public void testPuedeRealizarOperacion_HoraFueraDeRango() throws Exception {
+    // public void PuedeRealizarOperacion_HoraFueraDeRangoTest() throws Exception {
     //     OrdenDTO orden = new OrdenDTO();
     //     orden.setModo("AHORA");
     //     orden.setFechaOperacion("2023-01-01T08:00:00Z");
-    //     boolean resultado = analizadorDeOrdenesService.puedeRealizarOperacion(orden);
+    //     boolean resultado = procesamientoDeOrdenesService.puedeRealizarOperacion(orden);
     //     assertFalse(resultado);
     //     assertEquals("FALLIDO - HORA FUERA DE RANGO", orden.getEstado());
     // }
@@ -94,7 +94,7 @@ public class ProcesamientoDeOrdenesServiceTest {
     //     orden.setFechaOperacion("2023-01-01T10:00:00Z"); // Hora válida dentro del rango
     //     orden.setCliente(null);
     //     orden.setAccionId(4534);
-    //     boolean resultado = analizadorDeOrdenesService.puedeRealizarOperacion(orden);
+    //     boolean resultado = procesamientoDeOrdenesService.puedeRealizarOperacion(orden);
     //     // assertFalse(resultado);
     //     assertTrue(resultado);
     //     assertEquals("FALLIDO - SIN CLIENTE O ACCION ASOCIADA", orden.getEstado());
@@ -107,7 +107,7 @@ public class ProcesamientoDeOrdenesServiceTest {
     //     orden.setFechaOperacion("2023-01-01T10:00:00Z"); // Hora válida dentro del rango
     //     orden.setCliente(168);
     //     orden.setAccionId(null);
-    //     boolean resultado = analizadorDeOrdenesService.puedeRealizarOperacion(orden);
+    //     boolean resultado = procesamientoDeOrdenesService.puedeRealizarOperacion(orden);
     //     assertFalse(resultado);
     //     assertEquals("FALLIDO - SIN CLIENTE O ACCION ASOCIADA", orden.getEstado());
     // }
@@ -124,7 +124,7 @@ public class ProcesamientoDeOrdenesServiceTest {
     //     //! Mockear el resultado de buscar clientes
     //     when(cs.getConJWT("http://192.168.194.254:8000/api/clientes/buscar?nombre=Corvalan")).thenReturn(jsonClientes);
 
-    //     boolean resultado = analizadorDeOrdenesService.puedeRealizarOperacion(orden);
+    //     boolean resultado = procesamientoDeOrdenesService.puedeRealizarOperacion(orden);
     //     assertFalse(resultado);
     //     assertEquals("FALLIDO - CLIENTE NO VALIDO", orden.getEstado());
     // }
@@ -145,7 +145,7 @@ public class ProcesamientoDeOrdenesServiceTest {
     //     //! Mockear el resultado de buscar acciones
     //     when(cs.getConJWT("http://192.168.194.254:8000/api/acciones/buscar?codigo=" + orden.getAccion())).thenReturn(jsonAcciones);
 
-    //     boolean resultado = analizadorDeOrdenesService.puedeRealizarOperacion(orden);
+    //     boolean resultado = procesamientoDeOrdenesService.puedeRealizarOperacion(orden);
     //     assertFalse(resultado);
     //     assertEquals("FALLIDO - ACCION NO VALIDA", orden.getEstado());
     // }
@@ -166,7 +166,7 @@ public class ProcesamientoDeOrdenesServiceTest {
     //     //! Mockear el resultado de buscar acciones
     //     when(cs.getConJWT("http://192.168.194.254:8000/api/acciones/buscar?codigo=" + orden.getAccion())).thenReturn(jsonAcciones);
 
-    //     boolean resultado = analizadorDeOrdenesService.puedeRealizarOperacion(orden);
+    //     boolean resultado = procesamientoDeOrdenesService.puedeRealizarOperacion(orden);
     //     assertFalse(resultado);
     //     assertEquals("todo joya", orden.getEstado());
     // }
@@ -186,7 +186,7 @@ public class ProcesamientoDeOrdenesServiceTest {
 
     //     orden.setCantidad(0); //! Cantidad inválida
 
-    //     boolean resultado = analizadorDeOrdenesService.puedeRealizarOperacion(orden);
+    //     boolean resultado = procesamientoDeOrdenesService.puedeRealizarOperacion(orden);
     //     assertFalse(resultado);
     //     assertEquals("FALLIDO - CANTIDAD DE ACCIONES MENOR O IGUAL A 0", orden.getEstado());
     // }
@@ -207,7 +207,7 @@ public class ProcesamientoDeOrdenesServiceTest {
 
     //     orden.setModo("cualquiercosa"); //! Modo inválido
 
-    //     boolean resultado = analizadorDeOrdenesService.puedeRealizarOperacion(orden);
+    //     boolean resultado = procesamientoDeOrdenesService.puedeRealizarOperacion(orden);
     //     assertFalse(resultado);
     //     assertEquals("FALLIDO - MODO NO VALIDO", orden.getEstado());
     // }
@@ -228,7 +228,7 @@ public class ProcesamientoDeOrdenesServiceTest {
 
     //     orden.setOperacion("cualquiercosa"); //! Operacion inválida
 
-    //     boolean resultado = analizadorDeOrdenesService.puedeRealizarOperacion(orden);
+    //     boolean resultado = procesamientoDeOrdenesService.puedeRealizarOperacion(orden);
     //     assertFalse(resultado);
     //     assertEquals("FALLIDO - OPERACION NO VALIDA", orden.getEstado());
     // }
@@ -248,7 +248,7 @@ public class ProcesamientoDeOrdenesServiceTest {
     //     //! Mockear el resultado de buscar acciones
     //     when(cs.getConJWT("http://192.168.194.254:8000/api/acciones/buscar?codigo=" + orden.getAccion())).thenReturn(jsonAcciones);
 
-    //     boolean resultado = analizadorDeOrdenesService.puedeRealizarOperacion(orden);
+    //     boolean resultado = procesamientoDeOrdenesService.puedeRealizarOperacion(orden);
     //     assertTrue(resultado);
     //     assertEquals("PUEDE OPERAR", orden.getEstado());
     // }
@@ -256,10 +256,10 @@ public class ProcesamientoDeOrdenesServiceTest {
     // @Test
     // public void testNoEsPosibleOperar() throws Exception {
     //     OrdenDTO orden = new OrdenDTO();
-    //     analizadorDeOrdenesService.ordenesFallidas.clear();
-    //     analizadorDeOrdenesService.noEsPosibleOperar(orden);
+    //     procesamientoDeOrdenesService.ordenesFallidas.clear();
+    //     procesamientoDeOrdenesService.noEsPosibleOperar(orden);
 
-    //     assert (analizadorDeOrdenesService.ordenesFallidas.contains(orden));
+    //     assert (procesamientoDeOrdenesService.ordenesFallidas.contains(orden));
 
     //     //? No sé si estará bien este para "ordenService.update(orden);"
     //     Mockito.verify(ordenService).update(orden);
@@ -270,7 +270,7 @@ public class ProcesamientoDeOrdenesServiceTest {
     //     OrdenDTO orden = new OrdenDTO();
     //     orden.setModo("AHORA");
     //     orden.setOperacion("COMPRA");
-    //     analizadorDeOrdenesService.esPosibleOperar(orden);
+    //     procesamientoDeOrdenesService.esPosibleOperar(orden);
     //     assertEquals("COMPLETADO", orden.getEstado());
     // }
 
@@ -279,14 +279,14 @@ public class ProcesamientoDeOrdenesServiceTest {
     //     OrdenDTO orden = new OrdenDTO();
     //     orden.setModo("AHORA");
     //     orden.setOperacion("VENTA");
-    //     analizadorDeOrdenesService.esPosibleOperar(orden);
+    //     procesamientoDeOrdenesService.esPosibleOperar(orden);
     //     assertEquals("COMPLETADO", orden.getEstado());
     // }
 
     // @Test
     // public void testProgramarOrden() throws Exception {
     //     OrdenDTO orden = new OrdenDTO();
-    //     analizadorDeOrdenesService.programarOrden(orden);
+    //     procesamientoDeOrdenesService.programarOrden(orden);
     //     assertEquals("PROGRAMADO", orden.getEstado());
 
     //     //? No sé si estará bien este para "ordenService.update(orden);"
@@ -296,7 +296,7 @@ public class ProcesamientoDeOrdenesServiceTest {
     // @Test
     // public void testVenderOrden() throws Exception {
     //     OrdenDTO orden = new OrdenDTO();
-    //     boolean resultado = analizadorDeOrdenesService.venderOrden(orden);
+    //     boolean resultado = procesamientoDeOrdenesService.venderOrden(orden);
     //     assertTrue(resultado);
     //     assertEquals("COMPLETADO", orden.getEstado());
 
@@ -307,7 +307,7 @@ public class ProcesamientoDeOrdenesServiceTest {
     // @Test
     // public void testComprarOrden() throws Exception {
     //     OrdenDTO orden = new OrdenDTO();
-    //     boolean resultado = analizadorDeOrdenesService.comprarOrden(orden);
+    //     boolean resultado = procesamientoDeOrdenesService.comprarOrden(orden);
     //     assertTrue(resultado);
     //     assertEquals("COMPLETADO", orden.getEstado());
 
@@ -349,7 +349,7 @@ public class ProcesamientoDeOrdenesServiceTest {
     //     //! Mockear el resultado de buscar ordenes pendientes
     //     when(ordenService.findPendientes()).thenReturn(ordenesPendientes);
 
-    //     List<List<OrdenDTO>> resultado = analizadorDeOrdenesService.analizarOrdenes();
+    //     List<List<OrdenDTO>> resultado = procesamientoDeOrdenesService.analizarOrdenes();
 
     //     List<OrdenDTO> ordenesProcesadas = resultado.get(0);
     //     List<OrdenDTO> ordenesFallidas = resultado.get(1);

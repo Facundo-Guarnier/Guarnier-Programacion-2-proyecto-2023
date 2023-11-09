@@ -1,5 +1,6 @@
 package um.edu.prog2.guarnier.service;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -15,9 +16,9 @@ import um.edu.prog2.guarnier.service.dto.OrdenDTO;
 
 @Service
 @Transactional
-public class AnalizadorDeOrdenesService {
+public class ProcesamientoDeOrdenesService {
 
-    private final Logger log = LoggerFactory.getLogger(AnalizadorDeOrdenesService.class);
+    private final Logger log = LoggerFactory.getLogger(ProcesamientoDeOrdenesService.class);
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(2);
     public List<OrdenDTO> ordenesProcesadas = new ArrayList<OrdenDTO>();
     public List<OrdenDTO> ordenesFallidas = new ArrayList<OrdenDTO>();
@@ -34,6 +35,9 @@ public class AnalizadorDeOrdenesService {
     @Autowired
     OperadorDeOrdenesService oos;
 
+    @Autowired
+    CatedraAPIService cs;
+
     @PostConstruct
     public void init() {
         log.info("Iniciando 'AnalizadorDeOrdenesService'");
@@ -41,7 +45,7 @@ public class AnalizadorDeOrdenesService {
         //! Funcion, retraso inicial, intervalo de ejecución (1440 minutos = 24 horas), unidad de tiempo
         scheduler.scheduleAtFixedRate(
             () -> {
-                List<List<OrdenDTO>> r = analizarOrdenes();
+                List<List<OrdenDTO>> r = procesarOrdenes();
             },
             10000,
             10,
@@ -50,7 +54,7 @@ public class AnalizadorDeOrdenesService {
     }
 
     //! Método que tiene que leer la DB, analizar las ordenes y devolver 2 listas con las procesadas y las fallidas.
-    public List<List<OrdenDTO>> analizarOrdenes() {
+    public List<List<OrdenDTO>> procesarOrdenes() {
         this.ordenesProcesadas.clear();
         this.ordenesFallidas.clear();
 
@@ -61,7 +65,7 @@ public class AnalizadorDeOrdenesService {
                 .forEach(orden -> {
                     log.debug("Procesando ordenes instantáneas: " + orden);
                     if (vos.puedeRealizarOperacion(orden)) {
-                        this.ordenesFallidas.add(oos.esPosibleOperar(orden));
+                        this.ordenesProcesadas.add(oos.esPosibleOperar(orden));
                     } else {
                         this.ordenesFallidas.add(oos.noEsPosibleOperar(orden));
                     }
@@ -76,7 +80,25 @@ public class AnalizadorDeOrdenesService {
         resultado.add(ordenesFallidas);
 
         ros.reportarOperaciones(ordenesProcesadas, ordenesFallidas);
-
+        log.info("Ordenes procesadas: " + resultado.get(0).size() + " " + resultado.get(0));
+        log.info("Ordenes fallidas: " + resultado.get(1).size() + " " + resultado.get(1));
         return resultado;
+    }
+
+    public void cargarOrdenes(Integer modo) {
+        if (modo == 1) {
+            log.debug("Cargando ordenes 'www.mockachino.com'");
+            JsonNode response = cs.get("https://www.mockachino.com/2e3476f6-949b-42/api/ordenes/ordenes");
+            ordenService.guardarNuevas(response);
+        } else if (modo == 2) {
+            log.debug("Cargando ordenes 'Catedra'");
+            JsonNode response = cs.getConJWT("http://192.168.194.254:8000/api/ordenes/ordenes");
+            ordenService.guardarNuevas(response);
+        } else if (modo == 3) {
+            log.debug("Cargando ordenes espejo 'Catedra'");
+            cs.postEspejo();
+            JsonNode response = cs.getConJWT("http://192.168.194.254:8000/api/ordenes/ordenes");
+            ordenService.guardarNuevas(response);
+        }
     }
 }

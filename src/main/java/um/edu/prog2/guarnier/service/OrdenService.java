@@ -97,7 +97,7 @@ public class OrdenService {
         LocalDateTime fechaInicio = LocalDateTime.parse(fechaInicioStr, formatter);
         LocalDateTime fechaFin = LocalDateTime.parse(fechaFinStr, formatter);
 
-        ordenRepository.findReportes(clienteId, accionId, fechaInicio, fechaFin);
+        // ordenRepository.findReportes(clienteId, accionId, fechaInicio, fechaFin);
         return null;
     }
 

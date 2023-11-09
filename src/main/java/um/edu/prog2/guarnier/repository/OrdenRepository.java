@@ -16,18 +16,17 @@ import um.edu.prog2.guarnier.domain.Orden;
 public interface OrdenRepository extends JpaRepository<Orden, Long> {
     //! Metodo para buscar una orden en base a su estado
     List<Orden> findByEstado(Integer estado);
-
-    @Query(
-        "SELECT o FROM Orden o " +
-        "WHERE (:clienteId IS NULL OR o.cliente = :clienteId) " +
-        "AND (:accionId IS NULL OR o.accionId = :accionId) " +
-        "AND ((:fechaInicio IS NULL AND :fechaFin IS NULL) " +
-        "      OR (o.fecha >= :fechaInicioDate AND o.fecha <= :fechaFinDate))"
-    )
-    List<Orden> findReportes(
-        @Param("clienteId") Long clienteId,
-        @Param("accionId") Long accionId,
-        @Param("fechaInicio") LocalDateTime fechaInicio,
-        @Param("fechaFin") LocalDateTime fechaFin
-    );
+    // @Query(
+    //     "SELECT o FROM Orden o " +
+    //     "WHERE (:clienteId IS NULL OR o.cliente = :clienteId) " +
+    //     "AND (:accionId IS NULL OR o.accionId = :accionId) " +
+    //     "AND ((:fechaInicio IS NULL AND :fechaFin IS NULL) " +
+    //     "      OR (o.fecha >= :fechaInicioDate AND o.fecha <= :fechaFinDate))"
+    // )
+    // List<Orden> findReportes(
+    //     @Param("clienteId") Long clienteId,
+    //     @Param("accionId") Long accionId,
+    //     @Param("fechaInicio") LocalDateTime fechaInicio,
+    //     @Param("fechaFin") LocalDateTime fechaFin
+    // );
 }

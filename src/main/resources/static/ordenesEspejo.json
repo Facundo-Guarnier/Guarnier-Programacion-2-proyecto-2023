@@ -1,0 +1,52 @@
+[
+  {
+    "cliente": 26366,
+    "accionId": 5,
+    "accion": "MSFT",
+    "operacion": "COMPRA",
+    "precio": null,
+    "cantidad": 10,
+    "fechaOperacion": "2023-09-25T17:00:00Z",
+    "modo": "AHORA"
+  },
+  {
+    "cliente": 26369,
+    "accionId": 3,
+    "accion": "INTC",
+    "operacion": "COMPRA",
+    "precio": null,
+    "cantidad": 100,
+    "fechaOperacion": "2023-09-25T13:08:20Z",
+    "modo": "AHORA"
+  },
+  {
+    "cliente": 26370,
+    "accionId": 8,
+    "accion": "ALUA",
+    "operacion": "VENTA",
+    "precio": null,
+    "cantidad": 5,
+    "fechaOperacion": "2023-09-25T03:00:00Z",
+    "modo": "FINDIA"
+  },
+  {
+    "cliente": 26371,
+    "accionId": 13,
+    "accion": "PAM",
+    "operacion": "COMPRA",
+    "precio": null,
+    "cantidad": 80,
+    "fechaOperacion": "2023-09-25T13:00:00Z",
+    "modo": "FINDIA"
+  },
+  {
+    "cliente": 26374,
+    "accionId": 12,
+    "accion": "GLOB",
+    "operacion": "VENTA",
+    "precio": null,
+    "cantidad": 5,
+    "fechaOperacion": "2023-09-25T13:00:00Z",
+    "modo": "AHORA"
+  }
+]

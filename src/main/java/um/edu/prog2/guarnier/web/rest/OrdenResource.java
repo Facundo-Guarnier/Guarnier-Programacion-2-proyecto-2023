@@ -14,9 +14,8 @@ import org.springframework.web.bind.annotation.*;
 import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.ResponseUtil;
 import um.edu.prog2.guarnier.repository.OrdenRepository;
-import um.edu.prog2.guarnier.service.AnalizadorDeOrdenesService;
 import um.edu.prog2.guarnier.service.OrdenService;
-import um.edu.prog2.guarnier.service.ServicioExternoService;
+import um.edu.prog2.guarnier.service.ProcesamientoDeOrdenesService;
 import um.edu.prog2.guarnier.service.dto.OrdenDTO;
 import um.edu.prog2.guarnier.web.rest.errors.BadRequestAlertException;
 
@@ -37,10 +36,7 @@ public class OrdenResource {
     private final OrdenService ordenService;
 
     @Autowired
-    ServicioExternoService servicioExternoService;
-
-    @Autowired
-    AnalizadorDeOrdenesService analizadorDeOrdenesService;
+    ProcesamientoDeOrdenesService pos;
 
     private final OrdenRepository ordenRepository;
 
@@ -52,11 +48,11 @@ public class OrdenResource {
     //T* Metodos generados por mi
     //! Endpoint para borrar todas las ordenes
     @DeleteMapping("/ordens")
-    public ResponseEntity<Void> borrarOrdenes() {
+    public String borrarOrdenes() {
         log.debug("REST para borrar las ordenes");
         ordenService.deleteAll();
-
-        return ResponseEntity.noContent().headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, "borrar")).build();
+        return "Ordenes borradas";
+        // return ResponseEntity.noContent().headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, "borrar")).build();
     }
 
     //T* Metodos generados por JHipster
