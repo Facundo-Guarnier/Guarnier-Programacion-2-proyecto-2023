@@ -34,7 +34,6 @@
 
 [ ] Hacer un endpoint para obtener reportes en base a filtros (cliente, accion, fecha, etc.)
 [ ] Hay que verificar la cantidad de acciones para poder vender, tanto en AHORA como en PROGRAMADAS. Creo que es el endpoint que falta.
-[ ] Hacer que se ejecuten los test, "mvn test" no los ejecuta.
 [ ] Seguridad: Miapi con JWT.
 [ ] Arreglar para que el JWT de la cátedra esté en un .env.
 
@@ -47,3 +46,7 @@
 [x] Corregir el método getJWT de la catedraAPI.
 [x] Hacer que las ordenes se guarden en una BD y que de ahi las lea para procesar.
 [x] Hacer un endpoint que se ejecute como si fuera el main que tengo ahora.
+
+npm run app:start
+mvn test
+mvn -Dtest=ProcesamientoDeOrdenesServiceTest test

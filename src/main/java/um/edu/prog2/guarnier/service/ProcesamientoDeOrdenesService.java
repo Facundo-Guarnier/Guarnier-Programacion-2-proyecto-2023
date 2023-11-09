@@ -20,8 +20,8 @@ public class ProcesamientoDeOrdenesService {
 
     private final Logger log = LoggerFactory.getLogger(ProcesamientoDeOrdenesService.class);
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(2);
-    public List<OrdenDTO> ordenesProcesadas = new ArrayList<OrdenDTO>();
-    public List<OrdenDTO> ordenesFallidas = new ArrayList<OrdenDTO>();
+    private List<OrdenDTO> ordenesProcesadas = new ArrayList<OrdenDTO>();
+    private List<OrdenDTO> ordenesFallidas = new ArrayList<OrdenDTO>();
 
     @Autowired
     VerificadorDeOrdenesService vos;
@@ -58,13 +58,13 @@ public class ProcesamientoDeOrdenesService {
         this.ordenesProcesadas.clear();
         this.ordenesFallidas.clear();
 
-        log.debug("Analizando ordenes");
         try {
             ordenService
                 .findPendientes()
                 .forEach(orden -> {
                     log.debug("Procesando ordenes instantáneas: " + orden);
                     if (vos.puedeRealizarOperacion(orden)) {
+                        System.out.println("\n\nPuede operar");
                         this.ordenesProcesadas.add(oos.esPosibleOperar(orden));
                     } else {
                         this.ordenesFallidas.add(oos.noEsPosibleOperar(orden));
