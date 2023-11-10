@@ -28,6 +28,7 @@ public class VerificadorDeOrdenesService {
         ZonedDateTime fechaHoraLocal = fechaHora.withZoneSameInstant(zonaHoraria);
         int hora = fechaHoraLocal.getHour();
 
+        //* Para cuando tenga la fecha en formato ZonedDateTime en la DB
         // ZonedDateTime fechaDeOrden = orden.getFechaOperacion();
         // int hora = fechaDeOrden.getHour();
 

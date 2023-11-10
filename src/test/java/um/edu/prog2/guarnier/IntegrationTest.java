@@ -6,7 +6,6 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
-import um.edu.prog2.guarnier.Prog2App;
 import um.edu.prog2.guarnier.config.AsyncSyncConfiguration;
 import um.edu.prog2.guarnier.config.EmbeddedSQL;
 

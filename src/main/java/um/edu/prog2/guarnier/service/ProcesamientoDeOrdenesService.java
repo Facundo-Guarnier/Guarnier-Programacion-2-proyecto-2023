@@ -64,7 +64,6 @@ public class ProcesamientoDeOrdenesService {
                 .forEach(orden -> {
                     log.debug("Procesando ordenes instantáneas: " + orden);
                     if (vos.puedeRealizarOperacion(orden)) {
-                        System.out.println("\n\nPuede operar");
                         this.ordenesProcesadas.add(oos.esPosibleOperar(orden));
                     } else {
                         this.ordenesFallidas.add(oos.noEsPosibleOperar(orden));

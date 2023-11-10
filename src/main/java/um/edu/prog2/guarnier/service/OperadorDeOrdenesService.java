@@ -25,7 +25,7 @@ public class OperadorDeOrdenesService {
 
     //! Para cuando no puede realizarse la operación.
     public OrdenDTO noEsPosibleOperar(OrdenDTO orden) {
-        log.debug("No es posible realizar la operacion");
+        log.debug("No es posible realizar la operacion" + orden.getId());
         ordenService.update(orden);
         return orden;
     }
@@ -44,6 +44,8 @@ public class OperadorDeOrdenesService {
             comprarOrden(orden);
         } else if (orden.getOperacion().equals("VENTA")) {
             venderOrden(orden);
+        } else {
+            return null;
         }
 
         return orden;
