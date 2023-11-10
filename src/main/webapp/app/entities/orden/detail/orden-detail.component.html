@@ -34,10 +34,6 @@
         <dd>
           <span>{{ orden.cantidad }}</span>
         </dd>
-        <dt><span jhiTranslate="prog2App.orden.fechaOperacion">Fecha Operacion</span></dt>
-        <dd>
-          <span>{{ orden.fechaOperacion }}</span>
-        </dd>
         <dt><span jhiTranslate="prog2App.orden.modo">Modo</span></dt>
         <dd>
           <span>{{ orden.modo }}</span>
@@ -57,6 +53,10 @@
         <dt><span jhiTranslate="prog2App.orden.cliente">Cliente</span></dt>
         <dd>
           <span>{{ orden.cliente }}</span>
+        </dd>
+        <dt><span jhiTranslate="prog2App.orden.fechaOperacion">Fecha Operacion</span></dt>
+        <dd>
+          <span>{{ orden.fechaOperacion | formatMediumDatetime }}</span>
         </dd>
       </dl>
 

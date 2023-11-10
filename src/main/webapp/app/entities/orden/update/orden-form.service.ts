@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
+import dayjs from 'dayjs/esm';
+import { DATE_TIME_FORMAT } from 'app/config/input.constants';
 import { IOrden, NewOrden } from '../orden.model';
 
 /**
@@ -14,21 +16,32 @@ type PartialWithRequiredKeyOf<T extends { id: unknown }> = Partial<Omit<T, 'id'>
  */
 type OrdenFormGroupInput = IOrden | PartialWithRequiredKeyOf<NewOrden>;
 
-type OrdenFormDefaults = Pick<NewOrden, 'id'>;
+/**
+ * Type that converts some properties for forms.
+ */
+type FormValueOf<T extends IOrden | NewOrden> = Omit<T, 'fechaOperacion'> & {
+  fechaOperacion?: string | null;
+};
+
+type OrdenFormRawValue = FormValueOf<IOrden>;
+
+type NewOrdenFormRawValue = FormValueOf<NewOrden>;
+
+type OrdenFormDefaults = Pick<NewOrden, 'id' | 'fechaOperacion'>;
 
 type OrdenFormGroupContent = {
-  id: FormControl<IOrden['id'] | NewOrden['id']>;
-  accionId: FormControl<IOrden['accionId']>;
-  accion: FormControl<IOrden['accion']>;
-  operacion: FormControl<IOrden['operacion']>;
-  precio: FormControl<IOrden['precio']>;
-  cantidad: FormControl<IOrden['cantidad']>;
-  fechaOperacion: FormControl<IOrden['fechaOperacion']>;
-  modo: FormControl<IOrden['modo']>;
-  estado: FormControl<IOrden['estado']>;
-  descripcion: FormControl<IOrden['descripcion']>;
-  clienteNombre: FormControl<IOrden['clienteNombre']>;
-  cliente: FormControl<IOrden['cliente']>;
+  id: FormControl<OrdenFormRawValue['id'] | NewOrden['id']>;
+  accionId: FormControl<OrdenFormRawValue['accionId']>;
+  accion: FormControl<OrdenFormRawValue['accion']>;
+  operacion: FormControl<OrdenFormRawValue['operacion']>;
+  precio: FormControl<OrdenFormRawValue['precio']>;
+  cantidad: FormControl<OrdenFormRawValue['cantidad']>;
+  modo: FormControl<OrdenFormRawValue['modo']>;
+  estado: FormControl<OrdenFormRawValue['estado']>;
+  descripcion: FormControl<OrdenFormRawValue['descripcion']>;
+  clienteNombre: FormControl<OrdenFormRawValue['clienteNombre']>;
+  cliente: FormControl<OrdenFormRawValue['cliente']>;
+  fechaOperacion: FormControl<OrdenFormRawValue['fechaOperacion']>;
 };
 
 export type OrdenFormGroup = FormGroup<OrdenFormGroupContent>;
@@ -36,10 +49,10 @@ export type OrdenFormGroup = FormGroup<OrdenFormGroupContent>;
 @Injectable({ providedIn: 'root' })
 export class OrdenFormService {
   createOrdenFormGroup(orden: OrdenFormGroupInput = { id: null }): OrdenFormGroup {
-    const ordenRawValue = {
+    const ordenRawValue = this.convertOrdenToOrdenRawValue({
       ...this.getFormDefaults(),
       ...orden,
-    };
+    });
     return new FormGroup<OrdenFormGroupContent>({
       id: new FormControl(
         { value: ordenRawValue.id, disabled: true },
@@ -53,21 +66,21 @@ export class OrdenFormService {
       operacion: new FormControl(ordenRawValue.operacion),
       precio: new FormControl(ordenRawValue.precio),
       cantidad: new FormControl(ordenRawValue.cantidad),
-      fechaOperacion: new FormControl(ordenRawValue.fechaOperacion),
       modo: new FormControl(ordenRawValue.modo),
       estado: new FormControl(ordenRawValue.estado),
       descripcion: new FormControl(ordenRawValue.descripcion),
       clienteNombre: new FormControl(ordenRawValue.clienteNombre),
       cliente: new FormControl(ordenRawValue.cliente),
+      fechaOperacion: new FormControl(ordenRawValue.fechaOperacion),
     });
   }
 
   getOrden(form: OrdenFormGroup): IOrden | NewOrden {
-    return form.getRawValue() as IOrden | NewOrden;
+    return this.convertOrdenRawValueToOrden(form.getRawValue() as OrdenFormRawValue | NewOrdenFormRawValue);
   }
 
   resetForm(form: OrdenFormGroup, orden: OrdenFormGroupInput): void {
-    const ordenRawValue = { ...this.getFormDefaults(), ...orden };
+    const ordenRawValue = this.convertOrdenToOrdenRawValue({ ...this.getFormDefaults(), ...orden });
     form.reset(
       {
         ...ordenRawValue,
@@ -77,8 +90,27 @@ export class OrdenFormService {
   }
 
   private getFormDefaults(): OrdenFormDefaults {
+    const currentTime = dayjs();
+
     return {
       id: null,
+      fechaOperacion: currentTime,
+    };
+  }
+
+  private convertOrdenRawValueToOrden(rawOrden: OrdenFormRawValue | NewOrdenFormRawValue): IOrden | NewOrden {
+    return {
+      ...rawOrden,
+      fechaOperacion: dayjs(rawOrden.fechaOperacion, DATE_TIME_FORMAT),
+    };
+  }
+
+  private convertOrdenToOrdenRawValue(
+    orden: IOrden | (Partial<NewOrden> & OrdenFormDefaults)
+  ): OrdenFormRawValue | PartialWithRequiredKeyOf<NewOrdenFormRawValue> {
+    return {
+      ...orden,
+      fechaOperacion: orden.fechaOperacion ? orden.fechaOperacion.format(DATE_TIME_FORMAT) : undefined,
     };
   }
 }

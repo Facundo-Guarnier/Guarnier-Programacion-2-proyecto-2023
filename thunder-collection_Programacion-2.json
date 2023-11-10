@@ -1,7 +1,7 @@
 {
   "client": "Thunder Client",
   "collectionName": "Programacion-2",
-  "dateExported": "2023-11-08T16:29:41.948Z",
+  "dateExported": "2023-11-10T22:13:29.828Z",
   "version": "1.1",
   "folders": [
     {
@@ -55,10 +55,17 @@
     },
     {
       "_id": "9a65ce60-fa8a-4387-aff0-7cdf5e3f4a23",
-      "name": "Procesar",
+      "name": "Cargar y Procesar",
       "containerId": "7e7fb423-794f-4c92-981c-f30910ec9057",
       "created": "2023-11-06T21:54:02.747Z",
       "sortNum": 80000
+    },
+    {
+      "_id": "92cab647-1a84-4dfc-a730-7cd68d53ea28",
+      "name": "Reportes",
+      "containerId": "7e7fb423-794f-4c92-981c-f30910ec9057",
+      "created": "2023-11-10T19:30:53.307Z",
+      "sortNum": 90000
     }
   ],
   "requests": [
@@ -144,12 +151,12 @@
       "method": "POST",
       "sortNum": 10000,
       "created": "2023-10-31T11:57:27.435Z",
-      "modified": "2023-11-04T16:16:05.198Z",
+      "modified": "2023-11-09T19:12:58.593Z",
       "headers": [],
       "params": [],
       "body": {
         "type": "json",
-        "raw": "{\n\"ordenes\": [\n\n]\n}",
+        "raw": "\n\n\n{\"ordenes\":[{\"cliente\":26365,\"accionId\":2,\"accion\":\"GOOGL\",\"operacion\":\"VENTA\",\"cantidad\":5,\"precio\":50,\"fechaOperacion\":\"2023-09-25T03:00:00Z\",\"modo\":\"PRINCIPIODIA\",\"operacionExitosa\":false\n,\"operacionObservaciones\":\"ok\"}]}\n",
         "form": []
       },
       "auth": {
@@ -167,7 +174,7 @@
       "method": "GET",
       "sortNum": 10000,
       "created": "2023-11-04T19:50:44.758Z",
-      "modified": "2023-11-08T16:29:23.349Z",
+      "modified": "2023-11-10T20:44:10.103Z",
       "headers": [],
       "params": [],
       "auth": {
@@ -191,6 +198,38 @@
       "modified": "2023-11-08T16:29:17.841Z",
       "headers": [],
       "params": [],
+      "auth": {
+        "type": "basic",
+        "basic": {
+          "username": "admin",
+          "password": "admin"
+        }
+      },
+      "tests": []
+    },
+    {
+      "_id": "d8d0de34-4cf0-4a20-bfc8-31f5a538b9bc",
+      "colId": "c975f9fb-6a22-4042-8864-c682424ade3f",
+      "containerId": "92cab647-1a84-4dfc-a730-7cd68d53ea28",
+      "name": "Buscar reportes con filtros ",
+      "url": "http://localhost:8080/miapi/reporte?fechaInicio=2023-11-10T12:01:00Z&fechaFin=2023-11-10T13:00:00Z",
+      "method": "GET",
+      "sortNum": 10000,
+      "created": "2023-11-10T19:35:23.652Z",
+      "modified": "2023-11-10T20:50:25.483Z",
+      "headers": [],
+      "params": [
+        {
+          "name": "fechaInicio",
+          "value": "2023-11-10T12:01:00Z",
+          "isPath": false
+        },
+        {
+          "name": "fechaFin",
+          "value": "2023-11-10T13:00:00Z",
+          "isPath": false
+        }
+      ],
       "auth": {
         "type": "basic",
         "basic": {
@@ -424,15 +463,38 @@
       "tests": []
     },
     {
-      "_id": "b3bd145f-9658-495a-b1ed-f1ca4f541dc3",
+      "_id": "ca61178c-e8b0-4c33-97f1-812f370287e9",
       "colId": "c975f9fb-6a22-4042-8864-c682424ade3f",
-      "containerId": "9a65ce60-fa8a-4387-aff0-7cdf5e3f4a23",
-      "name": "Procesar Ordenes Todas",
-      "url": "http://localhost:8080/miapi/procesar/todas",
+      "containerId": "ccae4225-783c-4dd7-848f-a4834bc8772f",
+      "name": "Orden espejo (ejemplo)",
+      "url": "http://192.168.194.254:8000/api/ordenes/espejo",
+      "method": "POST",
+      "sortNum": 30000,
+      "created": "2023-11-07T20:53:48.418Z",
+      "modified": "2023-11-09T19:05:04.313Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\r\n  \"ordenes\": [\r\n    {\r\n      \"id\": null,\r\n      \"cliente\": 26371,\r\n      \"clienteNombre\": null,\r\n      \"accionId\": 13,\r\n      \"accion\": \"PAM\",\r\n      \"operacion\": \"COMPRA\",\r\n      \"precio\": null,\r\n      \"cantidad\": 80,\r\n      \"fechaOperacion\": \"2023-09-25T13:00:00Z\",\r\n      \"modo\": \"FINDIA\",\r\n      \"estado\": null,\r\n      \"descripcion\": null\r\n    },\r\n    {\r\n      \"id\": null,\r\n      \"cliente\": 26366,\r\n      \"clienteNombre\": null,\r\n      \"accionId\": 5,\r\n      \"accion\": \"MSFT\",\r\n      \"operacion\": \"COMPRA\",\r\n      \"precio\": null,\r\n      \"cantidad\": 10,\r\n      \"fechaOperacion\": \"2023-09-25T17:00:00Z\",\r\n      \"modo\": \"AHORA\",\r\n      \"estado\": null,\r\n      \"descripcion\": null\r\n    }\r\n  ]\r\n}\r\n",
+        "form": []
+      },
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{TOKEN}}"
+      },
+      "tests": []
+    },
+    {
+      "_id": "0297aa6a-d3cb-4526-8251-ba0916e1fe67",
+      "colId": "c975f9fb-6a22-4042-8864-c682424ade3f",
+      "containerId": "5b0ed15f-f094-40e3-b32d-5386e7f626ae",
+      "name": "Cargar ordenes Catedra Espejo",
+      "url": "http://localhost:8080/miapi/cargar/nuevas/3",
       "method": "GET",
       "sortNum": 30000,
-      "created": "2023-11-04T20:44:57.014Z",
-      "modified": "2023-11-08T16:29:28.838Z",
+      "created": "2023-11-09T16:56:52.093Z",
+      "modified": "2023-11-09T16:57:10.442Z",
       "headers": [],
       "params": [],
       "auth": {
@@ -445,25 +507,23 @@
       "tests": []
     },
     {
-      "_id": "ca61178c-e8b0-4c33-97f1-812f370287e9",
+      "_id": "bd33219c-4abd-4efb-9d0f-029e31dbf634",
       "colId": "c975f9fb-6a22-4042-8864-c682424ade3f",
-      "containerId": "ccae4225-783c-4dd7-848f-a4834bc8772f",
-      "name": "Orden espejo (ejemplo)",
-      "url": "http://192.168.194.254:8000/api/ordenes/espejo",
-      "method": "POST",
+      "containerId": "9a65ce60-fa8a-4387-aff0-7cdf5e3f4a23",
+      "name": "Cargar y procesar Ordenes Catedra Espejo",
+      "url": "http://localhost:8080/miapi/procesar/nuevas/3",
+      "method": "GET",
       "sortNum": 30000,
-      "created": "2023-11-07T20:53:48.418Z",
-      "modified": "2023-11-07T20:56:22.538Z",
+      "created": "2023-11-09T19:19:47.874Z",
+      "modified": "2023-11-09T19:19:58.645Z",
       "headers": [],
       "params": [],
-      "body": {
-        "type": "json",
-        "raw": "{\n  \"ordenes\": [\n  \n  ]\n}",
-        "form": []
-      },
       "auth": {
-        "type": "bearer",
-        "bearer": "{{TOKEN}}"
+        "type": "basic",
+        "basic": {
+          "username": "admin",
+          "password": "admin"
+        }
       },
       "tests": []
     },
@@ -536,6 +596,27 @@
       "auth": {
         "type": "bearer",
         "bearer": "{{TOKEN}}"
+      },
+      "tests": []
+    },
+    {
+      "_id": "b3bd145f-9658-495a-b1ed-f1ca4f541dc3",
+      "colId": "c975f9fb-6a22-4042-8864-c682424ade3f",
+      "containerId": "7e7fb423-794f-4c92-981c-f30910ec9057",
+      "name": "Procesar Ordenes Todas",
+      "url": "http://localhost:8080/miapi/procesar/todas",
+      "method": "GET",
+      "sortNum": 42500,
+      "created": "2023-11-04T20:44:57.014Z",
+      "modified": "2023-11-08T16:29:28.838Z",
+      "headers": [],
+      "params": [],
+      "auth": {
+        "type": "basic",
+        "basic": {
+          "username": "admin",
+          "password": "admin"
+        }
       },
       "tests": []
     },

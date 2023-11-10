@@ -23,10 +23,6 @@
       "fieldType": "Integer"
     },
     {
-      "fieldName": "fechaOperacion",
-      "fieldType": "String"
-    },
-    {
       "fieldName": "modo",
       "fieldType": "String"
     },
@@ -45,6 +41,10 @@
     {
       "fieldName": "cliente",
       "fieldType": "Integer"
+    },
+    {
+      "fieldName": "fechaOperacion",
+      "fieldType": "ZonedDateTime"
     }
   ],
   "jpaMetamodelFiltering": false,

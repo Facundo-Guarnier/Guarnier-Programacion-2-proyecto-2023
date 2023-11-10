@@ -154,7 +154,11 @@ public class OrdenResource {
     @GetMapping("/ordens")
     public List<OrdenDTO> getAllOrdens() {
         log.debug("REST request to get all Ordens");
-        return ordenService.findAll();
+
+        List<OrdenDTO> ordenes = ordenService.findAll();
+        System.out.println("\n\n\nOrdenResource.getAllOrdens()\nOrdenes en DB: " + ordenes + "\n\n\n");
+
+        return ordenes;
     }
 
     /**

@@ -1,11 +1,11 @@
-id;accion_id;accion;operacion;precio;cantidad;fecha_operacion;modo;estado;descripcion;cliente_nombre;cliente
-1;29619;integrated Genérico;Pollo Asociado Guapo;65493;54080;Arquitecto a;e-commerce;78867;feed;Humano SQL Joyería;32215
-2;2289;invoice Bricolaje;en protocol;67294;93749;Buckinghamshire;Account;48257;Manat protocol;colaboración;62451
-3;81413;Refinado;Madera Namibia;35530;94696;Ensalada Adelante;iterate customized;9735;moderador Account;sistémica reboot Genérico;15091
-4;78975;Acero Rial program;website driver;99733;74645;Tunez Madera withdrawal;Funcionario Jefe;20936;revolutionize;overriding Gris Lugar;28616
-5;90589;Principado invoice deposit;Facilitador;81308;42524;Acero B2C;microchip;43463;Camerún;Buckinghamshire back Gris;26907
-6;33775;Bebes Arrabal;Azul División Patatas;15674;81233;Guarani optical;integrate;3687;Cambridgeshire Camiseta holistic;Soporte optimize;61646
-7;78306;1080p Bloque SAS;Investment;86156;57074;1080p;leverage back-end Bajada;90512;Afganistán;Personal;28832
-8;16908;Videojuegos;didactica Ergonómico back-end;3938;16152;Nepal;Pequeño monitor;72448;Buckinghamshire Valenciana Salud;Informática mano;26892
-9;28344;SQL Datos Avon;fases Moldavia;3051;24684;Account calculate Hogar;Parafarmacia;96907;Bedfordshire;Namibia;4077
-10;20310;HDD Negro;Nauru proyecto pixel;49765;43754;back;Inteligente Mascotas artificial;64887;transition Algodón Buckinghamshire;neural transmitter Ordenador;76921
+id;accion_id;accion;operacion;precio;cantidad;modo;estado;descripcion;cliente_nombre;cliente;fecha_operacion
+1;29619;integrated Genérico;Pollo Asociado Guapo;65493;54080;Arquitecto a;26293;Account Metal;state Sincronizado;87022;2023-11-02T20:25:45
+2;31411;adaptador invoice Bricolaje;en protocol;67294;93749;Buckinghamshire;29329;y payment;protocol Enfocado Mongolia;13604;2023-11-02T19:21:34
+3;89331;Electrónica Madera;invoice División;89048;70334;calculate iterate customized;9735;moderador Account;sistémica reboot Genérico;15091;2023-11-02T01:34:32
+4;78443;Música;calculating Mercados Representante;1930;97513;input Heredado Public-key;47820;holistic iterate program;generating overriding;19684;2023-11-02T10:59:58
+5;32153;Salida Director;Patatas;18134;83219;Facilitador;81308;robust a;Hecho redundant;53846;2023-11-02T16:41:24
+6;25394;Buckinghamshire back Gris;turn-key;50199;42334;Genérico Hormigon;3828;Gerente;Card Asistente Clonado;4732;2023-11-02T02:41:23
+7;3687;Cambridgeshire Camiseta holistic;Soporte optimize;61646;78306;1080p Bloque SAS;14250;Avon Asturias;users Sopa Guinea-Bisau;7559;2023-11-02T01:57:46
+8;90512;Afganistán;Personal;28832;16908;Videojuegos;91052;didactica;Ingeniería;8565;2023-11-02T19:35:02
+9;16152;Nepal;Pequeño monitor;72448;83585;digital Serbia;67923;Andalucía deposit Zapatos;web;28335;2023-11-02T17:44:48
+10;95617;payment Práctico Loan;Madera SAS;61829;96352;Operaciones;3009;Decoración Bedfordshire Bricolaje;Granito Teclado Nauru;30861;2023-11-02T01:14:32

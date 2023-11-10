@@ -6,12 +6,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
+import um.edu.prog2.guarnier.domain.Orden;
 import um.edu.prog2.guarnier.service.OrdenService;
 import um.edu.prog2.guarnier.service.ProcesamientoDeOrdenesService;
 import um.edu.prog2.guarnier.service.dto.OrdenDTO;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/miapi")
 public class ReporteResource {
 
     private final Logger log = LoggerFactory.getLogger(ReporteResource.class);
@@ -26,10 +27,11 @@ public class ReporteResource {
     OrdenService ordenService;
 
     //! Endpoint para ver el reporte de ordenes segun los filtros aplicados.
+
     @GetMapping("/reporte")
     public List<OrdenDTO> getReporte(
-        @RequestParam(name = "clienteId", required = false) Long clienteId,
-        @RequestParam(name = "accionId", required = false) Long accionId,
+        @RequestParam(name = "clienteId", required = false) Integer clienteId,
+        @RequestParam(name = "accionId", required = false) Integer accionId,
         @RequestParam(name = "fechaInicio", required = false) String fechaInicioStr,
         @RequestParam(name = "fechaFin", required = false) String fechaFinStr
     ) {

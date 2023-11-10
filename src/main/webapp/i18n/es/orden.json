@@ -23,12 +23,12 @@
       "operacion": "Operacion",
       "precio": "Precio",
       "cantidad": "Cantidad",
-      "fechaOperacion": "Fecha Operacion",
       "modo": "Modo",
       "estado": "Estado",
       "descripcion": "Descripcion",
       "clienteNombre": "Cliente Nombre",
-      "cliente": "Cliente"
+      "cliente": "Cliente",
+      "fechaOperacion": "Fecha Operacion"
     }
   }
 }

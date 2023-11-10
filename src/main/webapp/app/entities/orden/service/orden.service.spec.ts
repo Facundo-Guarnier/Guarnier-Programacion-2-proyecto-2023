@@ -4,10 +4,11 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { IOrden } from '../orden.model';
 import { sampleWithRequiredData, sampleWithNewData, sampleWithPartialData, sampleWithFullData } from '../orden.test-samples';
 
-import { OrdenService } from './orden.service';
+import { OrdenService, RestOrden } from './orden.service';
 
-const requireRestSample: IOrden = {
+const requireRestSample: RestOrden = {
   ...sampleWithRequiredData,
+  fechaOperacion: sampleWithRequiredData.fechaOperacion?.toJSON(),
 };
 
 describe('Orden Service', () => {

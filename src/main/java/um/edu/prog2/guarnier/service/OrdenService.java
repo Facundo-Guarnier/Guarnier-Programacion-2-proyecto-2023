@@ -2,8 +2,9 @@ package um.edu.prog2.guarnier.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -81,9 +82,9 @@ public class OrdenService {
     }
 
     //! Método para buscar ordenes en base a los filtros aplicados.
-    public List<OrdenDTO> getReporte(Long clienteId, Long accionId, String fechaInicioStr, String fechaFinStr) {
+    public List<OrdenDTO> getReporte(Integer clienteId, Integer accionId, String fechaInicioStr, String fechaFinStr) {
         log.debug(
-            "Request para recibir todas las Ordenes con en base a clienteId:" +
+            "Request para recibir todas las Ordenes con en base a clienteId: " +
             clienteId +
             " accionId: " +
             accionId +
@@ -92,13 +93,35 @@ public class OrdenService {
             " fechaFin: " +
             fechaFinStr
         );
+        ZonedDateTime fechaInicio = null;
+        ZonedDateTime fechaFin = null;
 
-        DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
-        LocalDateTime fechaInicio = LocalDateTime.parse(fechaInicioStr, formatter);
-        LocalDateTime fechaFin = LocalDateTime.parse(fechaFinStr, formatter);
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
 
-        // ordenRepository.findReportes(clienteId, accionId, fechaInicio, fechaFin);
-        return null;
+            if (fechaInicioStr != null) {
+                fechaInicio = ZonedDateTime.parse(fechaInicioStr, formatter);
+            }
+
+            if (fechaFinStr != null) {
+                fechaFin = ZonedDateTime.parse(fechaFinStr, formatter);
+            }
+
+            List<OrdenDTO> ordenes = ordenRepository
+                .buscarReportes(clienteId, accionId, fechaInicio, fechaFin)
+                .stream()
+                .map(ordenMapper::toDto)
+                .collect(Collectors.toList());
+
+            return ordenes;
+        } catch (DateTimeParseException e) {
+            //TODO Mejorar el manejo de errores
+            System.out.println("\n\n\nOrdenService.getReporte()\nError al parsear las fechas en ordenService.getReporte()\n\n\n");
+            return null;
+        } catch (Exception e) {
+            System.out.println("\n\n\nOrdenService.getReporte()\nError al buscar en DB.\n\n\n" + e);
+            return null;
+        }
     }
 
     //T* Metodos creados por jhipster

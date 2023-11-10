@@ -1,3 +1,5 @@
+import dayjs from 'dayjs/esm';
+
 export interface IOrden {
   id: number;
   accionId?: number | null;
@@ -5,12 +7,12 @@ export interface IOrden {
   operacion?: string | null;
   precio?: number | null;
   cantidad?: number | null;
-  fechaOperacion?: string | null;
   modo?: string | null;
   estado?: number | null;
   descripcion?: string | null;
   clienteNombre?: string | null;
   cliente?: number | null;
+  fechaOperacion?: dayjs.Dayjs | null;
 }
 
 export type NewOrden = Omit<IOrden, 'id'> & { id: null };

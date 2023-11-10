@@ -25,12 +25,12 @@ describe('Orden Form Service', () => {
             operacion: expect.any(Object),
             precio: expect.any(Object),
             cantidad: expect.any(Object),
-            fechaOperacion: expect.any(Object),
             modo: expect.any(Object),
             estado: expect.any(Object),
             descripcion: expect.any(Object),
             clienteNombre: expect.any(Object),
             cliente: expect.any(Object),
+            fechaOperacion: expect.any(Object),
           })
         );
       });
@@ -46,12 +46,12 @@ describe('Orden Form Service', () => {
             operacion: expect.any(Object),
             precio: expect.any(Object),
             cantidad: expect.any(Object),
-            fechaOperacion: expect.any(Object),
             modo: expect.any(Object),
             estado: expect.any(Object),
             descripcion: expect.any(Object),
             clienteNombre: expect.any(Object),
             cliente: expect.any(Object),
+            fechaOperacion: expect.any(Object),
           })
         );
       });

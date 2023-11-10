@@ -1,3 +1,5 @@
+import dayjs from 'dayjs/esm';
+
 import { IOrden, NewOrden } from './orden.model';
 
 export const sampleWithRequiredData: IOrden = {
@@ -9,26 +11,26 @@ export const sampleWithPartialData: IOrden = {
   accionId: 8681,
   accion: 'deposit Hecho Guantes',
   operacion: 'content customized País',
-  fechaOperacion: 'en Etiopía Extremadura',
-  estado: 52515,
-  descripcion: 'a',
-  clienteNombre: 'Guapa state Colombia',
-  cliente: 17469,
+  modo: 'en Etiopía Extremadura',
+  descripcion: 'Pelota Estados',
+  clienteNombre: 'Madrid Diseñador digital',
+  cliente: 62295,
+  fechaOperacion: dayjs('2023-11-02T05:42'),
 };
 
 export const sampleWithFullData: IOrden = {
-  id: 45444,
-  accionId: 62295,
-  accion: 'Avon Granito',
-  operacion: 'RSS',
-  precio: 76870,
-  cantidad: 76864,
-  fechaOperacion: 'mejora Avon AI',
-  modo: 'ADP haptic Cataluña',
-  estado: 76479,
-  descripcion: 'Blanco Coordinador',
-  clienteNombre: 'fritas',
-  cliente: 63825,
+  id: 49172,
+  accionId: 15154,
+  accion: 'Granito Pizza Re-implementado',
+  operacion: 'mejora Avon AI',
+  precio: 95045,
+  cantidad: 88052,
+  modo: 'Ladrillo Toallas',
+  estado: 33476,
+  descripcion: 'Account Violeta evolve',
+  clienteNombre: 'calculate withdrawal Personal',
+  cliente: 4890,
+  fechaOperacion: dayjs('2023-11-02T13:35'),
 };
 
 export const sampleWithNewData: NewOrden = {

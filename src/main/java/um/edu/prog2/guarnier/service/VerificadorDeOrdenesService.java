@@ -28,10 +28,6 @@ public class VerificadorDeOrdenesService {
         ZonedDateTime fechaHoraLocal = fechaHora.withZoneSameInstant(zonaHoraria);
         int hora = fechaHoraLocal.getHour();
 
-        //* Para cuando tenga la fecha en formato ZonedDateTime en la DB
-        // ZonedDateTime fechaDeOrden = orden.getFechaOperacion();
-        // int hora = fechaDeOrden.getHour();
-
         //T* Condiciones:
         //! 1• Una orden instantánea no puede ejecutarse fuera del horario de transacciones,
         //!    antes de las 09:00 y después de las 18:00.

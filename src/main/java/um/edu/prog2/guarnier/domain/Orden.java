@@ -1,6 +1,7 @@
 package um.edu.prog2.guarnier.domain;
 
 import java.io.Serializable;
+import java.time.ZonedDateTime;
 import javax.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -36,9 +37,6 @@ public class Orden implements Serializable {
     @Column(name = "cantidad")
     private Integer cantidad;
 
-    @Column(name = "fecha_operacion")
-    private String fechaOperacion;
-
     @Column(name = "modo")
     private String modo;
 
@@ -53,6 +51,9 @@ public class Orden implements Serializable {
 
     @Column(name = "cliente")
     private Integer cliente;
+
+    @Column(name = "fecha_operacion")
+    private ZonedDateTime fechaOperacion;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -134,19 +135,6 @@ public class Orden implements Serializable {
         this.cantidad = cantidad;
     }
 
-    public String getFechaOperacion() {
-        return this.fechaOperacion;
-    }
-
-    public Orden fechaOperacion(String fechaOperacion) {
-        this.setFechaOperacion(fechaOperacion);
-        return this;
-    }
-
-    public void setFechaOperacion(String fechaOperacion) {
-        this.fechaOperacion = fechaOperacion;
-    }
-
     public String getModo() {
         return this.modo;
     }
@@ -212,6 +200,19 @@ public class Orden implements Serializable {
         this.cliente = cliente;
     }
 
+    public ZonedDateTime getFechaOperacion() {
+        return this.fechaOperacion;
+    }
+
+    public Orden fechaOperacion(ZonedDateTime fechaOperacion) {
+        this.setFechaOperacion(fechaOperacion);
+        return this;
+    }
+
+    public void setFechaOperacion(ZonedDateTime fechaOperacion) {
+        this.fechaOperacion = fechaOperacion;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -241,12 +242,12 @@ public class Orden implements Serializable {
             ", operacion='" + getOperacion() + "'" +
             ", precio=" + getPrecio() +
             ", cantidad=" + getCantidad() +
-            ", fechaOperacion='" + getFechaOperacion() + "'" +
             ", modo='" + getModo() + "'" +
             ", estado=" + getEstado() +
             ", descripcion='" + getDescripcion() + "'" +
             ", clienteNombre='" + getClienteNombre() + "'" +
             ", cliente=" + getCliente() +
+            ", fechaOperacion='" + getFechaOperacion() + "'" +
             "}";
     }
 }

@@ -6,6 +6,8 @@
 
 - Problema: ¿Hay que reportar las ordenes fallidas al POST de la cátedra? El POST de reportar creo que tiene que ser solo con las ordenes buenas, ya que las fallidas no son necesarias para actualizar la cantidad de acciones que tiene cada cliente.
 
+- Problema: Zona horaria. Hasta el punto en donde se guarda en la DB (OrdenService.save()) la orden mantiene la UTC. El problema está en OrdenRepository, el JPA parece que transforma de UTC a UTC-3 al momento de leer en la DB. Es un problema de lectura y no de escritura en la DB.
+
 - ✅ Ver si puedo cambiar el estado de formato STRING a un INTEGER (0: pendiente, 1: programado, 2: vendido, 3: comprado)
 
 - ✅ "Una orden debe tener asociado un cliente y una acción de una compañía."
@@ -30,12 +32,11 @@
 **TODO**:
 
 [ ] Hacer mas Test.
-
-[ ] Hacer un endpoint para obtener reportes en base a filtros (cliente, accion, fecha, etc.)
 [ ] Hay que verificar la cantidad de acciones para poder vender, tanto en AHORA como en PROGRAMADAS. Creo que es el endpoint que falta.
 [ ] Seguridad: Miapi con JWT.
 [ ] Arreglar para que el JWT de la cátedra esté en un .env.
 
+[x] Hacer un endpoint para obtener reportes en base a filtros (cliente, accion, fecha, etc.)
 [x] Hacer uso del espejo
 [x] Hacer que el Servicio ReportarOperaciones envíe los resultados de las ordenes al endpoint de la cátedra (Tener en cuenta el formato reporte-operaciones).
 [x] Corregir en "ProcesamientoDeOrdenesService" que busca las acciones y clientes por "nombre" y no por "id".
@@ -49,3 +50,55 @@
 npm run app:start
 mvn test
 mvn -Dtest=ProcesamientoDeOrdenesServiceTest test
+
+,
+{
+"cliente": 26363,
+"accionId": 3,
+"accion": "INTC",
+"operacion": "COMPRA",
+"precio": null,
+"cantidad": 0,
+"fechaOperacion": "2023-11-08T13:00:00Z",
+"modo": "AHORA"
+},
+{
+"cliente": 26370,
+"accionId": 1,
+"accion": "GOOGL",
+"operacion": "VENTA",
+"precio": null,
+"cantidad": 5,
+"fechaOperacion": "2023-11-09T03:00:00Z",
+"modo": "FINDIA"
+},
+{
+"cliente": 26363,
+"accionId": 4,
+"accion": "KO",
+"operacion": "COMPRA",
+"precio": null,
+"cantidad": 80,
+"fechaOperacion": "2023-11-10T09:30:00Z",
+"modo": "AHORA"
+},
+{
+"cliente": 26370,
+"accionId": 6,
+"accion": "YPF",
+"operacion": "VENTA",
+"precio": null,
+"cantidad": 5,
+"fechaOperacion": "2023-11-10T12:00:00Z",
+"modo": "AHORA"
+},
+{
+"cliente": 26371,
+"accionId": 2,
+"accion": "GOOGL",
+"operacion": "VENTA",
+"precio": null,
+"cantidad": 5,
+"fechaOperacion": "2023-11-12T03:00:00Z",
+"modo": "PRINCIPIODIA"
+}
