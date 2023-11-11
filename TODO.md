@@ -31,11 +31,14 @@
 
 **TODO**:
 
-[ ] Hacer mas Test.
-[ ] Hay que verificar la cantidad de acciones para poder vender, tanto en AHORA como en PROGRAMADAS. Creo que es el endpoint que falta.
-[ ] Seguridad: Miapi con JWT.
 [ ] Arreglar para que el JWT de la cátedra esté en un .env.
 
+[ ] Mejorar los returns de los Resources.
+[ ] Hacer mas Test.
+[ ] Hay que verificar la cantidad de acciones para poder vender, tanto en AHORA como en PROGRAMADAS. Creo que es el endpoint que falta.
+
+[x] Seguridad: Miapi con JWT.
+[x] Logs en la parte nueva de reportes.
 [x] Hacer un endpoint para obtener reportes en base a filtros (cliente, accion, fecha, etc.)
 [x] Hacer uso del espejo
 [x] Hacer que el Servicio ReportarOperaciones envíe los resultados de las ordenes al endpoint de la cátedra (Tener en cuenta el formato reporte-operaciones).

@@ -1,7 +1,7 @@
 {
   "client": "Thunder Client",
   "collectionName": "Programacion-2",
-  "dateExported": "2023-11-10T22:13:29.828Z",
+  "dateExported": "2023-11-11T13:33:32.823Z",
   "version": "1.1",
   "folders": [
     {
@@ -174,15 +174,12 @@
       "method": "GET",
       "sortNum": 10000,
       "created": "2023-11-04T19:50:44.758Z",
-      "modified": "2023-11-10T20:44:10.103Z",
+      "modified": "2023-11-11T13:28:09.795Z",
       "headers": [],
       "params": [],
       "auth": {
-        "type": "basic",
-        "basic": {
-          "username": "admin",
-          "password": "admin"
-        }
+        "type": "bearer",
+        "bearer": "{{MITOKEN}}"
       },
       "tests": []
     },
@@ -195,15 +192,12 @@
       "method": "GET",
       "sortNum": 10000,
       "created": "2023-11-06T21:51:55.656Z",
-      "modified": "2023-11-08T16:29:17.841Z",
+      "modified": "2023-11-11T13:28:21.617Z",
       "headers": [],
       "params": [],
       "auth": {
-        "type": "basic",
-        "basic": {
-          "username": "admin",
-          "password": "admin"
-        }
+        "type": "bearer",
+        "bearer": "{{MITOKEN}}"
       },
       "tests": []
     },
@@ -212,16 +206,16 @@
       "colId": "c975f9fb-6a22-4042-8864-c682424ade3f",
       "containerId": "92cab647-1a84-4dfc-a730-7cd68d53ea28",
       "name": "Buscar reportes con filtros ",
-      "url": "http://localhost:8080/miapi/reporte?fechaInicio=2023-11-10T12:01:00Z&fechaFin=2023-11-10T13:00:00Z",
+      "url": "http://localhost:8080/miapi/reporte?fechaInicio=2023-10-10T12:01:00Z&fechaFin=2023-11-10T13:00:00Z",
       "method": "GET",
       "sortNum": 10000,
       "created": "2023-11-10T19:35:23.652Z",
-      "modified": "2023-11-10T20:50:25.483Z",
+      "modified": "2023-11-11T13:28:50.001Z",
       "headers": [],
       "params": [
         {
           "name": "fechaInicio",
-          "value": "2023-11-10T12:01:00Z",
+          "value": "2023-10-10T12:01:00Z",
           "isPath": false
         },
         {
@@ -231,11 +225,8 @@
         }
       ],
       "auth": {
-        "type": "basic",
-        "basic": {
-          "username": "admin",
-          "password": "admin"
-        }
+        "type": "bearer",
+        "bearer": "{{MITOKEN}}"
       },
       "tests": []
     },
@@ -338,15 +329,12 @@
       "method": "GET",
       "sortNum": 20000,
       "created": "2023-11-04T14:56:39.021Z",
-      "modified": "2023-11-08T16:29:25.988Z",
+      "modified": "2023-11-11T13:28:06.183Z",
       "headers": [],
       "params": [],
       "auth": {
-        "type": "basic",
-        "basic": {
-          "username": "admin",
-          "password": "admin"
-        }
+        "type": "bearer",
+        "bearer": "{{MITOKEN}}"
       },
       "tests": []
     },
@@ -359,15 +347,12 @@
       "method": "GET",
       "sortNum": 20000,
       "created": "2023-11-06T21:52:24.896Z",
-      "modified": "2023-11-08T16:29:21.089Z",
+      "modified": "2023-11-11T13:28:18.394Z",
       "headers": [],
       "params": [],
       "auth": {
-        "type": "basic",
-        "basic": {
-          "username": "admin",
-          "password": "admin"
-        }
+        "type": "bearer",
+        "bearer": "{{MITOKEN}}"
       },
       "tests": []
     },
@@ -494,15 +479,12 @@
       "method": "GET",
       "sortNum": 30000,
       "created": "2023-11-09T16:56:52.093Z",
-      "modified": "2023-11-09T16:57:10.442Z",
+      "modified": "2023-11-11T13:28:14.499Z",
       "headers": [],
       "params": [],
       "auth": {
-        "type": "basic",
-        "basic": {
-          "username": "admin",
-          "password": "admin"
-        }
+        "type": "bearer",
+        "bearer": "{{MITOKEN}}"
       },
       "tests": []
     },
@@ -515,15 +497,12 @@
       "method": "GET",
       "sortNum": 30000,
       "created": "2023-11-09T19:19:47.874Z",
-      "modified": "2023-11-09T19:19:58.645Z",
+      "modified": "2023-11-11T13:28:02.515Z",
       "headers": [],
       "params": [],
       "auth": {
-        "type": "basic",
-        "basic": {
-          "username": "admin",
-          "password": "admin"
-        }
+        "type": "bearer",
+        "bearer": "{{MITOKEN}}"
       },
       "tests": []
     },
@@ -608,15 +587,12 @@
       "method": "GET",
       "sortNum": 42500,
       "created": "2023-11-04T20:44:57.014Z",
-      "modified": "2023-11-08T16:29:28.838Z",
+      "modified": "2023-11-11T13:27:54.928Z",
       "headers": [],
       "params": [],
       "auth": {
-        "type": "basic",
-        "basic": {
-          "username": "admin",
-          "password": "admin"
-        }
+        "type": "bearer",
+        "bearer": "{{MITOKEN}}"
       },
       "tests": []
     },
@@ -733,15 +709,12 @@
       "method": "DELETE",
       "sortNum": 85000,
       "created": "2023-11-04T19:53:31.869Z",
-      "modified": "2023-11-06T22:53:31.794Z",
+      "modified": "2023-11-11T13:27:51.515Z",
       "headers": [],
       "params": [],
       "auth": {
-        "type": "basic",
-        "basic": {
-          "username": "admin",
-          "password": "admin"
-        }
+        "type": "bearer",
+        "bearer": "{{MITOKEN}}"
       },
       "tests": []
     },
@@ -754,15 +727,31 @@
       "method": "GET",
       "sortNum": 90000,
       "created": "2023-11-04T20:56:15.329Z",
-      "modified": "2023-11-08T15:50:24.335Z",
+      "modified": "2023-11-11T13:27:45.650Z",
       "headers": [],
       "params": [],
       "auth": {
-        "type": "basic",
-        "basic": {
-          "username": "admin",
-          "password": "admin"
-        }
+        "type": "bearer",
+        "bearer": "{{MITOKEN}}"
+      },
+      "tests": []
+    },
+    {
+      "_id": "6589c20c-e689-4681-88e1-f0a8ade9b154",
+      "colId": "c975f9fb-6a22-4042-8864-c682424ade3f",
+      "containerId": "7e7fb423-794f-4c92-981c-f30910ec9057",
+      "name": "JWT",
+      "url": "http://localhost:8080/api/authenticate",
+      "method": "POST",
+      "sortNum": 100000,
+      "created": "2023-11-11T13:21:29.320Z",
+      "modified": "2023-11-11T13:25:50.665Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"username\":\"admin\", \n  \"password\":\"admin\"\n}",
+        "form": []
       },
       "tests": []
     }

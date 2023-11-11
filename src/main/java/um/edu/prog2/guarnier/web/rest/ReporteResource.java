@@ -35,7 +35,7 @@ public class ReporteResource {
         @RequestParam(name = "fechaInicio", required = false) String fechaInicioStr,
         @RequestParam(name = "fechaFin", required = false) String fechaFinStr
     ) {
-        log.debug("REST para ver el reporte de ordenes.");
+        log.debug("REST para ver el reporte de ordenes con filtros.");
         List<OrdenDTO> ordenes = ordenService.getReporte(clienteId, accionId, fechaInicioStr, fechaFinStr);
 
         return ordenes;

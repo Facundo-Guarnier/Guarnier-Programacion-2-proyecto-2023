@@ -83,16 +83,6 @@ public class OrdenService {
 
     //! Método para buscar ordenes en base a los filtros aplicados.
     public List<OrdenDTO> getReporte(Integer clienteId, Integer accionId, String fechaInicioStr, String fechaFinStr) {
-        log.debug(
-            "Request para recibir todas las Ordenes con en base a clienteId: " +
-            clienteId +
-            " accionId: " +
-            accionId +
-            " fechaInicio: " +
-            fechaInicioStr +
-            " fechaFin: " +
-            fechaFinStr
-        );
         ZonedDateTime fechaInicio = null;
         ZonedDateTime fechaFin = null;
 
@@ -107,6 +97,17 @@ public class OrdenService {
                 fechaFin = ZonedDateTime.parse(fechaFinStr, formatter);
             }
 
+            log.debug(
+                "Reportes de ordenes. Filtros: clienteId=" +
+                clienteId +
+                " accionId=" +
+                accionId +
+                " fechaInicio=" +
+                fechaInicio +
+                " fechaFin=" +
+                fechaFin
+            );
+
             List<OrdenDTO> ordenes = ordenRepository
                 .buscarReportes(clienteId, accionId, fechaInicio, fechaFin)
                 .stream()
@@ -115,11 +116,10 @@ public class OrdenService {
 
             return ordenes;
         } catch (DateTimeParseException e) {
-            //TODO Mejorar el manejo de errores
-            System.out.println("\n\n\nOrdenService.getReporte()\nError al parsear las fechas en ordenService.getReporte()\n\n\n");
+            log.error("Error al parsear las fechas.", e);
             return null;
         } catch (Exception e) {
-            System.out.println("\n\n\nOrdenService.getReporte()\nError al buscar en DB.\n\n\n" + e);
+            log.error("Error al buscar en DB.", e);
             return null;
         }
     }
