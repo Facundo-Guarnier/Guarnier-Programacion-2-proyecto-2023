@@ -26,8 +26,7 @@ public class ReporteResource {
     @Autowired
     OrdenService ordenService;
 
-    //! Endpoint para ver el reporte de ordenes segun los filtros aplicados.
-
+    //! Endpoint para ver el reporte de ordenes según los filtros aplicados.
     @GetMapping("/reporte")
     public List<OrdenDTO> getReporte(
         @RequestParam(name = "clienteId", required = false) Integer clienteId,

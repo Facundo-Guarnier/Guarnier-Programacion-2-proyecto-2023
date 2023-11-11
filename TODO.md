@@ -31,11 +31,8 @@
 
 **TODO**:
 
-[ ] Arreglar para que el JWT de la cátedra esté en un .env.
-
 [ ] Mejorar los returns de los Resources.
 [ ] Hacer mas Test.
-[ ] Hay que verificar la cantidad de acciones para poder vender, tanto en AHORA como en PROGRAMADAS. Creo que es el endpoint que falta.
 
 [x] Seguridad: Miapi con JWT.
 [x] Logs en la parte nueva de reportes.

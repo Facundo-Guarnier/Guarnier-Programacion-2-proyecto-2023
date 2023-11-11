@@ -21,6 +21,7 @@ public class ReportarOperacionesService {
 
     private final Logger log = LoggerFactory.getLogger(ReportarOperacionesService.class);
 
+    //! Hace un POST a la cátedra con las ordenes que se procesaron.
     public void reportarOperaciones(List<OrdenDTO> ordenesProcesadas, List<OrdenDTO> ordenesFallidas) {
         StringBuilder logMessage = new StringBuilder("IDs de órdenes a reportar: ");
 
@@ -42,7 +43,7 @@ public class ReportarOperacionesService {
         JsonNode jsonNode = jsonReporte;
 
         log.debug(logMessage.toString());
-        //* Descomentar para reportar a la cátedra.
+        //TODO Descomentar para reportar a la cátedra.
         // catedraAPIService.postRoprtar(jsonNode);
     }
 }

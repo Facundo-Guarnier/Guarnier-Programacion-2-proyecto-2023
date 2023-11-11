@@ -18,6 +18,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
+import um.edu.prog2.guarnier.exception.FalloConexionCatedraException;
 import um.edu.prog2.guarnier.service.dto.OrdenDTO;
 
 @SpringBootTest
@@ -47,7 +48,7 @@ public class ReportarOperacionesServiceTest {
     }
 
     @Test
-    public void procesarOrdenes_OrdenValidaTest() {
+    public void procesarOrdenes_OrdenValidaTest() throws Exception {
         OrdenDTO orden = new OrdenDTO();
 
         when(ordenService.findPendientes()).thenReturn(Collections.singletonList(orden));
@@ -67,7 +68,7 @@ public class ReportarOperacionesServiceTest {
     }
 
     @Test
-    public void procesarOrdenes_OrdenInvalidaTest() {
+    public void procesarOrdenes_OrdenInvalidaTest() throws Exception {
         OrdenDTO orden = new OrdenDTO();
 
         when(ordenService.findPendientes()).thenReturn(Collections.singletonList(orden));
@@ -87,7 +88,7 @@ public class ReportarOperacionesServiceTest {
     }
 
     @Test
-    public void cargarOrdenes_Modo1Test() {
+    public void cargarOrdenes_Modo1Test() throws Exception {
         when(cs.get(anyString())).thenReturn(mock(JsonNode.class));
         doNothing().when(ordenService).guardarNuevas(any(JsonNode.class));
 
@@ -98,7 +99,7 @@ public class ReportarOperacionesServiceTest {
     }
 
     @Test
-    public void cargarOrdenes_Modo2Test() {
+    public void cargarOrdenes_Modo2Test() throws Exception {
         when(cs.getConJWT(anyString())).thenReturn(mock(JsonNode.class));
         doNothing().when(ordenService).guardarNuevas(any(JsonNode.class));
 
@@ -109,7 +110,7 @@ public class ReportarOperacionesServiceTest {
     }
 
     @Test
-    public void cargarOrdenes_Modo3Test() {
+    public void cargarOrdenes_Modo3Test() throws Exception {
         when(cs.getConJWT(anyString())).thenReturn(mock(JsonNode.class));
         doNothing().when(ordenService).guardarNuevas(any(JsonNode.class));
         doNothing().when(cs).postEspejo();

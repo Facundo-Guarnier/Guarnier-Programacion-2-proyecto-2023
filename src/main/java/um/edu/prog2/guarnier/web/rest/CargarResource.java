@@ -22,6 +22,7 @@ public class CargarResource {
     @Autowired
     ProcesamientoDeOrdenesService pos;
 
+    //! Endpoint para solamente cargar las ordenes nuevas.
     @GetMapping("/cargar/nuevas/{modo}")
     public String procesarOrdenes(@PathVariable(value = "modo", required = false) final Integer modo) {
         if (modo == 1) {

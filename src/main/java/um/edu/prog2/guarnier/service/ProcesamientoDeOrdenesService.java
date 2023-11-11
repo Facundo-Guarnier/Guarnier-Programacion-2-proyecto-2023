@@ -1,7 +1,6 @@
 package um.edu.prog2.guarnier.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -13,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import um.edu.prog2.guarnier.exception.FalloConexionCatedraException;
 import um.edu.prog2.guarnier.service.dto.OrdenDTO;
 
 @Service
@@ -64,14 +64,18 @@ public class ProcesamientoDeOrdenesService {
                 .findPendientes()
                 .forEach(orden -> {
                     log.debug("Procesando ordenes instantáneas: " + orden);
-                    if (vos.puedeRealizarOperacion(orden)) {
-                        this.ordenesProcesadas.add(oos.esPosibleOperar(orden));
-                    } else {
-                        this.ordenesFallidas.add(oos.noEsPosibleOperar(orden));
+                    try {
+                        if (vos.puedeRealizarOperacion(orden)) {
+                            this.ordenesProcesadas.add(oos.esPosibleOperar(orden));
+                        } else {
+                            this.ordenesFallidas.add(oos.noEsPosibleOperar(orden));
+                        }
+                    } catch (FalloConexionCatedraException e) {
+                        log.error("Error al procesar", e.getMessage());
                     }
                 });
         } catch (Exception e) {
-            log.error("Error al buscar ordenes en DB y analizarlas.", e);
+            log.error("Error al buscar ordenes en DB y analizarlas.");
         }
 
         //! Devuelve una lista de listas, la primera con las ordenes procesadas y la segunda con las fallidas
@@ -85,6 +89,7 @@ public class ProcesamientoDeOrdenesService {
         return resultado;
     }
 
+    //! Método que guarda en DB las ordenes
     public void cargarOrdenes(Integer modo) {
         if (modo == 1) {
             log.debug("Cargando ordenes 'www.mockachino.com'");

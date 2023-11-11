@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import um.edu.prog2.guarnier.exception.FalloConexionCatedraException;
 import um.edu.prog2.guarnier.service.dto.OrdenDTO;
 
 @Service
@@ -21,7 +22,7 @@ public class VerificadorDeOrdenesService {
     CatedraAPIService cs;
 
     //! Revisa si la orden puede realizarse.
-    public boolean puedeRealizarOperacion(OrdenDTO orden) {
+    public boolean puedeRealizarOperacion(OrdenDTO orden) throws FalloConexionCatedraException {
         DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
         ZonedDateTime fechaHora = ZonedDateTime.parse(orden.getFechaOperacion(), formatter);
         ZoneId zonaHoraria = ZoneId.of("UTC");
@@ -51,6 +52,11 @@ public class VerificadorDeOrdenesService {
         //! Cliente ID
         String urlCliente = "http://192.168.194.254:8000/api/clientes/buscar";
         JsonNode respuestaCliente = this.cs.getConJWT(urlCliente);
+        if (respuestaCliente == null) {
+            log.debug("No se pudo obtener la respuesta del servicio cátedra para buscar los clientes.");
+            orden.setEstado(0);
+            throw new FalloConexionCatedraException("No se pudo obtener la respuesta del servicio cátedra para buscar los clientes.");
+        }
         JsonNode clientes = respuestaCliente.get("clientes");
         boolean clienteValido = false;
 
@@ -74,6 +80,11 @@ public class VerificadorDeOrdenesService {
         String urlAccion = "http://192.168.194.254:8000/api/acciones/buscar";
         boolean accionValida = false;
         JsonNode respuestaAccion = this.cs.getConJWT(urlAccion);
+        if (respuestaAccion == null) {
+            log.debug("No se pudo obtener la respuesta del servicio cátedra para buscar las acciones.");
+            orden.setEstado(0);
+            throw new FalloConexionCatedraException("No se pudo obtener la respuesta del servicio cátedra para buscar las acciones.");
+        }
         JsonNode acciones = respuestaAccion.get("acciones");
 
         for (JsonNode accion : acciones) {

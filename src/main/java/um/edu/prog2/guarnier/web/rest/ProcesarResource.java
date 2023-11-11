@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import um.edu.prog2.guarnier.service.ProcesamientoDeOrdenesService;
 import um.edu.prog2.guarnier.service.dto.OrdenDTO;
@@ -25,7 +24,7 @@ public class ProcesarResource {
     @Autowired
     ProcesamientoDeOrdenesService pos;
 
-    //! Endpoint para procesar las ordenes nuevas.
+    //! Endpoint para cargar y procesar las ordenes.
     @GetMapping("/procesar/nuevas/{modo}")
     public String procesarOrdenes(@PathVariable(value = "modo", required = false) final Integer modo) {
         if (modo == 1) {
@@ -46,7 +45,7 @@ public class ProcesarResource {
         return "Ordenes procesadas: " + listas.get(0).size() + "\nOrdenes Fallidas: " + listas.get(1).size() + "\n" + listas.toString();
     }
 
-    //! Endpoint para procesar las ordenes ya existentes.
+    //! Endpoint para solamente procesar las ordenes ya existentes.
     @GetMapping("/procesar/todas")
     public String procesarOrdenes() {
         List<List<OrdenDTO>> listas = pos.procesarOrdenes();

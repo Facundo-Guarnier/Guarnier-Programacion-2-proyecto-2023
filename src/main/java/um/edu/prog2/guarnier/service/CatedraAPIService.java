@@ -61,7 +61,7 @@ public class CatedraAPIService {
 
             return responseJsonNode;
         } catch (Exception e) {
-            log.error("Error al hacer la get HTTP sin JWT.", e);
+            log.error("Error al hacer la get HTTP sin JWT.");
             return null;
         }
     }
@@ -79,7 +79,7 @@ public class CatedraAPIService {
 
             return responseJsonNode;
         } catch (Exception e) {
-            log.error("Error en la get HTTP con JWT.", e);
+            log.error("Error en la get HTTP con JWT.");
             return null;
         }
     }
@@ -111,9 +111,9 @@ public class CatedraAPIService {
                 log.error("Error en la solicitud HTTP. Código de respuesta: " + responseCode);
             }
         } catch (JsonProcessingException e) {
-            log.error("Error al serializar el informe de operaciones a JSON.", e);
+            log.error("Error al serializar el informe de operaciones a JSON.");
         } catch (Exception e) {
-            log.error("Error en la solicitud HTTP con JWT.", e);
+            log.error("Error en la solicitud HTTP con JWT.");
         }
     }
 
@@ -140,14 +140,13 @@ public class CatedraAPIService {
             int responseCode = connection.getResponseCode();
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 log.debug("Reporte exitoso.");
-                System.out.println("\n\n\nReporte exitoso.\n\n\n");
             } else {
                 log.error("Error en la solicitud HTTP. Código de respuesta: " + responseCode);
             }
         } catch (JsonProcessingException e) {
-            log.error("Error al serializar el informe de operaciones a JSON.", e);
+            log.error("Error al serializar el informe de operaciones a JSON.");
         } catch (Exception e) {
-            log.error("Error en la solicitud HTTP con JWT.", e);
+            log.error("Error en la solicitud HTTP con JWT.");
         }
     }
 
@@ -175,11 +174,12 @@ public class CatedraAPIService {
             JsonNode jsonNode = objectMapper.valueToTree(contenedor);
             return jsonNode;
         } catch (JsonProcessingException e) {
-            log.error("Error al serializar el informe de operaciones a JSON.", e);
+            log.error("Error al serializar el informe de operaciones a JSON.");
             return null;
         }
     }
 
+    //! Leer el contenido del .json con ordenes.
     private String leerContenidoArchivo(String rutaArchivo) {
         try {
             Resource resource = resourceLoader.getResource(rutaArchivo);
@@ -187,7 +187,7 @@ public class CatedraAPIService {
             byte[] contenido = StreamUtils.copyToByteArray(inputStream);
             return new String(contenido, StandardCharsets.UTF_8);
         } catch (IOException e) {
-            log.error("Error al leer el contenido del archivo.", e);
+            log.error("Error al leer el contenido del archivo.");
             return null;
         }
     }

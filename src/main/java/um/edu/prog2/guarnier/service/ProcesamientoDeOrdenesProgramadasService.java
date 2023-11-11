@@ -30,12 +30,12 @@ public class ProcesamientoDeOrdenesProgramadasService {
     OrdenService ordenService;
 
     //! Programar ejecución a las 9 AM y a las 6 PM.
-    //! Spring utiliza un programador de tareas en segundo plano (background task scheduler) para administrar las tareas programadas.
+    //* Spring utiliza un programador de tareas en segundo plano (background task scheduler) para administrar las tareas programadas.
     @PostConstruct
     public void init() {
         log.info("Iniciando 'ProcesamientoDeOrdenesProgramadasService'");
 
-        //! Funcion, retraso inicial, intervalo de ejecución (1440 minutos = 24 horas), unidad de tiempo
+        //* Funcion, retraso inicial, intervalo de ejecución (1440 minutos = 24 horas), unidad de tiempo
         scheduler.scheduleAtFixedRate(() -> procesar(9), calcularRetrasoHastaProximaEjecucion(13, 1), 1440, TimeUnit.MINUTES);
         scheduler.scheduleAtFixedRate(() -> procesar(18), calcularRetrasoHastaProximaEjecucion(18, 0), 1440, TimeUnit.MINUTES);
     }

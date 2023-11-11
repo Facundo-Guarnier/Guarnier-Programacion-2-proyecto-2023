@@ -105,7 +105,6 @@ public class Prog2App {
             serverPort,
             contextPath,
             env.getActiveProfiles().length == 0 ? env.getDefaultProfiles() : env.getActiveProfiles()
-            //TODO Acá puedo hacer lo de ejecutar el procesar ordenes de forma automática.
         );
     }
 }
