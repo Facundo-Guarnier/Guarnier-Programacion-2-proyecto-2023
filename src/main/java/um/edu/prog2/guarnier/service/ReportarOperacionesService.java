@@ -22,7 +22,7 @@ public class ReportarOperacionesService {
     private final Logger log = LoggerFactory.getLogger(ReportarOperacionesService.class);
 
     //! Hace un POST a la cátedra con las ordenes que se procesaron.
-    public void reportarOperaciones(List<OrdenDTO> ordenesProcesadas, List<OrdenDTO> ordenesFallidas) {
+    public void reportarOperaciones(List<OrdenDTO> ordenesProcesadas) {
         StringBuilder logMessage = new StringBuilder("IDs de órdenes a reportar: ");
 
         ObjectNode jsonReporte = JsonNodeFactory.instance.objectNode();
@@ -32,12 +32,6 @@ public class ReportarOperacionesService {
             ordenes.add(orden.toReportJson());
             logMessage.append(orden.getId()).append(", ");
         });
-
-        //? No sé si hay que reportar las ordenes fallidas o no.
-        // ordenesFallidas.forEach(orden -> {
-        //     ordenes.add(orden.toReportJson());
-        //     logMessage.append(orden.getId()).append(", ");
-        // });
 
         jsonReporte.set("ordenes", ordenes);
         JsonNode jsonNode = jsonReporte;

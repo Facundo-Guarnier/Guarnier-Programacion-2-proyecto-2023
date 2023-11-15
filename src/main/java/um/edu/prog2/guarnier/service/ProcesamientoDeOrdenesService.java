@@ -46,6 +46,8 @@ public class ProcesamientoDeOrdenesService {
         //! Funcion, retraso inicial, intervalo de ejecución (1440 minutos = 24 horas), unidad de tiempo
         scheduler.scheduleAtFixedRate(
             () -> {
+                System.out.println("\n\n\n\n Ejecutando el ordenes instantáneas de forma automática \n\n\n\n");
+                cargarOrdenes(3);
                 List<List<OrdenDTO>> r = procesarOrdenes();
             },
             10000,
@@ -83,7 +85,7 @@ public class ProcesamientoDeOrdenesService {
         resultado.add(ordenesProcesadas);
         resultado.add(ordenesFallidas);
 
-        ros.reportarOperaciones(ordenesProcesadas, ordenesFallidas);
+        ros.reportarOperaciones(ordenesProcesadas);
         log.info("Ordenes procesadas: " + resultado.get(0).size() + " " + resultado.get(0));
         log.info("Ordenes fallidas: " + resultado.get(1).size() + " " + resultado.get(1));
         return resultado;

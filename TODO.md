@@ -2,11 +2,11 @@
 
 - "Una orden no puede tener un número de acciones <=0. Para verificar este punto se deberá hacer una consulta a servicios de la cátedra."
   Problema: tengo que hacer un "if (cantidad > 0)" pero ¿Qué tiene que ver la consulta a la cátedra?
-  Solución: hacer literalmente un servicio "service" que devuelva true para comprar. Para vender, creo que falta un endpoint del profe para saber la cantidad de acciones que tiene un cliente.
-
-- Problema: ¿Hay que reportar las ordenes fallidas al POST de la cátedra? El POST de reportar creo que tiene que ser solo con las ordenes buenas, ya que las fallidas no son necesarias para actualizar la cantidad de acciones que tiene cada cliente.
+  Para vender, creo que falta un endpoint en la cátedra para saber la cantidad de acciones que tiene un cliente.
 
 - Problema: Zona horaria. Hasta el punto en donde se guarda en la DB (OrdenService.save()) la orden mantiene la UTC. El problema está en OrdenRepository, el JPA parece que transforma de UTC a UTC-3 al momento de leer en la DB. Es un problema de lectura y no de escritura en la DB.
+
+- ✅ Problema: ¿Hay que reportar las ordenes fallidas al POST de la cátedra? El POST de reportar creo que tiene que ser solo con las ordenes buenas, ya que las fallidas no son necesarias para actualizar la cantidad de acciones que tiene cada cliente.
 
 - ✅ Ver si puedo cambiar el estado de formato STRING a un INTEGER (0: pendiente, 1: programado, 2: vendido, 3: comprado)
 
@@ -50,6 +50,11 @@
 npm run app:start
 mvn test
 mvn -Dtest=ProcesamientoDeOrdenesServiceTest test
+
+0. PENDIENTE
+1. FALLIDO
+2. PROGRAMADO
+3. COMPLETADO
 
 ,
 {

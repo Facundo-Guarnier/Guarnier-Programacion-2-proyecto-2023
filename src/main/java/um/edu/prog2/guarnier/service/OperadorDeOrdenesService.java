@@ -18,9 +18,6 @@ public class OperadorDeOrdenesService {
     OrdenService ordenService;
 
     @Autowired
-    ReportarOperacionesService ros;
-
-    @Autowired
     CatedraAPIService catedraAPIService;
 
     //! Para cuando no puede realizarse la operación.

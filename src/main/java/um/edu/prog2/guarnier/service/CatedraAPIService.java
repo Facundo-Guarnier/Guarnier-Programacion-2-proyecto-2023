@@ -152,7 +152,7 @@ public class CatedraAPIService {
 
     //! Devuelve un JsonNode con 2 ordenes aleatorias provenientes del archivo "src\main\resources\static\ordenesEspejo.json".
     private JsonNode ordenesAleatorias() {
-        String rutaArchivo = "classpath:static/ordenesEspejo.json";
+        String rutaArchivo = "classpath:static\\ordenesEspejo.json";
         String json = leerContenidoArchivo(rutaArchivo);
 
         ObjectMapper objectMapper = new ObjectMapper();
@@ -174,6 +174,7 @@ public class CatedraAPIService {
             JsonNode jsonNode = objectMapper.valueToTree(contenedor);
             return jsonNode;
         } catch (JsonProcessingException e) {
+            System.out.println("\n\n\nError al serializar el informe de operaciones a JSON.");
             log.error("Error al serializar el informe de operaciones a JSON.");
             return null;
         }
