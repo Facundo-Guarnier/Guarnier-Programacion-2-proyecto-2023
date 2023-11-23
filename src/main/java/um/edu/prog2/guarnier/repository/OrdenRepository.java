@@ -1,5 +1,6 @@
 package um.edu.prog2.guarnier.repository;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -28,7 +29,7 @@ public interface OrdenRepository extends JpaRepository<Orden, Long> {
     List<Orden> buscarReportes(
         @Param("clienteId") Integer clienteId,
         @Param("accionId") Integer accionId,
-        @Param("fechaInicio") ZonedDateTime fechaInicio,
-        @Param("fechaFin") ZonedDateTime fechaFin
+        @Param("fechaInicio") Instant fechaInicio,
+        @Param("fechaFin") Instant fechaFin
     );
 }

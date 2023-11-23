@@ -4,7 +4,7 @@
   Problema: tengo que hacer un "if (cantidad > 0)" pero ¿Qué tiene que ver la consulta a la cátedra?
   Para vender, creo que falta un endpoint en la cátedra para saber la cantidad de acciones que tiene un cliente.
 
-- Problema: Zona horaria. Hasta el punto en donde se guarda en la DB (OrdenService.save()) la orden mantiene la UTC. El problema está en OrdenRepository, el JPA parece que transforma de UTC a UTC-3 al momento de leer en la DB. Es un problema de lectura y no de escritura en la DB.
+- ✅ Problema: Zona horaria. Hasta el punto en donde se guarda en la DB (OrdenService.save()) la orden mantiene la UTC. El problema está en OrdenRepository, el JPA parece que transforma de UTC a UTC-3 al momento de leer en la DB. Es un problema de lectura y no de escritura en la DB.
   Solución: Cambiar el tipo de fecha a "Instant".
 
 - ✅ Problema: ¿Hay que reportar las ordenes fallidas al POST de la cátedra? El POST de reportar creo que tiene que ser solo con las ordenes buenas, ya que las fallidas no son necesarias para actualizar la cantidad de acciones que tiene cada cliente.
@@ -32,9 +32,13 @@
 
 **TODO**:
 
+[ ] Hacer reportes a la cátedra.
+[ ] Consultar cantidad de acciones a la cátedra.
+
 [ ] Mejorar los returns de los Resources.
 [ ] Hacer mas Test.
 
+[x] Arreglar la busqueda por filtro de fecha de los reportes locales.
 [x] Seguridad: Miapi con JWT.
 [x] Logs en la parte nueva de reportes.
 [x] Hacer un endpoint para obtener reportes en base a filtros (cliente, accion, fecha, etc.)

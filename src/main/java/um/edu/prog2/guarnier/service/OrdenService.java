@@ -2,6 +2,7 @@ package um.edu.prog2.guarnier.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.time.Instant;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -83,18 +84,18 @@ public class OrdenService {
 
     //! Método para buscar ordenes en base a los filtros aplicados.
     public List<OrdenDTO> getReporte(Integer clienteId, Integer accionId, String fechaInicioStr, String fechaFinStr) {
-        ZonedDateTime fechaInicio = null;
-        ZonedDateTime fechaFin = null;
+        Instant fechaInicio = null;
+        Instant fechaFin = null;
 
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
 
             if (fechaInicioStr != null) {
-                fechaInicio = ZonedDateTime.parse(fechaInicioStr, formatter);
+                fechaInicio = Instant.from(formatter.parse(fechaInicioStr));
             }
 
             if (fechaFinStr != null) {
-                fechaFin = ZonedDateTime.parse(fechaFinStr, formatter);
+                fechaFin = Instant.from(formatter.parse(fechaFinStr));
             }
 
             log.debug(
