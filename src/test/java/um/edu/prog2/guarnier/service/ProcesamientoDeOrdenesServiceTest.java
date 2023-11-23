@@ -64,7 +64,7 @@ public class ProcesamientoDeOrdenesServiceTest {
         when(oos.noEsPosibleOperar(ordenPendiente)).thenReturn(ordenPendiente);
 
         //! Mocker para métodos void
-        doNothing().when(ros).reportarOperaciones(anyList(), anyList());
+        doNothing().when(ros).reportarOperaciones(anyList());
 
         List<List<OrdenDTO>> resultado = pos.procesarOrdenes();
         System.out.println(resultado);
@@ -73,7 +73,7 @@ public class ProcesamientoDeOrdenesServiceTest {
         InOrder inOrder = inOrder(ordenService, vos, ros);
         inOrder.verify(ordenService).findPendientes();
         inOrder.verify(vos).puedeRealizarOperacion(ordenPendiente);
-        inOrder.verify(ros).reportarOperaciones(anyList(), anyList());
+        inOrder.verify(ros).reportarOperaciones(anyList());
 
         assertEquals(0, resultado.get(0).size());
         assertEquals(1, resultado.get(1).size());
@@ -93,7 +93,7 @@ public class ProcesamientoDeOrdenesServiceTest {
 
         when(ordenService.findPendientes()).thenReturn(List.of(ordenPendiente));
         when(vos.puedeRealizarOperacion(ordenPendiente)).thenReturn(true);
-        doNothing().when(ros).reportarOperaciones(anyList(), anyList());
+        doNothing().when(ros).reportarOperaciones(anyList());
         when(oos.esPosibleOperar(ordenPendiente)).thenReturn(ordenPendiente);
 
         List<List<OrdenDTO>> resultado = pos.procesarOrdenes();
@@ -103,7 +103,7 @@ public class ProcesamientoDeOrdenesServiceTest {
         InOrder inOrder = inOrder(ordenService, vos, ros);
         inOrder.verify(ordenService).findPendientes();
         inOrder.verify(vos).puedeRealizarOperacion(ordenPendiente);
-        inOrder.verify(ros).reportarOperaciones(anyList(), anyList());
+        inOrder.verify(ros).reportarOperaciones(anyList());
 
         assertEquals(1, resultado.get(0).size());
         assertEquals(0, resultado.get(1).size());

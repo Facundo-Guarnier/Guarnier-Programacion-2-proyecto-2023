@@ -5,6 +5,7 @@
   Para vender, creo que falta un endpoint en la cátedra para saber la cantidad de acciones que tiene un cliente.
 
 - Problema: Zona horaria. Hasta el punto en donde se guarda en la DB (OrdenService.save()) la orden mantiene la UTC. El problema está en OrdenRepository, el JPA parece que transforma de UTC a UTC-3 al momento de leer en la DB. Es un problema de lectura y no de escritura en la DB.
+  Solución: Cambiar el tipo de fecha a "Instant".
 
 - ✅ Problema: ¿Hay que reportar las ordenes fallidas al POST de la cátedra? El POST de reportar creo que tiene que ser solo con las ordenes buenas, ya que las fallidas no son necesarias para actualizar la cantidad de acciones que tiene cada cliente.
 

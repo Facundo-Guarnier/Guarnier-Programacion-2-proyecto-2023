@@ -44,7 +44,7 @@
     },
     {
       "fieldName": "fechaOperacion",
-      "fieldType": "ZonedDateTime"
+      "fieldType": "Instant"
     }
   ],
   "jpaMetamodelFiltering": false,

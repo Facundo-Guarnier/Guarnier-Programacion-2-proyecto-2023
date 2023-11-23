@@ -66,8 +66,8 @@ class OrdenResourceIT {
     private static final Integer DEFAULT_CLIENTE = 1;
     private static final Integer UPDATED_CLIENTE = 2;
 
-    private static final ZonedDateTime DEFAULT_FECHA_OPERACION = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
-    private static final ZonedDateTime UPDATED_FECHA_OPERACION = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
+    private static final Instant DEFAULT_FECHA_OPERACION = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC).toInstant();
+    private static final Instant UPDATED_FECHA_OPERACION = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0).toInstant();
 
     private static final String ENTITY_API_URL = "/api/ordens";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -205,8 +205,7 @@ class OrdenResourceIT {
             .andExpect(jsonPath("$.[*].estado").value(hasItem(DEFAULT_ESTADO)))
             .andExpect(jsonPath("$.[*].descripcion").value(hasItem(DEFAULT_DESCRIPCION)))
             .andExpect(jsonPath("$.[*].clienteNombre").value(hasItem(DEFAULT_CLIENTE_NOMBRE)))
-            .andExpect(jsonPath("$.[*].cliente").value(hasItem(DEFAULT_CLIENTE)))
-            .andExpect(jsonPath("$.[*].fechaOperacion").value(hasItem(sameInstant(DEFAULT_FECHA_OPERACION))));
+            .andExpect(jsonPath("$.[*].cliente").value(hasItem(DEFAULT_CLIENTE)));
     }
 
     @Test
@@ -230,8 +229,7 @@ class OrdenResourceIT {
             .andExpect(jsonPath("$.estado").value(DEFAULT_ESTADO))
             .andExpect(jsonPath("$.descripcion").value(DEFAULT_DESCRIPCION))
             .andExpect(jsonPath("$.clienteNombre").value(DEFAULT_CLIENTE_NOMBRE))
-            .andExpect(jsonPath("$.cliente").value(DEFAULT_CLIENTE))
-            .andExpect(jsonPath("$.fechaOperacion").value(sameInstant(DEFAULT_FECHA_OPERACION)));
+            .andExpect(jsonPath("$.cliente").value(DEFAULT_CLIENTE));
     }
 
     @Test

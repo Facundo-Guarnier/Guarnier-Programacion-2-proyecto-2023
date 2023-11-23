@@ -36,7 +36,7 @@ public class ProcesamientoDeOrdenesProgramadasService {
         log.info("Iniciando 'ProcesamientoDeOrdenesProgramadasService'");
 
         //* Funcion, retraso inicial, intervalo de ejecución (1440 minutos = 24 horas), unidad de tiempo
-        scheduler.scheduleAtFixedRate(() -> procesar(9), calcularRetrasoHastaProximaEjecucion(13, 1), 1440, TimeUnit.MINUTES);
+        scheduler.scheduleAtFixedRate(() -> procesar(9), calcularRetrasoHastaProximaEjecucion(9, 0), 1440, TimeUnit.MINUTES);
         scheduler.scheduleAtFixedRate(() -> procesar(18), calcularRetrasoHastaProximaEjecucion(18, 0), 1440, TimeUnit.MINUTES);
     }
 

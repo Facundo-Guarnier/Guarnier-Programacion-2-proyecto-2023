@@ -74,9 +74,15 @@ public class OperadorDeOrdenesService {
     //! Cambia el precio de la orden por el precio actual de la acción.
     public OrdenDTO cambiarPrecio(OrdenDTO orden) {
         String URL = "http://192.168.194.254:8000/api/acciones/ultimovalor/" + orden.getAccion();
-        JsonNode precioJson = catedraAPIService.getConJWT(URL);
-        Double precio = precioJson.get("ultimoValor").get("valor").asDouble();
-        orden.setPrecio(precio.floatValue());
-        return orden;
+        try {
+            JsonNode precioJson = catedraAPIService.getConJWT(URL);
+            Double precio;
+            precio = precioJson.get("ultimoValor").get("valor").asDouble();
+            orden.setPrecio(precio.floatValue());
+            return orden;
+        } catch (Exception e) {
+            log.debug("No se pudo cambiar el precio de la accion.");
+            return orden;
+        }
     }
 }

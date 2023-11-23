@@ -152,8 +152,7 @@ public class CatedraAPIService {
 
     //! Devuelve un JsonNode con 2 ordenes aleatorias provenientes del archivo "src\main\resources\static\ordenesEspejo.json".
     private JsonNode ordenesAleatorias() {
-        String rutaArchivo = "classpath:static\\ordenesEspejo.json";
-        String json = leerContenidoArchivo(rutaArchivo);
+        String json = leerContenidoArchivo();
 
         ObjectMapper objectMapper = new ObjectMapper();
 
@@ -181,15 +180,22 @@ public class CatedraAPIService {
     }
 
     //! Leer el contenido del .json con ordenes.
-    private String leerContenidoArchivo(String rutaArchivo) {
+    private String leerContenidoArchivo() {
         try {
-            Resource resource = resourceLoader.getResource(rutaArchivo);
+            Resource resource = resourceLoader.getResource("classpath:static/ordenesEspejo.json");
             InputStream inputStream = resource.getInputStream();
             byte[] contenido = StreamUtils.copyToByteArray(inputStream);
             return new String(contenido, StandardCharsets.UTF_8);
         } catch (IOException e) {
-            log.error("Error al leer el contenido del archivo.");
-            return null;
+            try {
+                Resource resource = resourceLoader.getResource("classpath:static\\ordenesEspejo.json");
+                InputStream inputStream = resource.getInputStream();
+                byte[] contenido = StreamUtils.copyToByteArray(inputStream);
+                return new String(contenido, StandardCharsets.UTF_8);
+            } catch (IOException e2) {
+                log.error("Error al leer el contenido del archivo.");
+                return null;
+            }
         }
     }
 }

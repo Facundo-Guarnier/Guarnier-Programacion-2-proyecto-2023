@@ -1,9 +1,9 @@
 package um.edu.prog2.guarnier.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import java.time.Instant;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +23,9 @@ public class VerificadorDeOrdenesService {
 
     //! Revisa si la orden puede realizarse.
     public boolean puedeRealizarOperacion(OrdenDTO orden) throws FalloConexionCatedraException {
-        DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
-        ZonedDateTime fechaHora = ZonedDateTime.parse(orden.getFechaOperacion(), formatter);
+        Instant fechaOperacionInstant = Instant.parse(orden.getFechaOperacion());
         ZoneId zonaHoraria = ZoneId.of("UTC");
-        ZonedDateTime fechaHoraLocal = fechaHora.withZoneSameInstant(zonaHoraria);
+        ZonedDateTime fechaHoraLocal = fechaOperacionInstant.atZone(zonaHoraria);
         int hora = fechaHoraLocal.getHour();
 
         //T* Condiciones:

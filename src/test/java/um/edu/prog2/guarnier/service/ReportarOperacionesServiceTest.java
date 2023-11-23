@@ -54,7 +54,7 @@ public class ReportarOperacionesServiceTest {
         when(ordenService.findPendientes()).thenReturn(Collections.singletonList(orden));
         when(vos.puedeRealizarOperacion(orden)).thenReturn(true);
         when(oos.esPosibleOperar(orden)).thenReturn(orden);
-        doNothing().when(ros).reportarOperaciones(anyList(), anyList());
+        doNothing().when(ros).reportarOperaciones(anyList());
 
         List<List<OrdenDTO>> resultado = pos.procesarOrdenes();
 
@@ -62,7 +62,7 @@ public class ReportarOperacionesServiceTest {
         verify(vos, times(1)).puedeRealizarOperacion(orden);
         verify(oos, times(1)).esPosibleOperar(orden);
         verify(oos, times(0)).noEsPosibleOperar(orden);
-        verify(ros, times(1)).reportarOperaciones(anyList(), anyList());
+        verify(ros, times(1)).reportarOperaciones(anyList());
         assertEquals(orden, resultado.get(0).get(0));
         assertEquals(0, resultado.get(1).size());
     }
@@ -74,7 +74,7 @@ public class ReportarOperacionesServiceTest {
         when(ordenService.findPendientes()).thenReturn(Collections.singletonList(orden));
         when(vos.puedeRealizarOperacion(orden)).thenReturn(false);
         when(oos.noEsPosibleOperar(orden)).thenReturn(orden);
-        doNothing().when(ros).reportarOperaciones(anyList(), anyList());
+        doNothing().when(ros).reportarOperaciones(anyList());
 
         List<List<OrdenDTO>> resultado = pos.procesarOrdenes();
 
@@ -82,7 +82,7 @@ public class ReportarOperacionesServiceTest {
         verify(vos, times(1)).puedeRealizarOperacion(orden);
         verify(oos, times(0)).esPosibleOperar(orden);
         verify(oos, times(1)).noEsPosibleOperar(orden);
-        verify(ros, times(1)).reportarOperaciones(anyList(), anyList());
+        verify(ros, times(1)).reportarOperaciones(anyList());
         assertEquals(orden, resultado.get(1).get(0));
         assertEquals(0, resultado.get(0).size());
     }
