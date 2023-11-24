@@ -32,13 +32,12 @@
 
 **TODO**:
 
-[ ] Consultar cantidad de acciones a la cátedra.
-[ ] Hacer que las ordenes programadas no revisen la cantidad de la accion hasta el momento de iniciodia o findia.
-
 [ ] Hacer reportes a la cátedra.
 [ ] Mejorar los returns de los Resources.
 [ ] Hacer mas Test.
 
+[x] Consultar cantidad de acciones a la cátedra.
+[x] Hacer que las ordenes programadas no revisen la cantidad de la accion hasta el momento de iniciodia o findia.
 [x] Arreglar la busqueda por filtro de fecha de los reportes locales.
 [x] Seguridad: Miapi con JWT.
 [x] Logs en la parte nueva de reportes.
