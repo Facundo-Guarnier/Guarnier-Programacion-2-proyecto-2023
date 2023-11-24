@@ -47,7 +47,6 @@ public class ProcesamientoDeOrdenesService {
         //! Funcion, retraso inicial, intervalo de ejecución (1440 minutos = 24 horas), unidad de tiempo
         scheduler.scheduleAtFixedRate(
             () -> {
-                System.out.println("\n\n\n\n Ejecutando el ordenes instantáneas de forma automática \n\n\n\n");
                 cargarOrdenes(3);
                 List<List<OrdenDTO>> r = procesarOrdenes();
             },

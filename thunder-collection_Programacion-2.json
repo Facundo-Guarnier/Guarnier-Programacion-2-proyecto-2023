@@ -1,7 +1,7 @@
 {
   "client": "Thunder Client",
   "collectionName": "Programacion-2",
-  "dateExported": "2023-11-11T13:33:32.823Z",
+  "dateExported": "2023-11-24T19:53:21.977Z",
   "version": "1.1",
   "folders": [
     {
@@ -31,6 +31,13 @@
       "containerId": "",
       "created": "2023-10-31T11:57:27.422Z",
       "sortNum": 40000
+    },
+    {
+      "_id": "a9193495-394c-4fe9-a615-a02aa1b0642b",
+      "name": "Cantidad acciones por cliente",
+      "containerId": "",
+      "created": "2023-11-23T21:47:10.086Z",
+      "sortNum": 45000
     },
     {
       "_id": "f8ee7ddb-3d0c-4193-a6c1-fbcd9295e004",
@@ -206,27 +213,62 @@
       "colId": "c975f9fb-6a22-4042-8864-c682424ade3f",
       "containerId": "92cab647-1a84-4dfc-a730-7cd68d53ea28",
       "name": "Buscar reportes con filtros ",
-      "url": "http://localhost:8080/miapi/reporte?fechaInicio=2023-10-10T12:01:00Z&fechaFin=2023-11-10T13:00:00Z",
+      "url": "http://localhost:8080/miapi/reporte?fechaInicio=2023-11-08T03:00:00Z&fechaFin=2023-11-30T13:00:00Z",
       "method": "GET",
       "sortNum": 10000,
       "created": "2023-11-10T19:35:23.652Z",
-      "modified": "2023-11-11T13:28:50.001Z",
+      "modified": "2023-11-23T21:41:28.837Z",
       "headers": [],
       "params": [
         {
           "name": "fechaInicio",
-          "value": "2023-10-10T12:01:00Z",
+          "value": "2023-11-08T03:00:00Z",
           "isPath": false
         },
         {
           "name": "fechaFin",
-          "value": "2023-11-10T13:00:00Z",
+          "value": "2023-11-30T13:00:00Z",
           "isPath": false
         }
       ],
       "auth": {
         "type": "bearer",
         "bearer": "{{MITOKEN}}"
+      },
+      "tests": []
+    },
+    {
+      "_id": "ea5fb441-0d43-4445-86e4-ef1b5d66c132",
+      "colId": "c975f9fb-6a22-4042-8864-c682424ade3f",
+      "containerId": "a9193495-394c-4fe9-a615-a02aa1b0642b",
+      "name": "Por cliente y accion",
+      "url": "http://192.168.194.254:8000/api/reporte-operaciones/consulta_cliente_accion?clienteId=26370&accionId=6",
+      "method": "GET",
+      "sortNum": 10000,
+      "created": "2023-11-23T21:46:50.112Z",
+      "modified": "2023-11-23T22:00:37.087Z",
+      "headers": [],
+      "params": [
+        {
+          "name": "clienteId",
+          "value": "1102",
+          "isDisabled": true,
+          "isPath": false
+        },
+        {
+          "name": "clienteId",
+          "value": "26370",
+          "isPath": false
+        },
+        {
+          "name": "accionId",
+          "value": "6",
+          "isPath": false
+        }
+      ],
+      "auth": {
+        "type": "bearer",
+        "bearer": "{{TOKEN}}"
       },
       "tests": []
     },
@@ -582,7 +624,7 @@
       "_id": "b3bd145f-9658-495a-b1ed-f1ca4f541dc3",
       "colId": "c975f9fb-6a22-4042-8864-c682424ade3f",
       "containerId": "7e7fb423-794f-4c92-981c-f30910ec9057",
-      "name": "Procesar Ordenes Todas",
+      "name": "Procesar todas",
       "url": "http://localhost:8080/miapi/procesar/todas",
       "method": "GET",
       "sortNum": 42500,

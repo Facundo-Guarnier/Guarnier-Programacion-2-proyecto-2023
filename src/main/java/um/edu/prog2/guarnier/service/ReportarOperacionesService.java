@@ -33,8 +33,6 @@ public class ReportarOperacionesService {
             logMessage.append(orden.getId()).append(", ");
         });
 
-        System.out.println("\n\nordenes para reporar: \n" + ordenes + "\n");
-
         jsonReporte.set("ordenes", ordenes);
         JsonNode jsonNode = jsonReporte;
 

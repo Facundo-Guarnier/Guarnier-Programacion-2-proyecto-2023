@@ -173,7 +173,6 @@ public class CatedraAPIService {
             JsonNode jsonNode = objectMapper.valueToTree(contenedor);
             return jsonNode;
         } catch (JsonProcessingException e) {
-            System.out.println("\n\n\nError al serializar el informe de operaciones a JSON.");
             log.error("Error al serializar el informe de operaciones a JSON.");
             return null;
         }

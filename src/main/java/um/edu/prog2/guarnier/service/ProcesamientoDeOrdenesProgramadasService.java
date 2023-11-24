@@ -47,7 +47,7 @@ public class ProcesamientoDeOrdenesProgramadasService {
 
         //* Funcion, retraso inicial, intervalo de ejecución (1440 minutos = 24 horas), unidad de tiempo
         scheduler.scheduleAtFixedRate(() -> procesar(9), calcularRetrasoHastaProximaEjecucion(9, 0), 1440, TimeUnit.MINUTES);
-        // scheduler.scheduleAtFixedRate(() -> procesar(18), calcularRetrasoHastaProximaEjecucion(18, 0), 1440, TimeUnit.MINUTES);
+        scheduler.scheduleAtFixedRate(() -> procesar(18), calcularRetrasoHastaProximaEjecucion(18, 0), 1440, TimeUnit.MINUTES);
     }
 
     //! Método que tiene que leer la DB y analizar las ordenes
@@ -58,32 +58,24 @@ public class ProcesamientoDeOrdenesProgramadasService {
         ordenService
             .findProgramados()
             .forEach(orden -> {
-                // log.info("Procesando ordenes programada: " + orden);
-                System.out.println("\n\nProcesando ordenes programada:\n" + orden + "\n\n");
+                log.info("Procesando ordenes programada: " + orden);
 
                 //! Si es de FINDIA o PRINCIPIODIA
                 if (hora == this.horaOrden(orden)) {
-                    System.out.println("++++++++++\nif 1°");
-
                     try {
                         //! Actualizar precio de la orden.
                         orden = oos.cambiarPrecio(orden);
 
                         if (orden.getOperacion().equals("COMPRA")) {
-                            System.out.println("++++++++++\nif COMPRA");
                             oos.comprarOrden(orden);
-                            System.out.println("++++++++++\nAgregando una orden para reportar\n\n");
                             ordenesProcesadas.add(orden);
                         } else if (orden.getOperacion().equals("VENTA")) {
                             //! Si el cliente tiene acciones suficientes.
                             if (vos.cantidadAcciones(orden)) {
-                                System.out.println("++++++++++\nif cantidadAcciones(orden)");
                                 oos.venderOrden(orden);
-                                System.out.println("++++++++++\nAgregando una orden para reportar\n\n");
                                 ordenesProcesadas.add(orden);
                             } else {
                                 ordenService.update(orden);
-                                System.out.println("++++++++++\nif no hay cantidad de acciones");
                             }
                         }
                     } catch (FalloConexionCatedraException e) {
@@ -114,8 +106,8 @@ public class ProcesamientoDeOrdenesProgramadasService {
         }
 
         Duration retraso = Duration.between(ahora, horaDeseada);
-        // return retraso.toMinutes();
-        Duration retraso2 = Duration.ofMinutes(1);
-        return retraso2.toMinutes();
+        return retraso.toMinutes();
+        // Duration retraso2 = Duration.ofMinutes(1);
+        // return retraso2.toMinutes();
     }
 }

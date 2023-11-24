@@ -1,6 +1,6 @@
 **Preguntas**:
 
-- "Una orden no puede tener un número de acciones <=0. Para verificar este punto se deberá hacer una consulta a servicios de la cátedra."
+- ✅ "Una orden no puede tener un número de acciones <=0. Para verificar este punto se deberá hacer una consulta a servicios de la cátedra."
   Problema: tengo que hacer un "if (cantidad > 0)" pero ¿Qué tiene que ver la consulta a la cátedra?
   Para vender, creo que falta un endpoint en la cátedra para saber la cantidad de acciones que tiene un cliente.
 
@@ -32,10 +32,7 @@
 
 **TODO**:
 
-[ ] Hacer reportes a la cátedra.
-[ ] Mejorar los returns de los Resources.
-[ ] Hacer mas Test.
-
+[x] Hacer reportes a la cátedra.
 [x] Consultar cantidad de acciones a la cátedra.
 [x] Hacer que las ordenes programadas no revisen la cantidad de la accion hasta el momento de iniciodia o findia.
 [x] Arreglar la busqueda por filtro de fecha de los reportes locales.
@@ -62,7 +59,7 @@ mvn -Dtest=ProcesamientoDeOrdenesServiceTest test
 3. COMPLETADO
 
 {
-"cliente": 26363,
+"cliente": 26370,
 "accionId": 3,
 "accion": "INTC",
 "operacion": "COMPRA",
@@ -72,9 +69,19 @@ mvn -Dtest=ProcesamientoDeOrdenesServiceTest test
 "modo": "AHORA"
 },
 {
+"cliente": 999999,
+"accionId": 3,
+"accion": "INTC",
+"operacion": "COMPRA",
+"precio": null,
+"cantidad": 10,
+"fechaOperacion": "2023-11-08T13:00:00Z",
+"modo": "AHORA"
+},
+{
 "cliente": 26370,
 "accionId": 1,
-"accion": "GOOGL",
+"accion": "CualquierCosa",
 "operacion": "VENTA",
 "precio": null,
 "cantidad": 5,
@@ -82,7 +89,7 @@ mvn -Dtest=ProcesamientoDeOrdenesServiceTest test
 "modo": "FINDIA"
 },
 {
-"cliente": 26363,
+"cliente": 26370,
 "accionId": 4,
 "accion": "KO",
 "operacion": "COMPRA",
@@ -101,13 +108,14 @@ mvn -Dtest=ProcesamientoDeOrdenesServiceTest test
 "fechaOperacion": "2023-11-10T12:00:00Z",
 "modo": "AHORA"
 },
+
 {
 "cliente": 26370,
 "accionId": 6,
 "accion": "YPF",
 "operacion": "COMPRA",
 "precio": null,
-"cantidad": 5,
+"cantidad": 2,
 "fechaOperacion": "2023-11-10T12:00:00Z",
 "modo": "AHORA"
 },
@@ -122,20 +130,20 @@ mvn -Dtest=ProcesamientoDeOrdenesServiceTest test
 "modo": "AHORA"
 },
 {
-"cliente": 26371,
-"accionId": 2,
-"accion": "GOOGL",
-"operacion": "VENTA",
+"cliente": 26370,
+"accionId": 6,
+"accion": "YPF",
+"operacion": "COMPRA",
 "precio": null,
 "cantidad": 1,
-"fechaOperacion": "2023-11-10T18:00:00Z",
+"fechaOperacion": "2023-11-10T17:00:00Z",
 "modo": "FINDIA"
 },
 {
-"cliente": 26371,
-"accionId": 2,
-"accion": "GOOGL",
-"operacion": "VENTA",
+"cliente": 26370,
+"accionId": 6,
+"accion": "YPF",
+"operacion": "COMPRA",
 "precio": null,
 "cantidad": 5,
 "fechaOperacion": "2023-11-12T03:00:00Z",
