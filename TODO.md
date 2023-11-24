@@ -32,9 +32,10 @@
 
 **TODO**:
 
-[ ] Hacer reportes a la cátedra.
 [ ] Consultar cantidad de acciones a la cátedra.
+[ ] Hacer que las ordenes programadas no revisen la cantidad de la accion hasta el momento de iniciodia o findia.
 
+[ ] Hacer reportes a la cátedra.
 [ ] Mejorar los returns de los Resources.
 [ ] Hacer mas Test.
 
@@ -61,7 +62,6 @@ mvn -Dtest=ProcesamientoDeOrdenesServiceTest test
 2. PROGRAMADO
 3. COMPLETADO
 
-,
 {
 "cliente": 26363,
 "accionId": 3,
@@ -89,7 +89,7 @@ mvn -Dtest=ProcesamientoDeOrdenesServiceTest test
 "operacion": "COMPRA",
 "precio": null,
 "cantidad": 80,
-"fechaOperacion": "2023-11-10T09:30:00Z",
+"fechaOperacion": "2023-11-10T20:30:00Z",
 "modo": "AHORA"
 },
 {
@@ -98,9 +98,39 @@ mvn -Dtest=ProcesamientoDeOrdenesServiceTest test
 "accion": "YPF",
 "operacion": "VENTA",
 "precio": null,
+"cantidad": 999999,
+"fechaOperacion": "2023-11-10T12:00:00Z",
+"modo": "AHORA"
+},
+{
+"cliente": 26370,
+"accionId": 6,
+"accion": "YPF",
+"operacion": "COMPRA",
+"precio": null,
 "cantidad": 5,
 "fechaOperacion": "2023-11-10T12:00:00Z",
 "modo": "AHORA"
+},
+{
+"cliente": 26370,
+"accionId": 6,
+"accion": "YPF",
+"operacion": "VENTA",
+"precio": null,
+"cantidad": 1,
+"fechaOperacion": "2023-11-10T12:00:00Z",
+"modo": "AHORA"
+},
+{
+"cliente": 26371,
+"accionId": 2,
+"accion": "GOOGL",
+"operacion": "VENTA",
+"precio": null,
+"cantidad": 1,
+"fechaOperacion": "2023-11-10T18:00:00Z",
+"modo": "FINDIA"
 },
 {
 "cliente": 26371,

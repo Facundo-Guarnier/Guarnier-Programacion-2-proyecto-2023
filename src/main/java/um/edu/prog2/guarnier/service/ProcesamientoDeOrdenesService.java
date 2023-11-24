@@ -23,6 +23,7 @@ public class ProcesamientoDeOrdenesService {
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(2);
     private List<OrdenDTO> ordenesProcesadas = new ArrayList<OrdenDTO>();
     private List<OrdenDTO> ordenesFallidas = new ArrayList<OrdenDTO>();
+    private List<OrdenDTO> ordenesFinalizadas = new ArrayList<OrdenDTO>();
 
     @Autowired
     VerificadorDeOrdenesService vos;
@@ -85,9 +86,17 @@ public class ProcesamientoDeOrdenesService {
         resultado.add(ordenesProcesadas);
         resultado.add(ordenesFallidas);
 
-        ros.reportarOperaciones(ordenesProcesadas);
         log.info("Ordenes procesadas: " + resultado.get(0).size() + " " + resultado.get(0));
         log.info("Ordenes fallidas: " + resultado.get(1).size() + " " + resultado.get(1));
+
+        //! ORdenes finalizadas
+        for (OrdenDTO orden : ordenesProcesadas) {
+            if ("AHORA".equals(orden.getModo())) {
+                ordenesFinalizadas.add(orden);
+            }
+        }
+        ros.reportarOperaciones(ordenesFinalizadas);
+
         return resultado;
     }
 

@@ -33,11 +33,12 @@ public class ReportarOperacionesService {
             logMessage.append(orden.getId()).append(", ");
         });
 
+        System.out.println("\n\nordenes para reporar: \n" + ordenes + "\n");
+
         jsonReporte.set("ordenes", ordenes);
         JsonNode jsonNode = jsonReporte;
 
         log.debug(logMessage.toString());
-        //TODO Descomentar para reportar a la cátedra.
-        // catedraAPIService.postRoprtar(jsonNode);
+        catedraAPIService.postRoprtar(jsonNode);
     }
 }
