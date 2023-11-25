@@ -74,7 +74,7 @@ public class OperadorDeOrdenesServiceTest {
         orden.setModo("AHORA");
         orden.setOperacion("COMPRA");
 
-        doNothing().when(oos).comprarOrden(orden);
+        when(oos.comprarOrden(orden)).thenReturn(true);
 
         OrdenDTO orden2 = oos.esPosibleOperar(orden);
 
@@ -92,7 +92,7 @@ public class OperadorDeOrdenesServiceTest {
         orden.setModo("AHORA");
         orden.setOperacion("VENTA");
 
-        doNothing().when(oos).venderOrden(orden);
+        when(oos.venderOrden(orden)).thenReturn(true);
 
         OrdenDTO orden2 = oos.esPosibleOperar(orden);
 
@@ -125,7 +125,7 @@ public class OperadorDeOrdenesServiceTest {
     public void programarOrdenTest() throws Exception {
         OrdenDTO orden = new OrdenDTO();
 
-        doNothing().when(ordenService).update(orden);
+        when(ordenService.update(orden)).thenReturn(orden);
 
         oos.programarOrden(orden);
 
@@ -137,7 +137,7 @@ public class OperadorDeOrdenesServiceTest {
     public void venderOrdenTest() throws Exception {
         OrdenDTO orden = new OrdenDTO();
 
-        doNothing().when(ordenService).update(orden);
+        when(ordenService.update(orden)).thenReturn(orden);
 
         oos.programarOrden(orden);
 
@@ -149,7 +149,7 @@ public class OperadorDeOrdenesServiceTest {
     public void comprarOrdenTest() throws Exception {
         OrdenDTO orden = new OrdenDTO();
 
-        doNothing().when(ordenService).update(orden);
+        when(ordenService.update(orden)).thenReturn(orden);
 
         oos.programarOrden(orden);
 

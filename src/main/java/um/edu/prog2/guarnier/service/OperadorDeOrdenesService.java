@@ -50,14 +50,14 @@ public class OperadorDeOrdenesService {
 
     //! Programar la orden.
     public void programarOrden(OrdenDTO orden) {
-        log.debug("Programando operacion");
+        log.info("Programando orden " + orden.getId());
         orden.setEstado(2);
         ordenService.update(orden);
     }
 
     //! Comprar la orden.
     public boolean venderOrden(OrdenDTO orden) {
-        log.debug("Vendiendo orden");
+        log.info("Vendiendo orden " + orden.getId());
         orden.setEstado(3);
         ordenService.update(orden);
         return true;
@@ -65,7 +65,7 @@ public class OperadorDeOrdenesService {
 
     //! Vender la orden.
     public boolean comprarOrden(OrdenDTO orden) {
-        log.debug("Comprando orden");
+        log.info("Comprando orden " + orden.getId());
         orden.setEstado(3);
         ordenService.update(orden);
         return true;
@@ -81,7 +81,7 @@ public class OperadorDeOrdenesService {
             orden.setPrecio(precio.floatValue());
             return orden;
         } catch (Exception e) {
-            log.debug("No se pudo cambiar el precio de la accion.");
+            log.error("No se pudo cambiar el precio de la accion.");
             return orden;
         }
     }

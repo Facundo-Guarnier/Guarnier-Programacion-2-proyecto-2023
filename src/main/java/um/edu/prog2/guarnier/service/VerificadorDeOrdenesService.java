@@ -18,9 +18,6 @@ public class VerificadorDeOrdenesService {
 
     private final Logger log = LoggerFactory.getLogger(VerificadorDeOrdenesService.class);
 
-    // private OrdenDTO orden;
-    // private int hora;
-
     @Autowired
     CatedraAPIService cs;
 

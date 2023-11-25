@@ -42,7 +42,7 @@ public class ProcesamientoDeOrdenesService {
 
     @PostConstruct
     public void init() {
-        log.info("Iniciando 'AnalizadorDeOrdenesService'");
+        log.info("Iniciando 'AnalizadorDeOrdenesService'.");
 
         //! Funcion, retraso inicial, intervalo de ejecución (1440 minutos = 24 horas), unidad de tiempo
         scheduler.scheduleAtFixedRate(
@@ -85,8 +85,8 @@ public class ProcesamientoDeOrdenesService {
         resultado.add(ordenesProcesadas);
         resultado.add(ordenesFallidas);
 
-        log.info("Ordenes procesadas: " + resultado.get(0).size() + " " + resultado.get(0));
-        log.info("Ordenes fallidas: " + resultado.get(1).size() + " " + resultado.get(1));
+        log.debug("Ordenes procesadas: " + resultado.get(0).size() + " " + resultado.get(0));
+        log.debug("Ordenes fallidas: " + resultado.get(1).size() + " " + resultado.get(1));
 
         //! ORdenes finalizadas
         for (OrdenDTO orden : ordenesProcesadas) {

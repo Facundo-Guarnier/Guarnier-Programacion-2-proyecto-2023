@@ -58,7 +58,7 @@ public class ProcesamientoDeOrdenesProgramadasService {
         ordenService
             .findProgramados()
             .forEach(orden -> {
-                log.info("Procesando ordenes programada: " + orden);
+                log.debug("Procesando ordenes programada: " + orden);
 
                 //! Si es de FINDIA o PRINCIPIODIA
                 if (hora == this.horaOrden(orden)) {

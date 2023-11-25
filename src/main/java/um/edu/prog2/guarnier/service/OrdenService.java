@@ -3,7 +3,6 @@ package um.edu.prog2.guarnier.service;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.Instant;
-import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.LinkedList;
@@ -45,26 +44,25 @@ public class OrdenService {
     //! Método para buscar una orden en base a su estado PENDIENTE
     @Transactional(readOnly = true)
     public List<OrdenDTO> findPendientes() {
-        log.debug("para recibir todas las Ordenes con estado PENDIENTE");
+        log.debug("Request para buscar todas las Ordenes con estado PENDIENTE.");
         return ordenRepository.findByEstado(0).stream().map(ordenMapper::toDto).collect(Collectors.toList());
     }
 
     //! Método para buscar una orden en base a su estado PROGRAMADA
     @Transactional(readOnly = true)
     public List<OrdenDTO> findProgramados() {
-        log.debug("Request para recibir todas las Ordenes con estado PROGRAMADA");
+        log.debug("Request para buscar todas las Ordenes con estado PROGRAMADA.");
         return ordenRepository.findByEstado(2).stream().map(ordenMapper::toDto).collect(Collectors.toList());
     }
 
     //! Método para borrar todas las ordenes
     public void deleteAll() {
-        log.debug("Request para borrar todas las Ordenes");
+        log.debug("Request para borrar todas las Ordenes.");
         ordenRepository.deleteAll();
     }
 
     //! Método para guardar las Ordenes obtenidas de una API externa.
     public void guardarNuevas(JsonNode ordenes) {
-        log.debug("Guardando ordenes en DB.");
         try {
             ListaOrdenesDTO response = objectMapper.readValue(ordenes.toString(), ListaOrdenesDTO.class);
             List<OrdenDTO> ordenesDTO = response.getOrdenes();
