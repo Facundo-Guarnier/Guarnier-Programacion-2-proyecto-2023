@@ -81,7 +81,6 @@ public class VerificadorDeOrdenesService {
             orden.setDescripcion("SIN CLIENTE O ACCION ASOCIADA");
             return false;
         }
-
         //! Cliente ID
         String urlCliente = "http://192.168.194.254:8000/api/clientes/buscar";
         JsonNode respuestaCliente = this.cs.getConJWT(urlCliente);
@@ -90,9 +89,9 @@ public class VerificadorDeOrdenesService {
             orden.setEstado(0);
             throw new FalloConexionCatedraException("No se pudo obtener la respuesta del servicio cátedra para buscar los clientes.");
         }
+
         JsonNode clientes = respuestaCliente.get("clientes");
         boolean clienteValido = false;
-
         for (JsonNode cliente : clientes) {
             int id = cliente.get("id").asInt();
             if (id == orden.getCliente()) {

@@ -8,37 +8,34 @@ import static org.mockito.Mockito.when;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.Spy;
 import org.springframework.boot.test.context.SpringBootTest;
 import um.edu.prog2.guarnier.service.dto.OrdenDTO;
 
 @SpringBootTest
 public class VerificadorDeOrdenesServiceTest {
 
-    @Mock
-    private ProcesamientoDeOrdenesService pos;
-
-    @Mock
+    @InjectMocks
+    @Spy
     private VerificadorDeOrdenesService vos;
 
     @Mock
-    private ReportarOperacionesService ros;
-
-    @Mock
-    private OrdenService ordenService;
-
-    @Mock
-    private CatedraAPIService cs;
+    private CatedraAPIService csm;
 
     private JsonNode jsonClientes;
     private JsonNode jsonAcciones;
+    private JsonNode jsonClienteAccion;
     private ObjectMapper mapper;
     private String urlCliente;
     private String urlAccion;
+    private String urlClienteAccion;
 
     @Before
     public void setUp() {
@@ -46,8 +43,10 @@ public class VerificadorDeOrdenesServiceTest {
         mapper = new ObjectMapper();
         setJsonClientes();
         setJsonAcciones();
+        setJsonClienteAccion();
         urlCliente = "http://192.168.194.254:8000/api/clientes/buscar";
-        urlAccion = "http://192.168.194.254:8000/api/clientes/buscar";
+        urlAccion = "http://192.168.194.254:8000/api/acciones/buscar";
+        urlClienteAccion = "http://192.168.194.254:8000/api/reporte-operaciones/consulta_cliente_accion?clienteId=26363&accionId=1";
     }
 
     @Test
@@ -102,7 +101,7 @@ public class VerificadorDeOrdenesServiceTest {
 
         orden.setCliente(1234); //* Cliente inválido
 
-        when(cs.getConJWT(urlCliente)).thenReturn(jsonClientes);
+        when(csm.getConJWT(urlCliente)).thenReturn(jsonClientes);
 
         boolean resultado = vos.puedeRealizarOperacion(orden);
         assertFalse(resultado);
@@ -118,12 +117,12 @@ public class VerificadorDeOrdenesServiceTest {
         orden.setCliente(26363);
         orden.setAccion("APPL");
 
-        when(cs.getConJWT(urlCliente)).thenReturn(jsonClientes);
-        when(cs.getConJWT(urlAccion)).thenReturn(jsonAcciones);
+        when(csm.getConJWT(urlCliente)).thenReturn(jsonClientes);
+        when(csm.getConJWT(urlAccion)).thenReturn(jsonAcciones);
 
         orden.setAccionId(1234); //* Acción id inválida
 
-        boolean resultado = vos.puedeRealizarOperacion(orden);
+        boolean resultado = vos.clienteAccionAsociados(orden);
         assertFalse(resultado);
         assertEquals(1, orden.getEstado());
         assertEquals("ACCION ID Y ACCION NO VALIDOS", orden.getDescripcion());
@@ -137,8 +136,8 @@ public class VerificadorDeOrdenesServiceTest {
         orden.setCliente(26363);
         orden.setAccionId(1);
 
-        when(cs.getConJWT(urlCliente)).thenReturn(jsonClientes);
-        when(cs.getConJWT(urlAccion)).thenReturn(jsonAcciones);
+        when(csm.getConJWT(urlCliente)).thenReturn(jsonClientes);
+        when(csm.getConJWT(urlAccion)).thenReturn(jsonAcciones);
 
         orden.setAccion("abcd"); //* Acción código inválido
 
@@ -149,7 +148,7 @@ public class VerificadorDeOrdenesServiceTest {
     }
 
     @Test
-    public void puedeRealizarOperacion_CantidadInvalidaTest() throws Exception {
+    public void puedeRealizarOperacion_CantidadNulaTest() throws Exception {
         OrdenDTO orden = new OrdenDTO();
         orden.setModo("AHORA");
         orden.setFechaOperacion("2023-01-01T11:00:00Z");
@@ -157,8 +156,8 @@ public class VerificadorDeOrdenesServiceTest {
         orden.setAccionId(1);
         orden.setAccion("APPL");
 
-        when(cs.getConJWT(urlCliente)).thenReturn(jsonClientes);
-        when(cs.getConJWT(urlAccion)).thenReturn(jsonAcciones);
+        when(csm.getConJWT(urlCliente)).thenReturn(jsonClientes);
+        when(csm.getConJWT(urlAccion)).thenReturn(jsonAcciones);
 
         orden.setCantidad(0); //* Cantidad inválida
 
@@ -169,17 +168,38 @@ public class VerificadorDeOrdenesServiceTest {
     }
 
     @Test
-    public void puedeRealizarOperacion_ModoInvalidoTest() throws Exception {
+    public void puedeRealizarOperacion_CantidadInvalidaTest() throws Exception {
         OrdenDTO orden = new OrdenDTO();
         orden.setModo("AHORA");
         orden.setFechaOperacion("2023-01-01T11:00:00Z");
         orden.setCliente(26363);
         orden.setAccionId(1);
         orden.setAccion("APPL");
+        orden.setOperacion("VENTA");
+
+        when(csm.getConJWT(urlCliente)).thenReturn(jsonClientes);
+        when(csm.getConJWT(urlAccion)).thenReturn(jsonAcciones);
+        when(csm.getConJWT(urlClienteAccion)).thenReturn(jsonClienteAccion);
+
+        orden.setCantidad(10); //* Cantidad inválida
+
+        boolean resultado = vos.puedeRealizarOperacion(orden);
+        assertFalse(resultado);
+        assertEquals(1, orden.getEstado());
+        assertEquals("CANTIDAD DE ACCIONES INSUFICIENTE", orden.getDescripcion());
+    }
+
+    @Test
+    public void puedeRealizarOperacion_ModoInvalidoTest() throws Exception {
+        OrdenDTO orden = new OrdenDTO();
+        orden.setFechaOperacion("2023-01-01T11:00:00Z");
+        orden.setCliente(26363);
+        orden.setAccionId(1);
+        orden.setAccion("APPL");
         orden.setCantidad(2);
 
-        when(cs.getConJWT(urlCliente)).thenReturn(jsonClientes);
-        when(cs.getConJWT(urlAccion)).thenReturn(jsonAcciones);
+        when(csm.getConJWT(urlCliente)).thenReturn(jsonClientes);
+        when(csm.getConJWT(urlAccion)).thenReturn(jsonAcciones);
 
         orden.setModo("cualquiercosa"); //* Modo inválido
 
@@ -200,13 +220,13 @@ public class VerificadorDeOrdenesServiceTest {
         orden.setCantidad(2);
         orden.setModo("AHORA");
 
-        when(cs.getConJWT(urlCliente)).thenReturn(jsonClientes);
-        when(cs.getConJWT(urlAccion)).thenReturn(jsonAcciones);
+        when(csm.getConJWT(urlCliente)).thenReturn(jsonClientes);
+        when(csm.getConJWT(urlAccion)).thenReturn(jsonAcciones);
 
         orden.setOperacion("cualquiercosa"); //* Operación válida
 
         boolean resultado = vos.puedeRealizarOperacion(orden);
-        assertTrue(resultado);
+        assertFalse(resultado);
         assertEquals(1, orden.getEstado());
         assertEquals("OPERACION NO VALIDA", orden.getDescripcion());
     }
@@ -221,14 +241,15 @@ public class VerificadorDeOrdenesServiceTest {
         orden.setAccion("APPL");
         orden.setCantidad(2);
         orden.setModo("AHORA");
-        orden.setOperacion("VENTA");
+        orden.setOperacion("COMPRA");
 
-        when(cs.getConJWT(urlCliente)).thenReturn(jsonClientes);
-        when(cs.getConJWT(urlAccion)).thenReturn(jsonAcciones);
+        when(csm.getConJWT(urlCliente)).thenReturn(jsonClientes);
+        when(csm.getConJWT(urlAccion)).thenReturn(jsonAcciones);
+        when(csm.getConJWT(urlClienteAccion)).thenReturn(jsonClienteAccion);
 
         boolean resultado = vos.puedeRealizarOperacion(orden);
         assertTrue(resultado);
-        assertEquals(0, orden.getEstado());
+        assertEquals(null, orden.getEstado());
         assertEquals(null, orden.getDescripcion());
     }
 
@@ -250,7 +271,6 @@ public class VerificadorDeOrdenesServiceTest {
 
         ObjectNode objectNode1 = mapper.createObjectNode();
         objectNode1.set("clientes", clientesArray);
-
         jsonClientes = objectNode1;
     }
 
@@ -258,7 +278,7 @@ public class VerificadorDeOrdenesServiceTest {
         //! Simular el resultado de buscar acciones
         ObjectNode accion1 = mapper.createObjectNode();
         accion1.put("id", 1);
-        accion1.put("codigo", "AAPL");
+        accion1.put("codigo", "APPL");
         accion1.put("empresa", "Apple Inc.");
 
         ObjectNode accion2 = mapper.createObjectNode();
@@ -274,5 +294,17 @@ public class VerificadorDeOrdenesServiceTest {
         objectNode2.set("acciones", accionesArray);
 
         jsonAcciones = objectNode2;
+    }
+
+    private void setJsonClienteAccion() {
+        ObjectNode jsonNode = JsonNodeFactory.instance.objectNode();
+
+        jsonNode.put("cliente", 26363);
+        jsonNode.put("accionId", 1);
+        jsonNode.put("accion", "APPL");
+        jsonNode.put("cantidadActual", 1);
+        jsonNode.put("observaciones", "Acciones presentes");
+
+        jsonClienteAccion = jsonNode;
     }
 }

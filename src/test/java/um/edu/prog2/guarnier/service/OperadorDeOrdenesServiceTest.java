@@ -3,38 +3,36 @@ package um.edu.prog2.guarnier.service;
 import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.Mockito.doNothing;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.Spy;
 import org.springframework.boot.test.context.SpringBootTest;
 import um.edu.prog2.guarnier.service.dto.OrdenDTO;
 
 @SpringBootTest
 public class OperadorDeOrdenesServiceTest {
 
-    @Mock
-    private ProcesamientoDeOrdenesService pos;
-
-    @Mock
-    private VerificadorDeOrdenesService vos;
-
-    @Mock
-    private ReportarOperacionesService ros;
-
-    @Mock
+    //! Servicio a testear
+    @InjectMocks
+    @Spy
     private OperadorDeOrdenesService oos;
 
+    //! Servicios dependientes
     @Mock
-    private OrdenService ordenService;
+    private OrdenService ordenServicem;
 
     @Mock
-    private CatedraAPIService cs;
+    private CatedraAPIService csm;
 
     @Before
     public void setUp() {
@@ -46,17 +44,18 @@ public class OperadorDeOrdenesServiceTest {
         OrdenDTO orden = new OrdenDTO();
         OrdenDTO orden2 = oos.noEsPosibleOperar(orden);
 
-        verify(ordenService).update(orden);
+        verify(ordenServicem).update(orden);
         assertEquals(orden, orden2);
     }
 
     @Test
     public void esPosibleOperar_SinPrecioTest() throws Exception {
         OrdenDTO orden = new OrdenDTO();
-
+        orden.setModo("AHORA");
+        orden.setOperacion("cualquiera");
         orden.setPrecio(null); //* Sin precio
 
-        when(oos.cambiarPrecio(orden)).thenReturn(orden);
+        when(csm.getConJWT(any(String.class))).thenReturn(precio());
 
         OrdenDTO orden2 = oos.esPosibleOperar(orden);
 
@@ -74,15 +73,12 @@ public class OperadorDeOrdenesServiceTest {
         orden.setModo("AHORA");
         orden.setOperacion("COMPRA");
 
-        when(oos.comprarOrden(orden)).thenReturn(true);
-
         OrdenDTO orden2 = oos.esPosibleOperar(orden);
-
+        assertNotNull(orden2);
         verify(oos, times(0)).cambiarPrecio(orden);
-        verify(oos, times(1)).comprarOrden(orden);
+        verify(oos, times(1)).comprarOrden(any(OrdenDTO.class));
         verify(oos, times(0)).venderOrden(orden);
         verify(oos, times(0)).programarOrden(orden);
-        assertNotNull(orden2);
     }
 
     @Test
@@ -91,8 +87,6 @@ public class OperadorDeOrdenesServiceTest {
         orden.setPrecio(123f);
         orden.setModo("AHORA");
         orden.setOperacion("VENTA");
-
-        when(oos.venderOrden(orden)).thenReturn(true);
 
         OrdenDTO orden2 = oos.esPosibleOperar(orden);
 
@@ -110,8 +104,6 @@ public class OperadorDeOrdenesServiceTest {
         orden.setModo("FINDIA");
         orden.setOperacion("VENTA");
 
-        doNothing().when(oos).programarOrden(orden);
-
         OrdenDTO orden2 = oos.esPosibleOperar(orden);
 
         verify(oos, times(0)).cambiarPrecio(orden);
@@ -125,35 +117,54 @@ public class OperadorDeOrdenesServiceTest {
     public void programarOrdenTest() throws Exception {
         OrdenDTO orden = new OrdenDTO();
 
-        when(ordenService.update(orden)).thenReturn(orden);
+        when(ordenServicem.update(orden)).thenReturn(orden);
 
         oos.programarOrden(orden);
 
         assertEquals(2, orden.getEstado());
-        verify(ordenService).update(orden);
+        verify(ordenServicem).update(orden);
     }
 
     @Test
     public void venderOrdenTest() throws Exception {
         OrdenDTO orden = new OrdenDTO();
+        orden.setPrecio(123f);
+        orden.setModo("AHORA");
+        orden.setOperacion("VENTA");
 
-        when(ordenService.update(orden)).thenReturn(orden);
+        when(ordenServicem.update(orden)).thenReturn(orden);
 
-        oos.programarOrden(orden);
+        oos.venderOrden(orden);
 
         assertEquals(3, orden.getEstado());
-        verify(ordenService).update(orden);
+        verify(ordenServicem).update(orden);
     }
 
     @Test
     public void comprarOrdenTest() throws Exception {
         OrdenDTO orden = new OrdenDTO();
+        orden.setPrecio(123f);
+        orden.setModo("AHORA");
+        orden.setOperacion("COMPRA");
 
-        when(ordenService.update(orden)).thenReturn(orden);
+        when(ordenServicem.update(orden)).thenReturn(orden);
 
-        oos.programarOrden(orden);
+        oos.comprarOrden(orden);
 
         assertEquals(3, orden.getEstado());
-        verify(ordenService).update(orden);
+        verify(ordenServicem).update(orden);
+    }
+
+    private JsonNode precio() {
+        try {
+            String jsonString = "{ \"ultimoValor\": { \"valor\": 123.45 } }";
+
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode jsonNode = objectMapper.readTree(jsonString);
+
+            return jsonNode;
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

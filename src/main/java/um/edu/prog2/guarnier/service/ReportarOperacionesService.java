@@ -24,18 +24,14 @@ public class ReportarOperacionesService {
     //! Hace un POST a la cátedra con las ordenes que se procesaron.
     public void reportarOperaciones(List<OrdenDTO> ordenesProcesadas) {
         StringBuilder logMessage = new StringBuilder("IDs de órdenes a reportar: ");
-
         ObjectNode jsonReporte = JsonNodeFactory.instance.objectNode();
         ArrayNode ordenes = JsonNodeFactory.instance.arrayNode();
-
         ordenesProcesadas.forEach(orden -> {
             ordenes.add(orden.toReportJson());
             logMessage.append(orden.getId()).append(", ");
         });
-
         jsonReporte.set("ordenes", ordenes);
         JsonNode jsonNode = jsonReporte;
-
         log.debug(logMessage.toString());
         catedraAPIService.postRoprtar(jsonNode);
     }

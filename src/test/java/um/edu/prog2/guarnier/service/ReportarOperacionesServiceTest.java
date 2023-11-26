@@ -1,46 +1,31 @@
 package um.edu.prog2.guarnier.service;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyList;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.Spy;
 import org.springframework.boot.test.context.SpringBootTest;
-import um.edu.prog2.guarnier.exception.FalloConexionCatedraException;
 import um.edu.prog2.guarnier.service.dto.OrdenDTO;
 
 @SpringBootTest
 public class ReportarOperacionesServiceTest {
 
-    @Mock
-    private ProcesamientoDeOrdenesService pos;
-
-    @Mock
-    private VerificadorDeOrdenesService vos;
-
-    @Mock
+    @InjectMocks
+    @Spy
     private ReportarOperacionesService ros;
 
     @Mock
-    private OperadorDeOrdenesService oos;
-
-    @Mock
-    private OrdenService ordenService;
-
-    @Mock
-    private CatedraAPIService cs;
+    private CatedraAPIService csm;
 
     @Before
     public void setUp() {
@@ -48,77 +33,44 @@ public class ReportarOperacionesServiceTest {
     }
 
     @Test
-    public void procesarOrdenes_OrdenValidaTest() throws Exception {
-        OrdenDTO orden = new OrdenDTO();
+    public void reportarOperaciones() throws Exception {
+        doNothing().when(csm).postRoprtar(any(JsonNode.class));
 
-        when(ordenService.findPendientes()).thenReturn(Collections.singletonList(orden));
-        when(vos.puedeRealizarOperacion(orden)).thenReturn(true);
-        when(oos.esPosibleOperar(orden)).thenReturn(orden);
-        doNothing().when(ros).reportarOperaciones(anyList());
+        ros.reportarOperaciones(ordenes());
 
-        List<List<OrdenDTO>> resultado = pos.procesarOrdenes();
-
-        verify(ordenService, times(1)).findPendientes();
-        verify(vos, times(1)).puedeRealizarOperacion(orden);
-        verify(oos, times(1)).esPosibleOperar(orden);
-        verify(oos, times(0)).noEsPosibleOperar(orden);
-        verify(ros, times(1)).reportarOperaciones(anyList());
-        assertEquals(orden, resultado.get(0).get(0));
-        assertEquals(0, resultado.get(1).size());
+        verify(csm, times(1)).postRoprtar(any(JsonNode.class));
     }
 
-    @Test
-    public void procesarOrdenes_OrdenInvalidaTest() throws Exception {
-        OrdenDTO orden = new OrdenDTO();
+    private List<OrdenDTO> ordenes() {
+        List<OrdenDTO> listaDeOrdenes = new ArrayList<>();
+        OrdenDTO o1 = new OrdenDTO();
+        o1.setId(1L);
+        o1.setCliente(26363);
+        o1.setAccionId(1);
+        o1.setAccion("APPL");
+        o1.setOperacion("VENTA");
+        o1.setModo("AHORA");
+        o1.setFechaOperacion("2023-01-01T11:00:00Z");
+        o1.setCantidad(9);
+        o1.setPrecio(123.4F);
+        o1.setEstado(3);
+        o1.setDescripcion("");
 
-        when(ordenService.findPendientes()).thenReturn(Collections.singletonList(orden));
-        when(vos.puedeRealizarOperacion(orden)).thenReturn(false);
-        when(oos.noEsPosibleOperar(orden)).thenReturn(orden);
-        doNothing().when(ros).reportarOperaciones(anyList());
+        OrdenDTO o2 = new OrdenDTO();
+        o1.setId(2L);
+        o2.setCliente(26363);
+        o2.setAccionId(1);
+        o2.setAccion("APPL");
+        o2.setOperacion("COMPRA");
+        o2.setModo("AHORA");
+        o2.setFechaOperacion("2023-01-01T11:00:00Z");
+        o2.setCantidad(10);
+        o2.setPrecio(123.4F);
+        o2.setEstado(3);
+        o2.setDescripcion("");
 
-        List<List<OrdenDTO>> resultado = pos.procesarOrdenes();
-
-        verify(ordenService, times(1)).findPendientes();
-        verify(vos, times(1)).puedeRealizarOperacion(orden);
-        verify(oos, times(0)).esPosibleOperar(orden);
-        verify(oos, times(1)).noEsPosibleOperar(orden);
-        verify(ros, times(1)).reportarOperaciones(anyList());
-        assertEquals(orden, resultado.get(1).get(0));
-        assertEquals(0, resultado.get(0).size());
-    }
-
-    @Test
-    public void cargarOrdenes_Modo1Test() throws Exception {
-        when(cs.get(anyString())).thenReturn(mock(JsonNode.class));
-        doNothing().when(ordenService).guardarNuevas(any(JsonNode.class));
-
-        pos.cargarOrdenes(1);
-
-        verify(cs, times(1)).get(anyString());
-        verify(ordenService, times(1)).guardarNuevas(mock(JsonNode.class));
-    }
-
-    @Test
-    public void cargarOrdenes_Modo2Test() throws Exception {
-        when(cs.getConJWT(anyString())).thenReturn(mock(JsonNode.class));
-        doNothing().when(ordenService).guardarNuevas(any(JsonNode.class));
-
-        pos.cargarOrdenes(2);
-
-        verify(cs, times(1)).getConJWT(anyString());
-        verify(ordenService, times(1)).guardarNuevas(mock(JsonNode.class));
-    }
-
-    @Test
-    public void cargarOrdenes_Modo3Test() throws Exception {
-        when(cs.getConJWT(anyString())).thenReturn(mock(JsonNode.class));
-        doNothing().when(ordenService).guardarNuevas(any(JsonNode.class));
-        doNothing().when(cs).postEspejo();
-
-        pos.cargarOrdenes(3);
-
-        verify(cs, times(1)).getConJWT(anyString());
-        verify(ordenService, times(1)).guardarNuevas(mock(JsonNode.class));
-        verify(cs, times(1)).postEspejo();
+        listaDeOrdenes.add(o1);
+        listaDeOrdenes.add(o2);
+        return listaDeOrdenes;
     }
 }

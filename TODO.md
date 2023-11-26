@@ -32,8 +32,10 @@
 
 **TODO**:
 
-[ ] Mejorar los tests. "doNothing" solo funciona con metodos void.
+[ ]
 
+[x] Mejorar los tests. "doNothing" solo funciona con metodos void.
+[x] Borrar todos los prints.
 [x] Corregir los tipos de logs. error, debug, info
 [x] Hacer reportes a la cátedra.
 [x] Consultar cantidad de acciones a la cátedra.
