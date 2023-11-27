@@ -1,6 +1,6 @@
 [
   {
-    "cliente": 26366,
+    "cliente": 26371,
     "accionId": 5,
     "accion": "MSFT",
     "operacion": "COMPRA",
@@ -10,7 +10,7 @@
     "modo": "AHORA"
   },
   {
-    "cliente": 26369,
+    "cliente": 26371,
     "accionId": 3,
     "accion": "INTC",
     "operacion": "COMPRA",
@@ -20,7 +20,7 @@
     "modo": "AHORA"
   },
   {
-    "cliente": 26370,
+    "cliente": 26371,
     "accionId": 8,
     "accion": "ALUA",
     "operacion": "VENTA",
@@ -40,7 +40,7 @@
     "modo": "FINDIA"
   },
   {
-    "cliente": 26374,
+    "cliente": 26371,
     "accionId": 12,
     "accion": "GLOB",
     "operacion": "VENTA",

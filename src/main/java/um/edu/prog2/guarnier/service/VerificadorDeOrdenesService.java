@@ -63,7 +63,7 @@ public class VerificadorDeOrdenesService {
         Integer hora = fechaHoraLocal.getHour();
 
         if ("AHORA".equals(orden.getModo()) && hora < 9 || hora > 18) {
-            log.debug("La hora está fuera del rango de 9:00 AM y 6:00 PM para la orden " + orden.getId() + " inmediata. Hora:" + hora);
+            log.debug("Orden " + orden.getId() + ": La hora está fuera de rango para la orden inmediata. Hora:" + hora);
             orden.setEstado(1);
             orden.setDescripcion("HORA FUERA DE RANGO");
             return false;
@@ -76,7 +76,7 @@ public class VerificadorDeOrdenesService {
     //!       se debe consultar el servicio cátedra buscando por Id de ambos.
     public boolean clienteAccionAsociados(OrdenDTO orden) throws FalloConexionCatedraException {
         if (orden.getCliente() == null || orden.getAccionId() == null) {
-            log.debug("La orden " + orden.getId() + " no tiene un cliente o una acción asociada.");
+            log.debug("Orden " + orden.getId() + ": No tiene un cliente y/o una acción asociada.");
             orden.setEstado(1);
             orden.setDescripcion("SIN CLIENTE O ACCION ASOCIADA");
             return false;
@@ -102,7 +102,7 @@ public class VerificadorDeOrdenesService {
         }
 
         if (!clienteValido) {
-            log.debug("El cliente asociado a la orden " + orden.getId() + " no es válido: " + orden.getCliente());
+            log.debug("Orden " + orden.getId() + ": El cliente asociado a la orden no es válido: " + orden.getCliente());
             orden.setEstado(1);
             orden.setDescripcion("CLIENTE NO VALIDO");
             return false;
@@ -129,7 +129,7 @@ public class VerificadorDeOrdenesService {
         }
 
         if (!accionValida) {
-            log.debug("La acción asociada a la orden " + orden.getId() + " no es válida: " + orden.getAccionId());
+            log.debug("Orden " + orden.getId() + ": La acción asociada a la orden no es válida: " + orden.getAccionId());
             orden.setEstado(1);
             orden.setDescripcion("ACCION ID Y ACCION NO VALIDOS");
             return false;
@@ -140,7 +140,7 @@ public class VerificadorDeOrdenesService {
     //! 3.0 • Una orden no puede tener un número de acciones =0.
     public boolean cantidadNula(OrdenDTO orden) throws FalloConexionCatedraException {
         if (orden.getCantidad() <= 0) {
-            log.debug("La cantidad de acciones de la orden " + orden.getId() + " es menor o igual a 0.");
+            log.debug("Orden " + orden.getId() + ": La cantidad de acciones es menor o igual a 0.");
             orden.setEstado(1);
             orden.setDescripcion("CANTIDAD DE ACCIONES MENOR O IGUAL A 0");
             return false;
@@ -170,7 +170,7 @@ public class VerificadorDeOrdenesService {
         }
 
         if (!clienteAccionValida) {
-            log.debug("El cliente " + orden.getCliente() + " no tiene la cantidad de acciones necesarias para la orden " + orden.getId());
+            log.debug("Orden " + orden.getId() + ": El cliente " + orden.getCliente() + " no tiene la cantidad de acciones necesarias.");
             orden.setEstado(1);
             orden.setDescripcion("CANTIDAD DE ACCIONES INSUFICIENTE");
             return false;
@@ -182,7 +182,7 @@ public class VerificadorDeOrdenesService {
     //! 4.0 • Revisar los valores del atributo MODO
     public boolean modo(OrdenDTO orden) {
         if (!"AHORA".equals(orden.getModo()) && !"FINDIA".equals(orden.getModo()) && !"PRINCIPIODIA".equals(orden.getModo())) {
-            log.debug("El modo de la orden " + orden.getId() + " no es válido: " + orden.getModo());
+            log.debug("Orden " + orden.getId() + ": El modo no es válido: " + orden.getModo());
             orden.setEstado(1);
             orden.setDescripcion("MODO NO VALIDO");
             return false;
@@ -193,7 +193,7 @@ public class VerificadorDeOrdenesService {
     //! 5.0 • Revisar los valores del atributo OPERACION
     public boolean operacion(OrdenDTO orden) {
         if (!"COMPRA".equals(orden.getOperacion()) && !"VENTA".equals(orden.getOperacion())) {
-            log.debug("La operación " + orden.getId() + " de la orden no es válida: " + orden.getOperacion());
+            log.debug("Orden " + orden.getId() + ": La operación no es válida: " + orden.getOperacion());
             orden.setEstado(1);
             orden.setDescripcion("OPERACION NO VALIDA");
             return false;

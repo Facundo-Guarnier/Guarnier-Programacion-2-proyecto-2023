@@ -32,7 +32,7 @@ public class ReportarOperacionesService {
         });
         jsonReporte.set("ordenes", ordenes);
         JsonNode jsonNode = jsonReporte;
-        log.debug(logMessage.toString());
+        log.info(logMessage.toString());
         catedraAPIService.postRoprtar(jsonNode);
     }
 }

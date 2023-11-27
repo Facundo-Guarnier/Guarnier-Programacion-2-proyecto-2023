@@ -5,7 +5,6 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -15,7 +14,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.InOrder;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -73,10 +71,9 @@ public class ProcesamientoDeOrdenesServiceTest {
         System.out.println(resultado);
 
         //! Verifica que el método fue llamado en orden
-        InOrder inOrder = inOrder(ordenServicem, vosm, rosm);
-        inOrder.verify(ordenServicem).findPendientes();
-        inOrder.verify(vosm).puedeRealizarOperacion(ordenPendiente);
-        inOrder.verify(rosm).reportarOperaciones(anyList());
+        verify(ordenServicem, times(1)).findPendientes();
+        verify(vosm, times(1)).puedeRealizarOperacion(ordenPendiente);
+        verify(rosm, times(0)).reportarOperaciones(anyList());
 
         assertEquals(0, resultado.get(0).size());
         assertEquals(1, resultado.get(1).size());
@@ -103,10 +100,9 @@ public class ProcesamientoDeOrdenesServiceTest {
         System.out.println(resultado);
 
         //! Verifica que el método fue llamado en orden
-        InOrder inOrder = inOrder(ordenServicem, vosm, rosm);
-        inOrder.verify(ordenServicem).findPendientes();
-        inOrder.verify(vosm).puedeRealizarOperacion(ordenPendiente);
-        inOrder.verify(rosm).reportarOperaciones(anyList());
+        verify(ordenServicem, times(1)).findPendientes();
+        verify(vosm, times(1)).puedeRealizarOperacion(ordenPendiente);
+        verify(rosm, times(1)).reportarOperaciones(anyList());
 
         assertEquals(1, resultado.get(0).size());
         assertEquals(0, resultado.get(1).size());

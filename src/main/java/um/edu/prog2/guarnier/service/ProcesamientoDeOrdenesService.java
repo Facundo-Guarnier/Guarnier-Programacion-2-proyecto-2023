@@ -60,6 +60,7 @@ public class ProcesamientoDeOrdenesService {
     public List<List<OrdenDTO>> procesarOrdenes() {
         this.ordenesProcesadas.clear();
         this.ordenesFallidas.clear();
+        this.ordenesFinalizadas.clear();
 
         try {
             ordenService
@@ -94,8 +95,9 @@ public class ProcesamientoDeOrdenesService {
                 ordenesFinalizadas.add(orden);
             }
         }
-        ros.reportarOperaciones(ordenesFinalizadas);
-
+        if (ordenesFinalizadas.size() > 0) {
+            ros.reportarOperaciones(ordenesFinalizadas);
+        }
         return resultado;
     }
 

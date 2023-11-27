@@ -113,7 +113,6 @@ mvn -Dtest=ProcesamientoDeOrdenesServiceTest test
 "fechaOperacion": "2023-11-10T12:00:00Z",
 "modo": "AHORA"
 },
-
 {
 "cliente": 26370,
 "accionId": 6,
