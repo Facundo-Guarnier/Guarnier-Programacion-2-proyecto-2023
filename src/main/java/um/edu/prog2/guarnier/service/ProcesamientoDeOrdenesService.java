@@ -10,6 +10,7 @@ import javax.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import um.edu.prog2.guarnier.exception.FalloConexionCatedraException;
@@ -24,6 +25,15 @@ public class ProcesamientoDeOrdenesService {
     private List<OrdenDTO> ordenesProcesadas = new ArrayList<OrdenDTO>();
     private List<OrdenDTO> ordenesFallidas = new ArrayList<OrdenDTO>();
     private List<OrdenDTO> ordenesFinalizadas = new ArrayList<OrdenDTO>();
+
+    @Value("${constantes.mockachino-url}")
+    public String MOCKACHINO_URL;
+
+    @Value("${constantes.catedra-url}")
+    public String CATEDRA_URL;
+
+    @Value("${constantes.espejo-get-url}")
+    public String ESPEJO_GET_URL;
 
     @Autowired
     VerificadorDeOrdenesService vos;
@@ -105,16 +115,16 @@ public class ProcesamientoDeOrdenesService {
     public void cargarOrdenes(Integer modo) {
         if (modo == 1) {
             log.debug("Cargando ordenes 'www.mockachino.com'");
-            JsonNode response = cs.get("https://www.mockachino.com/2e3476f6-949b-42/api/ordenes/ordenes");
+            JsonNode response = cs.get(MOCKACHINO_URL);
             ordenService.guardarNuevas(response);
         } else if (modo == 2) {
             log.debug("Cargando ordenes 'Catedra'");
-            JsonNode response = cs.getConJWT("http://192.168.194.254:8000/api/ordenes/ordenes");
+            JsonNode response = cs.getConJWT(CATEDRA_URL);
             ordenService.guardarNuevas(response);
         } else if (modo == 3) {
             log.debug("Cargando ordenes espejo 'Catedra'");
             cs.postEspejo();
-            JsonNode response = cs.getConJWT("http://192.168.194.254:8000/api/ordenes/ordenes");
+            JsonNode response = cs.getConJWT(ESPEJO_GET_URL);
             ordenService.guardarNuevas(response);
         }
     }

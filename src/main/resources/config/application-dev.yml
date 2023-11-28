@@ -13,6 +13,19 @@
 # http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
 # ===================================================================
 
+constantes:
+  reporte-url: http://192.168.194.254:8000/api/reporte-operaciones/reportar
+  espejo-post-url: http://192.168.194.254:8000/api/ordenes/espejo
+  jwt-token: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJmYWN1bmRvZ3Vhcm5pZXIiLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNzI5NzUzNzcyfQ.pklknWchQH_Y8kM8Is-XCfu6hYxWVJJqgg0rNBAH9IisOWKPW1n-jC3Xqecv6HFjwHvWc3nugiaB5gtMaNlShg
+  ultimo-valor-url: http://192.168.194.254:8000/api/acciones/ultimovalor/
+  mockachino-url: https://www.mockachino.com/2e3476f6-949b-42/api/ordenes/ordenes
+  espejo-get-url: http://192.168.194.254:8000/api/ordenes/ordenes
+  catedra-url: http://192.168.194.254:8000/api/ordenes/ordenes
+
+  clientes-url: http://192.168.194.254:8000/api/clientes/buscar
+  acciones-url: http://192.168.194.254:8000/api/acciones/buscar
+  cliente-acciones-url: http://192.168.194.254:8000/api/reporte-operaciones/consulta_cliente_accion?clienteId=
+
 logging:
   level:
     ROOT: DEBUG

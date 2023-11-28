@@ -46,6 +46,10 @@ public class ProcesamientoDeOrdenesServiceTest {
     @Before
     public void setUp() {
         MockitoAnnotations.openMocks(this);
+
+        pos.MOCKACHINO_URL = "https://www.mockachino.com/2e3476f6-949b-42/api/ordenes/ordenes";
+        pos.CATEDRA_URL = "https://catedra-2.herokuapp.com/api/ordenes/ordenes";
+        pos.ESPEJO_GET_URL = "https://catedra-2.herokuapp.com/api/ordenes/ordenes";
     }
 
     @Test

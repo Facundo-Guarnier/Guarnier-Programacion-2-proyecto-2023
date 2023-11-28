@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import um.edu.prog2.guarnier.service.dto.OrdenDTO;
@@ -13,6 +14,9 @@ import um.edu.prog2.guarnier.service.dto.OrdenDTO;
 public class OperadorDeOrdenesService {
 
     private final Logger log = LoggerFactory.getLogger(OperadorDeOrdenesService.class);
+
+    @Value("${constantes.ultimo-valor-url}")
+    private String ULTIMO_VALOR_URL;
 
     @Autowired
     OrdenService ordenService;
@@ -72,7 +76,7 @@ public class OperadorDeOrdenesService {
 
     //! Cambia el precio de la orden por el precio actual de la acción.
     public OrdenDTO cambiarPrecio(OrdenDTO orden) {
-        String URL = "http://192.168.194.254:8000/api/acciones/ultimovalor/" + orden.getAccion();
+        String URL = ULTIMO_VALOR_URL + orden.getAccion();
         try {
             JsonNode precioJson = catedraAPIService.getConJWT(URL);
             Double precio;

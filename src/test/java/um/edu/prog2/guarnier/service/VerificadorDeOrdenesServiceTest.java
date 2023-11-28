@@ -47,6 +47,10 @@ public class VerificadorDeOrdenesServiceTest {
         urlCliente = "http://192.168.194.254:8000/api/clientes/buscar";
         urlAccion = "http://192.168.194.254:8000/api/acciones/buscar";
         urlClienteAccion = "http://192.168.194.254:8000/api/reporte-operaciones/consulta_cliente_accion?clienteId=26363&accionId=1";
+
+        vos.CLIENTES_URL = urlCliente;
+        vos.ACCIONES_URL = urlAccion;
+        vos.CLIENTE_ACCIONES_URL = "http://192.168.194.254:8000/api/reporte-operaciones/consulta_cliente_accion?clienteId=";
     }
 
     @Test
@@ -104,6 +108,7 @@ public class VerificadorDeOrdenesServiceTest {
         when(csm.getConJWT(urlCliente)).thenReturn(jsonClientes);
 
         boolean resultado = vos.puedeRealizarOperacion(orden);
+
         assertFalse(resultado);
         assertEquals(1, orden.getEstado());
         assertEquals("CLIENTE NO VALIDO", orden.getDescripcion());
@@ -123,6 +128,7 @@ public class VerificadorDeOrdenesServiceTest {
         orden.setAccionId(1234); //* Acción id inválida
 
         boolean resultado = vos.clienteAccionAsociados(orden);
+
         assertFalse(resultado);
         assertEquals(1, orden.getEstado());
         assertEquals("ACCION ID Y ACCION NO VALIDOS", orden.getDescripcion());
@@ -142,6 +148,7 @@ public class VerificadorDeOrdenesServiceTest {
         orden.setAccion("abcd"); //* Acción código inválido
 
         boolean resultado = vos.puedeRealizarOperacion(orden);
+
         assertFalse(resultado);
         assertEquals(1, orden.getEstado());
         assertEquals("ACCION ID Y ACCION NO VALIDOS", orden.getDescripcion());
@@ -162,6 +169,7 @@ public class VerificadorDeOrdenesServiceTest {
         orden.setCantidad(0); //* Cantidad inválida
 
         boolean resultado = vos.puedeRealizarOperacion(orden);
+
         assertFalse(resultado);
         assertEquals(1, orden.getEstado());
         assertEquals("CANTIDAD DE ACCIONES MENOR O IGUAL A 0", orden.getDescripcion());
@@ -204,6 +212,7 @@ public class VerificadorDeOrdenesServiceTest {
         orden.setModo("cualquiercosa"); //* Modo inválido
 
         boolean resultado = vos.puedeRealizarOperacion(orden);
+
         assertFalse(resultado);
         assertEquals(1, orden.getEstado());
         assertEquals("MODO NO VALIDO", orden.getDescripcion());

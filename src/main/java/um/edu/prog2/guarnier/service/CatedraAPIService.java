@@ -20,6 +20,7 @@ import java.util.TimeZone;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
@@ -32,10 +33,15 @@ import um.edu.prog2.guarnier.service.dto.OrdenDTO;
 public class CatedraAPIService {
 
     private final Logger log = LoggerFactory.getLogger(CatedraAPIService.class);
-    private static final String REPORTE_URL = "http://192.168.194.254:8000/api/reporte-operaciones/reportar";
-    private static final String ESPEJO_URL = "http://192.168.194.254:8000/api/ordenes/espejo";
-    private static final String JWT_TOKEN =
-        "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJmYWN1bmRvZ3Vhcm5pZXIiLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNzI5NzUzNzcyfQ.pklknWchQH_Y8kM8Is-XCfu6hYxWVJJqgg0rNBAH9IisOWKPW1n-jC3Xqecv6HFjwHvWc3nugiaB5gtMaNlShg";
+
+    @Value("${constantes.reporte-url}")
+    private String REPORTE_URL2;
+
+    @Value("${constantes.espejo-post-url}")
+    private String ESPEJO_POST_URL;
+
+    @Value("${constantes.jwt-token}")
+    private String JWT_TOKEN2;
 
     @Autowired
     OrdenService ordenService;
@@ -72,7 +78,7 @@ public class CatedraAPIService {
             URL url = new URL(apiUrl);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
-            connection.setRequestProperty("Authorization", "Bearer " + JWT_TOKEN);
+            connection.setRequestProperty("Authorization", "Bearer " + JWT_TOKEN2);
 
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode responseJsonNode = objectMapper.readTree(connection.getInputStream());
@@ -87,11 +93,11 @@ public class CatedraAPIService {
     //! Recibe las ordenes a reportar a la API de reporte-operaciones de la catedra
     public void postRoprtar(JsonNode ordenes) {
         try {
-            URL url = new URL(REPORTE_URL);
+            URL url = new URL(REPORTE_URL2);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
             connection.setRequestMethod("POST");
-            connection.setRequestProperty("Authorization", "Bearer " + JWT_TOKEN);
+            connection.setRequestProperty("Authorization", "Bearer " + JWT_TOKEN2);
             connection.setRequestProperty("Content-Type", "application/json");
             connection.setDoOutput(true);
 
@@ -120,11 +126,11 @@ public class CatedraAPIService {
     //! Hace un POST con 2 ordenes aleatorias a la api de espejo.
     public void postEspejo() {
         try {
-            URL url = new URL(ESPEJO_URL);
+            URL url = new URL(ESPEJO_POST_URL);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
             connection.setRequestMethod("POST");
-            connection.setRequestProperty("Authorization", "Bearer " + JWT_TOKEN);
+            connection.setRequestProperty("Authorization", "Bearer " + JWT_TOKEN2);
             connection.setRequestProperty("Content-Type", "application/json");
             connection.setDoOutput(true);
 

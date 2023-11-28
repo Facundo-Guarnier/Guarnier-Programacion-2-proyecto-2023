@@ -7,6 +7,7 @@ import java.time.ZonedDateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import um.edu.prog2.guarnier.exception.FalloConexionCatedraException;
@@ -17,6 +18,15 @@ import um.edu.prog2.guarnier.service.dto.OrdenDTO;
 public class VerificadorDeOrdenesService {
 
     private final Logger log = LoggerFactory.getLogger(VerificadorDeOrdenesService.class);
+
+    @Value("${constantes.clientes-url}")
+    public String CLIENTES_URL;
+
+    @Value("${constantes.acciones-url}")
+    public String ACCIONES_URL;
+
+    @Value("${constantes.cliente-acciones-url}")
+    public String CLIENTE_ACCIONES_URL;
 
     @Autowired
     CatedraAPIService cs;
@@ -82,8 +92,7 @@ public class VerificadorDeOrdenesService {
             return false;
         }
         //! Cliente ID
-        String urlCliente = "http://192.168.194.254:8000/api/clientes/buscar";
-        JsonNode respuestaCliente = this.cs.getConJWT(urlCliente);
+        JsonNode respuestaCliente = this.cs.getConJWT(CLIENTES_URL);
         if (respuestaCliente == null) {
             log.debug("No se pudo obtener la respuesta del servicio cátedra para buscar los clientes.");
             orden.setEstado(0);
@@ -109,9 +118,8 @@ public class VerificadorDeOrdenesService {
         }
 
         //! Acción ID
-        String urlAccion = "http://192.168.194.254:8000/api/acciones/buscar";
         boolean accionValida = false;
-        JsonNode respuestaAccion = this.cs.getConJWT(urlAccion);
+        JsonNode respuestaAccion = this.cs.getConJWT(ACCIONES_URL);
         if (respuestaAccion == null) {
             log.debug("No se pudo obtener la respuesta del servicio cátedra para buscar las acciones.");
             orden.setEstado(0);
@@ -150,11 +158,7 @@ public class VerificadorDeOrdenesService {
 
     //! 3.1 • Si la operación es de tipo VENTA y modo AHORA, se debe verificar que el cliente tenga la cantidad de acciones necesarias.
     public boolean cantidadAcciones(OrdenDTO orden) throws FalloConexionCatedraException {
-        String urlClienteAccion =
-            "http://192.168.194.254:8000/api/reporte-operaciones/consulta_cliente_accion?clienteId=" +
-            orden.getCliente() +
-            "&accionId=" +
-            orden.getAccionId();
+        String urlClienteAccion = CLIENTE_ACCIONES_URL + orden.getCliente() + "&accionId=" + orden.getAccionId();
         boolean clienteAccionValida = false;
         JsonNode respuestaClienteAccion = this.cs.getConJWT(urlClienteAccion);
 
