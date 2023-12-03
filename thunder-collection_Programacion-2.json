@@ -1,7 +1,7 @@
 {
   "client": "Thunder Client",
   "collectionName": "Programacion-2",
-  "dateExported": "2023-11-24T19:53:21.977Z",
+  "dateExported": "2023-12-03T20:02:48.809Z",
   "version": "1.1",
   "folders": [
     {
@@ -104,7 +104,7 @@
       "method": "GET",
       "sortNum": 10000,
       "created": "2023-10-31T11:57:27.422Z",
-      "modified": "2023-11-04T14:59:15.501Z",
+      "modified": "2023-11-27T13:49:09.264Z",
       "headers": [],
       "params": [],
       "auth": {
@@ -213,21 +213,33 @@
       "colId": "c975f9fb-6a22-4042-8864-c682424ade3f",
       "containerId": "92cab647-1a84-4dfc-a730-7cd68d53ea28",
       "name": "Buscar reportes con filtros ",
-      "url": "http://localhost:8080/miapi/reporte?fechaInicio=2023-11-08T03:00:00Z&fechaFin=2023-11-30T13:00:00Z",
+      "url": "http://localhost:8080/miapi/reporte?fechaInicio=2023-11-10T13:00:00Z&fechaFin=2023-11-10T19:00:00Z",
       "method": "GET",
       "sortNum": 10000,
       "created": "2023-11-10T19:35:23.652Z",
-      "modified": "2023-11-23T21:41:28.837Z",
+      "modified": "2023-11-28T19:43:44.217Z",
       "headers": [],
       "params": [
         {
           "name": "fechaInicio",
-          "value": "2023-11-08T03:00:00Z",
+          "value": "2023-11-10T13:00:00Z",
           "isPath": false
         },
         {
           "name": "fechaFin",
-          "value": "2023-11-30T13:00:00Z",
+          "value": "2023-11-10T19:00:00Z",
+          "isPath": false
+        },
+        {
+          "name": "clienteId",
+          "value": "26370",
+          "isDisabled": true,
+          "isPath": false
+        },
+        {
+          "name": "accionId",
+          "value": "4",
+          "isDisabled": true,
           "isPath": false
         }
       ],
@@ -246,7 +258,7 @@
       "method": "GET",
       "sortNum": 10000,
       "created": "2023-11-23T21:46:50.112Z",
-      "modified": "2023-11-23T22:00:37.087Z",
+      "modified": "2023-11-27T12:58:45.379Z",
       "headers": [],
       "params": [
         {
@@ -262,7 +274,7 @@
         },
         {
           "name": "accionId",
-          "value": "6",
+          "value": "6  ",
           "isPath": false
         }
       ],
